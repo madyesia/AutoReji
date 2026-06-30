@@ -1,0 +1,4006 @@
+{
+  "scale": 240,
+  "count": 160,
+  "clips": {
+    "1": {
+      "frames": 192,
+      "brightness": 43.74,
+      "brightness_std": 7.2,
+      "u": 131.03,
+      "v": 121.5,
+      "saturation": 6.82,
+      "motion": 3.226,
+      "motion_peak": 9.02,
+      "first": {
+        "y": 55.79,
+        "u": 131.42,
+        "v": 120.09
+      },
+      "last": {
+        "y": 39.98,
+        "u": 130.97,
+        "v": 121.96
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "2": {
+      "frames": 192,
+      "brightness": 57.63,
+      "brightness_std": 0.64,
+      "u": 132.59,
+      "v": 121.16,
+      "saturation": 8.9,
+      "motion": 3.071,
+      "motion_peak": 3.98,
+      "first": {
+        "y": 55.73,
+        "u": 132.88,
+        "v": 121.33
+      },
+      "last": {
+        "y": 57.98,
+        "u": 132.33,
+        "v": 120.95
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "3": {
+      "frames": 192,
+      "brightness": 59.43,
+      "brightness_std": 1.48,
+      "u": 130.86,
+      "v": 122.0,
+      "saturation": 8.41,
+      "motion": 3.418,
+      "motion_peak": 5.02,
+      "first": {
+        "y": 56.21,
+        "u": 130.43,
+        "v": 122.68
+      },
+      "last": {
+        "y": 59.92,
+        "u": 130.92,
+        "v": 121.85
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "4": {
+      "frames": 192,
+      "brightness": 61.11,
+      "brightness_std": 0.28,
+      "u": 126.07,
+      "v": 126.65,
+      "saturation": 11.92,
+      "motion": 3.005,
+      "motion_peak": 3.86,
+      "first": {
+        "y": 60.01,
+        "u": 126.18,
+        "v": 126.73
+      },
+      "last": {
+        "y": 61.09,
+        "u": 126.01,
+        "v": 126.63
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "5": {
+      "frames": 192,
+      "brightness": 82.53,
+      "brightness_std": 5.38,
+      "u": 119.72,
+      "v": 134.29,
+      "saturation": 20.35,
+      "motion": 4.634,
+      "motion_peak": 8.18,
+      "first": {
+        "y": 86.63,
+        "u": 118.64,
+        "v": 136.57
+      },
+      "last": {
+        "y": 85.81,
+        "u": 117.16,
+        "v": 135.78
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "6": {
+      "frames": 192,
+      "brightness": 67.42,
+      "brightness_std": 3.42,
+      "u": 129.89,
+      "v": 124.26,
+      "saturation": 10.82,
+      "motion": 1.886,
+      "motion_peak": 3.48,
+      "first": {
+        "y": 63.77,
+        "u": 130.75,
+        "v": 124.07
+      },
+      "last": {
+        "y": 67.56,
+        "u": 129.66,
+        "v": 124.22
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "7": {
+      "frames": 192,
+      "brightness": 78.9,
+      "brightness_std": 2.02,
+      "u": 129.5,
+      "v": 124.84,
+      "saturation": 10.99,
+      "motion": 4.881,
+      "motion_peak": 6.82,
+      "first": {
+        "y": 74.04,
+        "u": 129.65,
+        "v": 125.21
+      },
+      "last": {
+        "y": 77.67,
+        "u": 129.06,
+        "v": 124.4
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "8": {
+      "frames": 192,
+      "brightness": 66.55,
+      "brightness_std": 1.93,
+      "u": 131.57,
+      "v": 123.24,
+      "saturation": 5.97,
+      "motion": 9.844,
+      "motion_peak": 11.47,
+      "first": {
+        "y": 59.2,
+        "u": 131.71,
+        "v": 123.28
+      },
+      "last": {
+        "y": 68.06,
+        "u": 131.33,
+        "v": 123.28
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "9": {
+      "frames": 192,
+      "brightness": 71.37,
+      "brightness_std": 1.7,
+      "u": 135.31,
+      "v": 119.55,
+      "saturation": 13.63,
+      "motion": 5.604,
+      "motion_peak": 7.3,
+      "first": {
+        "y": 66.98,
+        "u": 135.43,
+        "v": 120.06
+      },
+      "last": {
+        "y": 70.59,
+        "u": 134.49,
+        "v": 119.56
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "10": {
+      "frames": 192,
+      "brightness": 61.93,
+      "brightness_std": 1.53,
+      "u": 130.37,
+      "v": 125.4,
+      "saturation": 10.5,
+      "motion": 1.854,
+      "motion_peak": 2.37,
+      "first": {
+        "y": 58.55,
+        "u": 130.89,
+        "v": 125.02
+      },
+      "last": {
+        "y": 64.26,
+        "u": 129.72,
+        "v": 125.7
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "11": {
+      "frames": 192,
+      "brightness": 52.83,
+      "brightness_std": 0.43,
+      "u": 132.43,
+      "v": 121.02,
+      "saturation": 7.89,
+      "motion": 2.938,
+      "motion_peak": 3.52,
+      "first": {
+        "y": 51.49,
+        "u": 132.45,
+        "v": 121.19
+      },
+      "last": {
+        "y": 52.94,
+        "u": 132.39,
+        "v": 120.83
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "12": {
+      "frames": 192,
+      "brightness": 71.22,
+      "brightness_std": 7.7,
+      "u": 138.48,
+      "v": 117.34,
+      "saturation": 14.54,
+      "motion": 4.877,
+      "motion_peak": 12.25,
+      "first": {
+        "y": 68.91,
+        "u": 138.07,
+        "v": 118.0
+      },
+      "last": {
+        "y": 67.16,
+        "u": 138.18,
+        "v": 117.52
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "13": {
+      "frames": 192,
+      "brightness": 64.56,
+      "brightness_std": 0.23,
+      "u": 130.04,
+      "v": 121.93,
+      "saturation": 6.53,
+      "motion": 1.353,
+      "motion_peak": 1.97,
+      "first": {
+        "y": 64.2,
+        "u": 130.1,
+        "v": 122.04
+      },
+      "last": {
+        "y": 64.36,
+        "u": 129.99,
+        "v": 121.87
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "14": {
+      "frames": 192,
+      "brightness": 76.04,
+      "brightness_std": 3.01,
+      "u": 129.52,
+      "v": 123.3,
+      "saturation": 9.97,
+      "motion": 3.919,
+      "motion_peak": 5.46,
+      "first": {
+        "y": 68.75,
+        "u": 129.87,
+        "v": 123.53
+      },
+      "last": {
+        "y": 80.36,
+        "u": 128.64,
+        "v": 123.3
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "15": {
+      "frames": 192,
+      "brightness": 56.17,
+      "brightness_std": 0.93,
+      "u": 130.47,
+      "v": 124.53,
+      "saturation": 8.15,
+      "motion": 2.729,
+      "motion_peak": 4.03,
+      "first": {
+        "y": 56.99,
+        "u": 129.7,
+        "v": 125.34
+      },
+      "last": {
+        "y": 55.85,
+        "u": 130.74,
+        "v": 124.05
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "16": {
+      "frames": 192,
+      "brightness": 64.81,
+      "brightness_std": 1.15,
+      "u": 130.55,
+      "v": 125.55,
+      "saturation": 6.67,
+      "motion": 2.378,
+      "motion_peak": 6.37,
+      "first": {
+        "y": 63.97,
+        "u": 130.21,
+        "v": 125.91
+      },
+      "last": {
+        "y": 62.94,
+        "u": 130.16,
+        "v": 126.06
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "17": {
+      "frames": 192,
+      "brightness": 62.16,
+      "brightness_std": 1.18,
+      "u": 132.73,
+      "v": 122.51,
+      "saturation": 9.33,
+      "motion": 4.027,
+      "motion_peak": 5.81,
+      "first": {
+        "y": 55.2,
+        "u": 132.29,
+        "v": 123.36
+      },
+      "last": {
+        "y": 61.1,
+        "u": 132.98,
+        "v": 121.97
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "18": {
+      "frames": 192,
+      "brightness": 80.83,
+      "brightness_std": 10.62,
+      "u": 123.18,
+      "v": 130.98,
+      "saturation": 9.18,
+      "motion": 3.733,
+      "motion_peak": 5.59,
+      "first": {
+        "y": 64.84,
+        "u": 127.98,
+        "v": 126.96
+      },
+      "last": {
+        "y": 94.1,
+        "u": 118.92,
+        "v": 134.17
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "19": {
+      "frames": 192,
+      "brightness": 89.33,
+      "brightness_std": 7.21,
+      "u": 120.49,
+      "v": 134.11,
+      "saturation": 14.46,
+      "motion": 5.033,
+      "motion_peak": 6.02,
+      "first": {
+        "y": 80.0,
+        "u": 124.45,
+        "v": 131.09
+      },
+      "last": {
+        "y": 104.74,
+        "u": 115.14,
+        "v": 138.14
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "20": {
+      "frames": 192,
+      "brightness": 82.01,
+      "brightness_std": 11.71,
+      "u": 116.67,
+      "v": 132.96,
+      "saturation": 15.92,
+      "motion": 6.01,
+      "motion_peak": 7.59,
+      "first": {
+        "y": 64.07,
+        "u": 123.38,
+        "v": 129.35
+      },
+      "last": {
+        "y": 100.37,
+        "u": 109.61,
+        "v": 136.53
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "21": {
+      "frames": 192,
+      "brightness": 92.12,
+      "brightness_std": 5.47,
+      "u": 120.81,
+      "v": 131.2,
+      "saturation": 17.4,
+      "motion": 3.48,
+      "motion_peak": 4.38,
+      "first": {
+        "y": 82.19,
+        "u": 123.84,
+        "v": 128.74
+      },
+      "last": {
+        "y": 100.21,
+        "u": 117.1,
+        "v": 133.88
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "22": {
+      "frames": 192,
+      "brightness": 76.72,
+      "brightness_std": 22.09,
+      "u": 121.12,
+      "v": 133.32,
+      "saturation": 11.84,
+      "motion": 1.249,
+      "motion_peak": 3.57,
+      "first": {
+        "y": 55.72,
+        "u": 127.83,
+        "v": 129.32
+      },
+      "last": {
+        "y": 107.65,
+        "u": 110.96,
+        "v": 139.2
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "23": {
+      "frames": 192,
+      "brightness": 67.91,
+      "brightness_std": 1.38,
+      "u": 128.69,
+      "v": 127.76,
+      "saturation": 15.02,
+      "motion": 4.166,
+      "motion_peak": 7.36,
+      "first": {
+        "y": 66.45,
+        "u": 127.55,
+        "v": 129.15
+      },
+      "last": {
+        "y": 68.62,
+        "u": 128.21,
+        "v": 127.88
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "24": {
+      "frames": 192,
+      "brightness": 53.32,
+      "brightness_std": 1.46,
+      "u": 130.81,
+      "v": 125.37,
+      "saturation": 6.63,
+      "motion": 1.689,
+      "motion_peak": 3.82,
+      "first": {
+        "y": 50.85,
+        "u": 130.07,
+        "v": 126.04
+      },
+      "last": {
+        "y": 54.91,
+        "u": 131.06,
+        "v": 124.86
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "25": {
+      "frames": 192,
+      "brightness": 76.21,
+      "brightness_std": 3.21,
+      "u": 122.09,
+      "v": 134.01,
+      "saturation": 17.22,
+      "motion": 2.282,
+      "motion_peak": 3.13,
+      "first": {
+        "y": 70.32,
+        "u": 126.1,
+        "v": 130.03
+      },
+      "last": {
+        "y": 80.58,
+        "u": 121.59,
+        "v": 134.09
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "26": {
+      "frames": 192,
+      "brightness": 68.35,
+      "brightness_std": 1.74,
+      "u": 126.36,
+      "v": 128.22,
+      "saturation": 7.84,
+      "motion": 2.293,
+      "motion_peak": 4.37,
+      "first": {
+        "y": 63.4,
+        "u": 126.58,
+        "v": 128.27
+      },
+      "last": {
+        "y": 69.46,
+        "u": 126.81,
+        "v": 127.66
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "27": {
+      "frames": 192,
+      "brightness": 68.89,
+      "brightness_std": 4.6,
+      "u": 137.28,
+      "v": 117.47,
+      "saturation": 14.21,
+      "motion": 3.881,
+      "motion_peak": 5.85,
+      "first": {
+        "y": 61.31,
+        "u": 136.75,
+        "v": 118.22
+      },
+      "last": {
+        "y": 74.71,
+        "u": 137.18,
+        "v": 117.23
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "28": {
+      "frames": 192,
+      "brightness": 87.85,
+      "brightness_std": 0.32,
+      "u": 129.55,
+      "v": 124.14,
+      "saturation": 11.16,
+      "motion": 1.902,
+      "motion_peak": 2.33,
+      "first": {
+        "y": 86.48,
+        "u": 129.57,
+        "v": 124.35
+      },
+      "last": {
+        "y": 87.51,
+        "u": 129.46,
+        "v": 124.12
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "29": {
+      "frames": 192,
+      "brightness": 91.04,
+      "brightness_std": 4.44,
+      "u": 120.11,
+      "v": 135.06,
+      "saturation": 15.88,
+      "motion": 5.483,
+      "motion_peak": 7.9,
+      "first": {
+        "y": 84.09,
+        "u": 122.42,
+        "v": 133.27
+      },
+      "last": {
+        "y": 97.21,
+        "u": 116.86,
+        "v": 137.51
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "30": {
+      "frames": 192,
+      "brightness": 77.14,
+      "brightness_std": 0.35,
+      "u": 126.17,
+      "v": 128.91,
+      "saturation": 10.08,
+      "motion": 0.673,
+      "motion_peak": 1.35,
+      "first": {
+        "y": 76.06,
+        "u": 126.26,
+        "v": 128.82
+      },
+      "last": {
+        "y": 77.21,
+        "u": 126.1,
+        "v": 128.97
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "31": {
+      "frames": 192,
+      "brightness": 68.9,
+      "brightness_std": 1.27,
+      "u": 127.87,
+      "v": 128.02,
+      "saturation": 14.49,
+      "motion": 2.165,
+      "motion_peak": 4.25,
+      "first": {
+        "y": 67.77,
+        "u": 127.9,
+        "v": 127.65
+      },
+      "last": {
+        "y": 70.61,
+        "u": 127.39,
+        "v": 128.66
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "32": {
+      "frames": 192,
+      "brightness": 60.86,
+      "brightness_std": 0.97,
+      "u": 121.15,
+      "v": 132.47,
+      "saturation": 10.71,
+      "motion": 3.502,
+      "motion_peak": 4.81,
+      "first": {
+        "y": 60.25,
+        "u": 119.91,
+        "v": 135.02
+      },
+      "last": {
+        "y": 59.98,
+        "u": 122.65,
+        "v": 130.37
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "33": {
+      "frames": 192,
+      "brightness": 81.26,
+      "brightness_std": 5.2,
+      "u": 123.97,
+      "v": 131.29,
+      "saturation": 13.9,
+      "motion": 2.605,
+      "motion_peak": 3.97,
+      "first": {
+        "y": 73.65,
+        "u": 125.41,
+        "v": 130.01
+      },
+      "last": {
+        "y": 89.89,
+        "u": 122.43,
+        "v": 132.33
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "34": {
+      "frames": 192,
+      "brightness": 77.71,
+      "brightness_std": 0.86,
+      "u": 126.21,
+      "v": 129.72,
+      "saturation": 14.57,
+      "motion": 1.291,
+      "motion_peak": 2.77,
+      "first": {
+        "y": 75.82,
+        "u": 126.23,
+        "v": 131.11
+      },
+      "last": {
+        "y": 78.71,
+        "u": 126.4,
+        "v": 128.96
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "35": {
+      "frames": 192,
+      "brightness": 58.94,
+      "brightness_std": 0.8,
+      "u": 123.54,
+      "v": 134.82,
+      "saturation": 9.88,
+      "motion": 4.795,
+      "motion_peak": 6.27,
+      "first": {
+        "y": 58.09,
+        "u": 120.66,
+        "v": 137.89
+      },
+      "last": {
+        "y": 60.76,
+        "u": 125.66,
+        "v": 131.52
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "36": {
+      "frames": 192,
+      "brightness": 93.2,
+      "brightness_std": 2.06,
+      "u": 123.06,
+      "v": 134.63,
+      "saturation": 20.28,
+      "motion": 1.853,
+      "motion_peak": 3.22,
+      "first": {
+        "y": 91.31,
+        "u": 122.56,
+        "v": 134.64
+      },
+      "last": {
+        "y": 99.04,
+        "u": 122.91,
+        "v": 135.26
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "37": {
+      "frames": 192,
+      "brightness": 83.2,
+      "brightness_std": 1.23,
+      "u": 122.5,
+      "v": 134.72,
+      "saturation": 20.32,
+      "motion": 0.968,
+      "motion_peak": 2.42,
+      "first": {
+        "y": 82.37,
+        "u": 122.11,
+        "v": 135.21
+      },
+      "last": {
+        "y": 82.1,
+        "u": 124.51,
+        "v": 133.31
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "38": {
+      "frames": 192,
+      "brightness": 80.94,
+      "brightness_std": 1.33,
+      "u": 110.61,
+      "v": 146.76,
+      "saturation": 25.72,
+      "motion": 2.257,
+      "motion_peak": 2.96,
+      "first": {
+        "y": 82.14,
+        "u": 111.82,
+        "v": 145.89
+      },
+      "last": {
+        "y": 82.0,
+        "u": 108.19,
+        "v": 148.03
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "39": {
+      "frames": 192,
+      "brightness": 74.94,
+      "brightness_std": 1.01,
+      "u": 116.45,
+      "v": 143.53,
+      "saturation": 23.97,
+      "motion": 1.87,
+      "motion_peak": 3.78,
+      "first": {
+        "y": 74.84,
+        "u": 114.34,
+        "v": 145.02
+      },
+      "last": {
+        "y": 76.21,
+        "u": 117.82,
+        "v": 142.61
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "40": {
+      "frames": 192,
+      "brightness": 81.86,
+      "brightness_std": 1.45,
+      "u": 123.92,
+      "v": 132.1,
+      "saturation": 14.32,
+      "motion": 1.596,
+      "motion_peak": 3.21,
+      "first": {
+        "y": 79.56,
+        "u": 124.55,
+        "v": 131.38
+      },
+      "last": {
+        "y": 85.97,
+        "u": 121.84,
+        "v": 133.84
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "41": {
+      "frames": 192,
+      "brightness": 81.71,
+      "brightness_std": 11.66,
+      "u": 113.63,
+      "v": 143.08,
+      "saturation": 20.98,
+      "motion": 2.68,
+      "motion_peak": 6.21,
+      "first": {
+        "y": 69.37,
+        "u": 117.89,
+        "v": 140.31
+      },
+      "last": {
+        "y": 101.13,
+        "u": 107.32,
+        "v": 146.48
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "42": {
+      "frames": 192,
+      "brightness": 60.15,
+      "brightness_std": 0.78,
+      "u": 123.2,
+      "v": 133.73,
+      "saturation": 12.54,
+      "motion": 0.728,
+      "motion_peak": 1.9,
+      "first": {
+        "y": 59.69,
+        "u": 123.19,
+        "v": 133.66
+      },
+      "last": {
+        "y": 62.62,
+        "u": 123.0,
+        "v": 133.77
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "43": {
+      "frames": 192,
+      "brightness": 63.35,
+      "brightness_std": 1.67,
+      "u": 124.23,
+      "v": 132.53,
+      "saturation": 13.08,
+      "motion": 2.579,
+      "motion_peak": 3.54,
+      "first": {
+        "y": 60.08,
+        "u": 124.34,
+        "v": 132.59
+      },
+      "last": {
+        "y": 64.27,
+        "u": 123.97,
+        "v": 132.45
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "44": {
+      "frames": 192,
+      "brightness": 88.75,
+      "brightness_std": 0.57,
+      "u": 121.58,
+      "v": 136.02,
+      "saturation": 16.73,
+      "motion": 1.165,
+      "motion_peak": 2.59,
+      "first": {
+        "y": 88.78,
+        "u": 122.55,
+        "v": 134.9
+      },
+      "last": {
+        "y": 88.19,
+        "u": 121.56,
+        "v": 136.16
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "45": {
+      "frames": 192,
+      "brightness": 94.25,
+      "brightness_std": 5.24,
+      "u": 105.2,
+      "v": 149.25,
+      "saturation": 31.26,
+      "motion": 2.718,
+      "motion_peak": 5.01,
+      "first": {
+        "y": 85.41,
+        "u": 109.66,
+        "v": 145.77
+      },
+      "last": {
+        "y": 103.48,
+        "u": 99.39,
+        "v": 153.32
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "46": {
+      "frames": 192,
+      "brightness": 85.68,
+      "brightness_std": 2.07,
+      "u": 124.89,
+      "v": 132.66,
+      "saturation": 16.25,
+      "motion": 1.053,
+      "motion_peak": 3.98,
+      "first": {
+        "y": 88.93,
+        "u": 124.95,
+        "v": 132.45
+      },
+      "last": {
+        "y": 83.25,
+        "u": 125.02,
+        "v": 132.5
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "47": {
+      "frames": 192,
+      "brightness": 91.42,
+      "brightness_std": 0.5,
+      "u": 116.62,
+      "v": 139.44,
+      "saturation": 20.59,
+      "motion": 0.821,
+      "motion_peak": 2.33,
+      "first": {
+        "y": 91.67,
+        "u": 116.99,
+        "v": 139.0
+      },
+      "last": {
+        "y": 90.59,
+        "u": 117.18,
+        "v": 139.14
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "48": {
+      "frames": 192,
+      "brightness": 95.48,
+      "brightness_std": 1.17,
+      "u": 110.74,
+      "v": 146.05,
+      "saturation": 25.42,
+      "motion": 1.154,
+      "motion_peak": 3.97,
+      "first": {
+        "y": 94.38,
+        "u": 110.99,
+        "v": 145.83
+      },
+      "last": {
+        "y": 96.27,
+        "u": 109.88,
+        "v": 146.2
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "49": {
+      "frames": 192,
+      "brightness": 89.37,
+      "brightness_std": 2.94,
+      "u": 106.54,
+      "v": 148.82,
+      "saturation": 29.91,
+      "motion": 2.228,
+      "motion_peak": 6.39,
+      "first": {
+        "y": 89.77,
+        "u": 107.57,
+        "v": 147.42
+      },
+      "last": {
+        "y": 89.03,
+        "u": 104.98,
+        "v": 150.14
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "50": {
+      "frames": 192,
+      "brightness": 74.7,
+      "brightness_std": 0.98,
+      "u": 129.82,
+      "v": 125.1,
+      "saturation": 9.91,
+      "motion": 2.343,
+      "motion_peak": 4.34,
+      "first": {
+        "y": 72.44,
+        "u": 129.28,
+        "v": 125.73
+      },
+      "last": {
+        "y": 75.61,
+        "u": 130.34,
+        "v": 124.3
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "51": {
+      "frames": 192,
+      "brightness": 62.11,
+      "brightness_std": 0.96,
+      "u": 128.59,
+      "v": 128.94,
+      "saturation": 13.27,
+      "motion": 3.358,
+      "motion_peak": 4.32,
+      "first": {
+        "y": 60.06,
+        "u": 129.14,
+        "v": 128.64
+      },
+      "last": {
+        "y": 61.42,
+        "u": 128.45,
+        "v": 128.85
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "52": {
+      "frames": 192,
+      "brightness": 76.54,
+      "brightness_std": 0.8,
+      "u": 122.29,
+      "v": 135.15,
+      "saturation": 19.18,
+      "motion": 1.492,
+      "motion_peak": 1.89,
+      "first": {
+        "y": 74.6,
+        "u": 122.95,
+        "v": 134.25
+      },
+      "last": {
+        "y": 77.62,
+        "u": 121.19,
+        "v": 136.31
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "53": {
+      "frames": 192,
+      "brightness": 71.97,
+      "brightness_std": 1.64,
+      "u": 125.19,
+      "v": 131.74,
+      "saturation": 12.52,
+      "motion": 1.963,
+      "motion_peak": 2.88,
+      "first": {
+        "y": 68.11,
+        "u": 125.61,
+        "v": 131.13
+      },
+      "last": {
+        "y": 74.02,
+        "u": 124.13,
+        "v": 132.47
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "54": {
+      "frames": 192,
+      "brightness": 82.04,
+      "brightness_std": 4.76,
+      "u": 116.47,
+      "v": 141.97,
+      "saturation": 18.77,
+      "motion": 1.982,
+      "motion_peak": 3.96,
+      "first": {
+        "y": 74.14,
+        "u": 117.32,
+        "v": 140.22
+      },
+      "last": {
+        "y": 87.12,
+        "u": 115.72,
+        "v": 142.84
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "55": {
+      "frames": 192,
+      "brightness": 93.21,
+      "brightness_std": 1.21,
+      "u": 112.65,
+      "v": 145.05,
+      "saturation": 23.4,
+      "motion": 2.097,
+      "motion_peak": 6.1,
+      "first": {
+        "y": 94.45,
+        "u": 113.48,
+        "v": 144.75
+      },
+      "last": {
+        "y": 90.93,
+        "u": 111.47,
+        "v": 145.18
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "56": {
+      "frames": 192,
+      "brightness": 98.87,
+      "brightness_std": 2.86,
+      "u": 111.68,
+      "v": 142.36,
+      "saturation": 21.76,
+      "motion": 1.729,
+      "motion_peak": 3.79,
+      "first": {
+        "y": 97.26,
+        "u": 110.8,
+        "v": 142.97
+      },
+      "last": {
+        "y": 92.59,
+        "u": 111.78,
+        "v": 142.75
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "57": {
+      "frames": 192,
+      "brightness": 82.17,
+      "brightness_std": 0.66,
+      "u": 125.89,
+      "v": 130.76,
+      "saturation": 16.28,
+      "motion": 1.281,
+      "motion_peak": 4.11,
+      "first": {
+        "y": 82.13,
+        "u": 125.75,
+        "v": 130.97
+      },
+      "last": {
+        "y": 80.4,
+        "u": 125.65,
+        "v": 130.84
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "58": {
+      "frames": 192,
+      "brightness": 120.28,
+      "brightness_std": 3.04,
+      "u": 102.85,
+      "v": 153.07,
+      "saturation": 36.04,
+      "motion": 2.942,
+      "motion_peak": 7.29,
+      "first": {
+        "y": 119.74,
+        "u": 102.65,
+        "v": 153.19
+      },
+      "last": {
+        "y": 111.3,
+        "u": 101.6,
+        "v": 153.17
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "59": {
+      "frames": 192,
+      "brightness": 80.81,
+      "brightness_std": 0.76,
+      "u": 114.88,
+      "v": 142.36,
+      "saturation": 20.18,
+      "motion": 1.005,
+      "motion_peak": 2.44,
+      "first": {
+        "y": 80.68,
+        "u": 114.92,
+        "v": 142.18
+      },
+      "last": {
+        "y": 79.1,
+        "u": 115.39,
+        "v": 142.01
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "60": {
+      "frames": 192,
+      "brightness": 77.85,
+      "brightness_std": 1.08,
+      "u": 115.58,
+      "v": 139.5,
+      "saturation": 20.35,
+      "motion": 0.964,
+      "motion_peak": 2.01,
+      "first": {
+        "y": 77.62,
+        "u": 115.54,
+        "v": 139.66
+      },
+      "last": {
+        "y": 77.08,
+        "u": 115.54,
+        "v": 139.3
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "61": {
+      "frames": 192,
+      "brightness": 114.28,
+      "brightness_std": 1.73,
+      "u": 114.75,
+      "v": 140.26,
+      "saturation": 19.88,
+      "motion": 2.483,
+      "motion_peak": 6.03,
+      "first": {
+        "y": 112.39,
+        "u": 114.06,
+        "v": 140.2
+      },
+      "last": {
+        "y": 115.02,
+        "u": 115.05,
+        "v": 139.83
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "62": {
+      "frames": 192,
+      "brightness": 74.46,
+      "brightness_std": 1.38,
+      "u": 119.81,
+      "v": 138.57,
+      "saturation": 21.45,
+      "motion": 0.97,
+      "motion_peak": 2.49,
+      "first": {
+        "y": 75.55,
+        "u": 119.48,
+        "v": 138.93
+      },
+      "last": {
+        "y": 73.68,
+        "u": 119.99,
+        "v": 138.22
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "63": {
+      "frames": 192,
+      "brightness": 121.3,
+      "brightness_std": 3.37,
+      "u": 110.74,
+      "v": 148.08,
+      "saturation": 28.88,
+      "motion": 2.63,
+      "motion_peak": 4.52,
+      "first": {
+        "y": 126.27,
+        "u": 109.69,
+        "v": 147.9
+      },
+      "last": {
+        "y": 117.42,
+        "u": 111.1,
+        "v": 147.79
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "64": {
+      "frames": 192,
+      "brightness": 92.35,
+      "brightness_std": 0.5,
+      "u": 118.15,
+      "v": 137.6,
+      "saturation": 18.96,
+      "motion": 2.662,
+      "motion_peak": 3.19,
+      "first": {
+        "y": 90.76,
+        "u": 118.89,
+        "v": 136.6
+      },
+      "last": {
+        "y": 93.04,
+        "u": 117.34,
+        "v": 138.75
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "65": {
+      "frames": 192,
+      "brightness": 96.86,
+      "brightness_std": 3.96,
+      "u": 114.24,
+      "v": 143.07,
+      "saturation": 20.96,
+      "motion": 2.215,
+      "motion_peak": 5.24,
+      "first": {
+        "y": 102.67,
+        "u": 114.6,
+        "v": 142.42
+      },
+      "last": {
+        "y": 92.74,
+        "u": 113.87,
+        "v": 143.29
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "66": {
+      "frames": 192,
+      "brightness": 85.27,
+      "brightness_std": 0.45,
+      "u": 126.57,
+      "v": 130.07,
+      "saturation": 14.51,
+      "motion": 1.263,
+      "motion_peak": 1.87,
+      "first": {
+        "y": 85.05,
+        "u": 126.15,
+        "v": 130.37
+      },
+      "last": {
+        "y": 85.47,
+        "u": 126.68,
+        "v": 129.66
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "67": {
+      "frames": 192,
+      "brightness": 127.28,
+      "brightness_std": 4.21,
+      "u": 109.07,
+      "v": 146.76,
+      "saturation": 26.76,
+      "motion": 2.357,
+      "motion_peak": 4.55,
+      "first": {
+        "y": 122.67,
+        "u": 109.01,
+        "v": 146.74
+      },
+      "last": {
+        "y": 122.45,
+        "u": 110.14,
+        "v": 145.73
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "68": {
+      "frames": 192,
+      "brightness": 95.01,
+      "brightness_std": 1.26,
+      "u": 123.78,
+      "v": 134.41,
+      "saturation": 19.38,
+      "motion": 1.057,
+      "motion_peak": 1.84,
+      "first": {
+        "y": 92.84,
+        "u": 124.33,
+        "v": 133.63
+      },
+      "last": {
+        "y": 97.05,
+        "u": 122.93,
+        "v": 135.1
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "69": {
+      "frames": 192,
+      "brightness": 65.16,
+      "brightness_std": 1.06,
+      "u": 123.59,
+      "v": 133.87,
+      "saturation": 15.7,
+      "motion": 1.912,
+      "motion_peak": 2.29,
+      "first": {
+        "y": 63.06,
+        "u": 125.41,
+        "v": 132.06
+      },
+      "last": {
+        "y": 67.18,
+        "u": 121.09,
+        "v": 136.19
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "70": {
+      "frames": 192,
+      "brightness": 79.18,
+      "brightness_std": 3.01,
+      "u": 114.76,
+      "v": 142.7,
+      "saturation": 19.51,
+      "motion": 3.933,
+      "motion_peak": 5.04,
+      "first": {
+        "y": 82.83,
+        "u": 113.07,
+        "v": 144.24
+      },
+      "last": {
+        "y": 74.23,
+        "u": 117.19,
+        "v": 140.37
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "71": {
+      "frames": 192,
+      "brightness": 75.08,
+      "brightness_std": 1.27,
+      "u": 122.34,
+      "v": 133.78,
+      "saturation": 15.13,
+      "motion": 4.626,
+      "motion_peak": 5.56,
+      "first": {
+        "y": 74.75,
+        "u": 122.8,
+        "v": 133.07
+      },
+      "last": {
+        "y": 71.77,
+        "u": 122.5,
+        "v": 133.73
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "72": {
+      "frames": 192,
+      "brightness": 82.85,
+      "brightness_std": 0.64,
+      "u": 117.34,
+      "v": 138.53,
+      "saturation": 20.05,
+      "motion": 0.965,
+      "motion_peak": 1.94,
+      "first": {
+        "y": 81.97,
+        "u": 117.9,
+        "v": 138.11
+      },
+      "last": {
+        "y": 84.16,
+        "u": 115.75,
+        "v": 139.94
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "73": {
+      "frames": 192,
+      "brightness": 82.93,
+      "brightness_std": 5.58,
+      "u": 113.16,
+      "v": 142.34,
+      "saturation": 20.6,
+      "motion": 2.76,
+      "motion_peak": 5.71,
+      "first": {
+        "y": 77.15,
+        "u": 115.25,
+        "v": 140.29
+      },
+      "last": {
+        "y": 94.78,
+        "u": 108.37,
+        "v": 146.5
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "74": {
+      "frames": 192,
+      "brightness": 114.35,
+      "brightness_std": 1.78,
+      "u": 111.14,
+      "v": 144.09,
+      "saturation": 23.12,
+      "motion": 3.396,
+      "motion_peak": 5.4,
+      "first": {
+        "y": 115.58,
+        "u": 110.19,
+        "v": 144.98
+      },
+      "last": {
+        "y": 113.23,
+        "u": 112.52,
+        "v": 142.92
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "75": {
+      "frames": 192,
+      "brightness": 88.56,
+      "brightness_std": 2.84,
+      "u": 113.98,
+      "v": 140.55,
+      "saturation": 19.03,
+      "motion": 1.769,
+      "motion_peak": 3.35,
+      "first": {
+        "y": 87.19,
+        "u": 114.5,
+        "v": 140.32
+      },
+      "last": {
+        "y": 87.13,
+        "u": 113.92,
+        "v": 140.58
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "76": {
+      "frames": 192,
+      "brightness": 82.26,
+      "brightness_std": 4.35,
+      "u": 115.69,
+      "v": 141.49,
+      "saturation": 18.99,
+      "motion": 2.344,
+      "motion_peak": 5.43,
+      "first": {
+        "y": 83.66,
+        "u": 115.65,
+        "v": 141.31
+      },
+      "last": {
+        "y": 95.23,
+        "u": 112.72,
+        "v": 143.26
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "77": {
+      "frames": 192,
+      "brightness": 88.75,
+      "brightness_std": 2.1,
+      "u": 115.16,
+      "v": 140.12,
+      "saturation": 18.52,
+      "motion": 2.106,
+      "motion_peak": 3.8,
+      "first": {
+        "y": 90.53,
+        "u": 114.45,
+        "v": 140.58
+      },
+      "last": {
+        "y": 90.46,
+        "u": 115.35,
+        "v": 139.88
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "78": {
+      "frames": 192,
+      "brightness": 70.35,
+      "brightness_std": 0.31,
+      "u": 126.16,
+      "v": 129.49,
+      "saturation": 11.06,
+      "motion": 0.678,
+      "motion_peak": 1.16,
+      "first": {
+        "y": 69.71,
+        "u": 126.39,
+        "v": 129.31
+      },
+      "last": {
+        "y": 70.18,
+        "u": 126.14,
+        "v": 129.44
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "79": {
+      "frames": 192,
+      "brightness": 89.25,
+      "brightness_std": 5.53,
+      "u": 121.96,
+      "v": 137.32,
+      "saturation": 16.43,
+      "motion": 2.814,
+      "motion_peak": 4.67,
+      "first": {
+        "y": 79.93,
+        "u": 123.48,
+        "v": 135.5
+      },
+      "last": {
+        "y": 95.81,
+        "u": 119.14,
+        "v": 138.69
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "80": {
+      "frames": 192,
+      "brightness": 73.67,
+      "brightness_std": 0.94,
+      "u": 119.76,
+      "v": 138.15,
+      "saturation": 16.53,
+      "motion": 1.939,
+      "motion_peak": 2.5,
+      "first": {
+        "y": 71.06,
+        "u": 120.68,
+        "v": 137.05
+      },
+      "last": {
+        "y": 73.96,
+        "u": 119.0,
+        "v": 138.87
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "81": {
+      "frames": 192,
+      "brightness": 69.99,
+      "brightness_std": 0.79,
+      "u": 128.5,
+      "v": 127.11,
+      "saturation": 9.54,
+      "motion": 4.42,
+      "motion_peak": 6.97,
+      "first": {
+        "y": 68.85,
+        "u": 128.71,
+        "v": 126.92
+      },
+      "last": {
+        "y": 70.43,
+        "u": 128.42,
+        "v": 127.08
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "82": {
+      "frames": 192,
+      "brightness": 100.4,
+      "brightness_std": 1.53,
+      "u": 109.27,
+      "v": 144.03,
+      "saturation": 25.07,
+      "motion": 3.062,
+      "motion_peak": 3.75,
+      "first": {
+        "y": 100.27,
+        "u": 109.05,
+        "v": 144.74
+      },
+      "last": {
+        "y": 97.79,
+        "u": 109.63,
+        "v": 143.12
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "83": {
+      "frames": 192,
+      "brightness": 140.77,
+      "brightness_std": 6.1,
+      "u": 106.65,
+      "v": 151.04,
+      "saturation": 31.94,
+      "motion": 2.987,
+      "motion_peak": 4.78,
+      "first": {
+        "y": 138.44,
+        "u": 106.88,
+        "v": 150.94
+      },
+      "last": {
+        "y": 144.38,
+        "u": 106.28,
+        "v": 150.6
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "84": {
+      "frames": 192,
+      "brightness": 87.95,
+      "brightness_std": 0.68,
+      "u": 124.65,
+      "v": 133.16,
+      "saturation": 13.53,
+      "motion": 2.403,
+      "motion_peak": 3.82,
+      "first": {
+        "y": 87.07,
+        "u": 124.54,
+        "v": 132.93
+      },
+      "last": {
+        "y": 87.68,
+        "u": 124.51,
+        "v": 133.3
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "85": {
+      "frames": 192,
+      "brightness": 125.93,
+      "brightness_std": 5.5,
+      "u": 105.9,
+      "v": 150.07,
+      "saturation": 31.15,
+      "motion": 3.299,
+      "motion_peak": 9.55,
+      "first": {
+        "y": 126.15,
+        "u": 106.77,
+        "v": 149.12
+      },
+      "last": {
+        "y": 119.5,
+        "u": 106.19,
+        "v": 150.17
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "86": {
+      "frames": 192,
+      "brightness": 88.82,
+      "brightness_std": 8.7,
+      "u": 117.25,
+      "v": 142.91,
+      "saturation": 18.81,
+      "motion": 2.087,
+      "motion_peak": 5.18,
+      "first": {
+        "y": 78.05,
+        "u": 117.53,
+        "v": 141.81
+      },
+      "last": {
+        "y": 104.84,
+        "u": 117.68,
+        "v": 143.75
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "87": {
+      "frames": 192,
+      "brightness": 117.29,
+      "brightness_std": 1.54,
+      "u": 108.42,
+      "v": 147.28,
+      "saturation": 27.25,
+      "motion": 1.848,
+      "motion_peak": 5.21,
+      "first": {
+        "y": 114.3,
+        "u": 108.93,
+        "v": 146.43
+      },
+      "last": {
+        "y": 119.05,
+        "u": 108.51,
+        "v": 147.0
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "88": {
+      "frames": 192,
+      "brightness": 100.98,
+      "brightness_std": 4.15,
+      "u": 115.16,
+      "v": 144.73,
+      "saturation": 22.26,
+      "motion": 3.31,
+      "motion_peak": 6.99,
+      "first": {
+        "y": 96.26,
+        "u": 114.79,
+        "v": 144.52
+      },
+      "last": {
+        "y": 108.76,
+        "u": 116.01,
+        "v": 144.59
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "89": {
+      "frames": 192,
+      "brightness": 129.29,
+      "brightness_std": 2.2,
+      "u": 110.09,
+      "v": 148.52,
+      "saturation": 28.3,
+      "motion": 2.781,
+      "motion_peak": 7.74,
+      "first": {
+        "y": 127.29,
+        "u": 110.57,
+        "v": 148.25
+      },
+      "last": {
+        "y": 131.72,
+        "u": 110.1,
+        "v": 148.46
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "90": {
+      "frames": 192,
+      "brightness": 87.95,
+      "brightness_std": 5.09,
+      "u": 119.77,
+      "v": 141.86,
+      "saturation": 17.03,
+      "motion": 2.522,
+      "motion_peak": 6.1,
+      "first": {
+        "y": 81.47,
+        "u": 117.81,
+        "v": 141.87
+      },
+      "last": {
+        "y": 93.8,
+        "u": 120.72,
+        "v": 142.09
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "91": {
+      "frames": 192,
+      "brightness": 142.86,
+      "brightness_std": 0.61,
+      "u": 102.22,
+      "v": 154.08,
+      "saturation": 37.26,
+      "motion": 2.043,
+      "motion_peak": 4.4,
+      "first": {
+        "y": 142.41,
+        "u": 102.09,
+        "v": 154.01
+      },
+      "last": {
+        "y": 138.95,
+        "u": 101.44,
+        "v": 153.84
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "92": {
+      "frames": 192,
+      "brightness": 103.97,
+      "brightness_std": 1.64,
+      "u": 105.77,
+      "v": 154.0,
+      "saturation": 34.26,
+      "motion": 1.769,
+      "motion_peak": 5.76,
+      "first": {
+        "y": 102.31,
+        "u": 105.41,
+        "v": 154.31
+      },
+      "last": {
+        "y": 101.8,
+        "u": 105.52,
+        "v": 153.75
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "93": {
+      "frames": 192,
+      "brightness": 90.08,
+      "brightness_std": 0.92,
+      "u": 115.96,
+      "v": 146.02,
+      "saturation": 22.61,
+      "motion": 1.413,
+      "motion_peak": 3.18,
+      "first": {
+        "y": 90.01,
+        "u": 115.95,
+        "v": 145.58
+      },
+      "last": {
+        "y": 87.52,
+        "u": 115.64,
+        "v": 146.01
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "94": {
+      "frames": 192,
+      "brightness": 128.61,
+      "brightness_std": 6.24,
+      "u": 104.94,
+      "v": 155.8,
+      "saturation": 37.02,
+      "motion": 2.079,
+      "motion_peak": 4.77,
+      "first": {
+        "y": 133.67,
+        "u": 106.24,
+        "v": 154.72
+      },
+      "last": {
+        "y": 112.5,
+        "u": 103.48,
+        "v": 156.78
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "95": {
+      "frames": 192,
+      "brightness": 112.31,
+      "brightness_std": 4.19,
+      "u": 113.45,
+      "v": 144.35,
+      "saturation": 22.8,
+      "motion": 3.524,
+      "motion_peak": 5.66,
+      "first": {
+        "y": 106.71,
+        "u": 114.97,
+        "v": 142.35
+      },
+      "last": {
+        "y": 111.54,
+        "u": 114.35,
+        "v": 143.45
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "96": {
+      "frames": 192,
+      "brightness": 88.97,
+      "brightness_std": 1.61,
+      "u": 121.04,
+      "v": 135.77,
+      "saturation": 19.46,
+      "motion": 1.953,
+      "motion_peak": 3.49,
+      "first": {
+        "y": 84.74,
+        "u": 121.7,
+        "v": 135.48
+      },
+      "last": {
+        "y": 90.51,
+        "u": 121.81,
+        "v": 134.5
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "97": {
+      "frames": 192,
+      "brightness": 85.81,
+      "brightness_std": 0.57,
+      "u": 121.11,
+      "v": 133.7,
+      "saturation": 16.96,
+      "motion": 3.651,
+      "motion_peak": 4.3,
+      "first": {
+        "y": 83.58,
+        "u": 121.23,
+        "v": 133.7
+      },
+      "last": {
+        "y": 86.31,
+        "u": 120.99,
+        "v": 133.66
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "98": {
+      "frames": 192,
+      "brightness": 83.38,
+      "brightness_std": 3.17,
+      "u": 111.79,
+      "v": 145.72,
+      "saturation": 25.33,
+      "motion": 3.125,
+      "motion_peak": 4.54,
+      "first": {
+        "y": 78.39,
+        "u": 115.33,
+        "v": 142.46
+      },
+      "last": {
+        "y": 87.93,
+        "u": 107.98,
+        "v": 149.09
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "99": {
+      "frames": 192,
+      "brightness": 90.51,
+      "brightness_std": 7.46,
+      "u": 118.22,
+      "v": 139.94,
+      "saturation": 16.28,
+      "motion": 3.555,
+      "motion_peak": 7.26,
+      "first": {
+        "y": 82.17,
+        "u": 120.0,
+        "v": 137.1
+      },
+      "last": {
+        "y": 100.09,
+        "u": 108.97,
+        "v": 147.32
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "100": {
+      "frames": 192,
+      "brightness": 100.3,
+      "brightness_std": 3.96,
+      "u": 118.64,
+      "v": 141.16,
+      "saturation": 17.67,
+      "motion": 3.313,
+      "motion_peak": 6.56,
+      "first": {
+        "y": 98.8,
+        "u": 120.44,
+        "v": 140.53
+      },
+      "last": {
+        "y": 91.74,
+        "u": 117.4,
+        "v": 140.68
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "101": {
+      "frames": 192,
+      "brightness": 92.19,
+      "brightness_std": 2.37,
+      "u": 111.38,
+      "v": 146.1,
+      "saturation": 24.63,
+      "motion": 1.655,
+      "motion_peak": 3.45,
+      "first": {
+        "y": 94.32,
+        "u": 110.26,
+        "v": 147.8
+      },
+      "last": {
+        "y": 86.65,
+        "u": 112.1,
+        "v": 145.23
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "102": {
+      "frames": 192,
+      "brightness": 85.88,
+      "brightness_std": 0.66,
+      "u": 120.11,
+      "v": 136.82,
+      "saturation": 12.97,
+      "motion": 0.87,
+      "motion_peak": 2.23,
+      "first": {
+        "y": 85.7,
+        "u": 119.95,
+        "v": 136.83
+      },
+      "last": {
+        "y": 85.73,
+        "u": 120.08,
+        "v": 136.66
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "103": {
+      "frames": 192,
+      "brightness": 83.04,
+      "brightness_std": 1.68,
+      "u": 114.8,
+      "v": 142.08,
+      "saturation": 19.1,
+      "motion": 1.748,
+      "motion_peak": 2.56,
+      "first": {
+        "y": 79.92,
+        "u": 115.71,
+        "v": 140.96
+      },
+      "last": {
+        "y": 85.21,
+        "u": 113.58,
+        "v": 143.15
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "104": {
+      "frames": 192,
+      "brightness": 97.7,
+      "brightness_std": 6.88,
+      "u": 116.02,
+      "v": 140.57,
+      "saturation": 17.83,
+      "motion": 1.513,
+      "motion_peak": 3.72,
+      "first": {
+        "y": 94.18,
+        "u": 116.06,
+        "v": 140.7
+      },
+      "last": {
+        "y": 93.96,
+        "u": 115.51,
+        "v": 141.5
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "105": {
+      "frames": 192,
+      "brightness": 101.71,
+      "brightness_std": 12.6,
+      "u": 104.77,
+      "v": 153.23,
+      "saturation": 34.27,
+      "motion": 3.446,
+      "motion_peak": 7.2,
+      "first": {
+        "y": 81.87,
+        "u": 110.32,
+        "v": 149.01
+      },
+      "last": {
+        "y": 110.83,
+        "u": 101.89,
+        "v": 155.29
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "106": {
+      "frames": 192,
+      "brightness": 73.18,
+      "brightness_std": 0.94,
+      "u": 119.1,
+      "v": 140.56,
+      "saturation": 16.29,
+      "motion": 1.728,
+      "motion_peak": 3.76,
+      "first": {
+        "y": 73.19,
+        "u": 118.29,
+        "v": 141.04
+      },
+      "last": {
+        "y": 71.86,
+        "u": 120.04,
+        "v": 139.95
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "107": {
+      "frames": 192,
+      "brightness": 101.86,
+      "brightness_std": 3.23,
+      "u": 108.75,
+      "v": 147.56,
+      "saturation": 27.31,
+      "motion": 1.909,
+      "motion_peak": 3.35,
+      "first": {
+        "y": 95.72,
+        "u": 109.26,
+        "v": 147.38
+      },
+      "last": {
+        "y": 100.47,
+        "u": 107.25,
+        "v": 148.7
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "108": {
+      "frames": 192,
+      "brightness": 113.81,
+      "brightness_std": 2.49,
+      "u": 107.95,
+      "v": 146.91,
+      "saturation": 27.61,
+      "motion": 2.157,
+      "motion_peak": 6.46,
+      "first": {
+        "y": 110.25,
+        "u": 108.22,
+        "v": 146.77
+      },
+      "last": {
+        "y": 120.01,
+        "u": 107.56,
+        "v": 147.12
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "109": {
+      "frames": 192,
+      "brightness": 92.32,
+      "brightness_std": 2.67,
+      "u": 111.37,
+      "v": 146.19,
+      "saturation": 24.99,
+      "motion": 1.887,
+      "motion_peak": 4.63,
+      "first": {
+        "y": 90.18,
+        "u": 111.87,
+        "v": 145.31
+      },
+      "last": {
+        "y": 87.09,
+        "u": 111.32,
+        "v": 146.11
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "110": {
+      "frames": 192,
+      "brightness": 70.85,
+      "brightness_std": 0.49,
+      "u": 125.68,
+      "v": 126.01,
+      "saturation": 9.18,
+      "motion": 3.057,
+      "motion_peak": 3.88,
+      "first": {
+        "y": 70.1,
+        "u": 125.49,
+        "v": 126.22
+      },
+      "last": {
+        "y": 70.62,
+        "u": 126.3,
+        "v": 124.79
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "111": {
+      "frames": 192,
+      "brightness": 71.34,
+      "brightness_std": 0.68,
+      "u": 130.28,
+      "v": 124.03,
+      "saturation": 11.32,
+      "motion": 1.925,
+      "motion_peak": 2.53,
+      "first": {
+        "y": 69.63,
+        "u": 130.62,
+        "v": 123.76
+      },
+      "last": {
+        "y": 70.12,
+        "u": 129.83,
+        "v": 124.45
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "112": {
+      "frames": 192,
+      "brightness": 95.08,
+      "brightness_std": 4.62,
+      "u": 112.58,
+      "v": 139.29,
+      "saturation": 26.11,
+      "motion": 3.778,
+      "motion_peak": 4.86,
+      "first": {
+        "y": 87.2,
+        "u": 117.97,
+        "v": 134.84
+      },
+      "last": {
+        "y": 101.41,
+        "u": 106.5,
+        "v": 144.57
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "113": {
+      "frames": 192,
+      "brightness": 92.24,
+      "brightness_std": 2.98,
+      "u": 110.25,
+      "v": 146.99,
+      "saturation": 25.97,
+      "motion": 1.093,
+      "motion_peak": 2.39,
+      "first": {
+        "y": 88.96,
+        "u": 110.1,
+        "v": 147.25
+      },
+      "last": {
+        "y": 86.8,
+        "u": 110.54,
+        "v": 146.35
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "114": {
+      "frames": 192,
+      "brightness": 143.55,
+      "brightness_std": 8.52,
+      "u": 104.67,
+      "v": 149.34,
+      "saturation": 31.81,
+      "motion": 3.396,
+      "motion_peak": 4.8,
+      "first": {
+        "y": 145.2,
+        "u": 106.61,
+        "v": 147.15
+      },
+      "last": {
+        "y": 129.85,
+        "u": 101.14,
+        "v": 153.29
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "115": {
+      "frames": 192,
+      "brightness": 132.25,
+      "brightness_std": 2.9,
+      "u": 107.13,
+      "v": 147.2,
+      "saturation": 28.31,
+      "motion": 3.497,
+      "motion_peak": 7.13,
+      "first": {
+        "y": 125.6,
+        "u": 107.12,
+        "v": 147.31
+      },
+      "last": {
+        "y": 135.76,
+        "u": 107.44,
+        "v": 146.61
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "116": {
+      "frames": 192,
+      "brightness": 84.53,
+      "brightness_std": 4.1,
+      "u": 119.34,
+      "v": 136.87,
+      "saturation": 15.78,
+      "motion": 1.928,
+      "motion_peak": 3.4,
+      "first": {
+        "y": 89.26,
+        "u": 117.38,
+        "v": 138.67
+      },
+      "last": {
+        "y": 77.93,
+        "u": 121.02,
+        "v": 135.13
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "117": {
+      "frames": 192,
+      "brightness": 82.42,
+      "brightness_std": 0.64,
+      "u": 114.46,
+      "v": 144.4,
+      "saturation": 21.67,
+      "motion": 0.966,
+      "motion_peak": 2.14,
+      "first": {
+        "y": 81.48,
+        "u": 114.13,
+        "v": 144.33
+      },
+      "last": {
+        "y": 82.21,
+        "u": 114.56,
+        "v": 144.4
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "118": {
+      "frames": 192,
+      "brightness": 95.73,
+      "brightness_std": 2.26,
+      "u": 114.01,
+      "v": 143.13,
+      "saturation": 26.96,
+      "motion": 1.629,
+      "motion_peak": 2.46,
+      "first": {
+        "y": 91.55,
+        "u": 115.03,
+        "v": 142.33
+      },
+      "last": {
+        "y": 98.74,
+        "u": 113.08,
+        "v": 143.36
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "119": {
+      "frames": 192,
+      "brightness": 78.67,
+      "brightness_std": 1.47,
+      "u": 131.91,
+      "v": 123.68,
+      "saturation": 12.01,
+      "motion": 4.374,
+      "motion_peak": 5.59,
+      "first": {
+        "y": 78.63,
+        "u": 131.75,
+        "v": 123.9
+      },
+      "last": {
+        "y": 76.21,
+        "u": 131.57,
+        "v": 123.83
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "120": {
+      "frames": 192,
+      "brightness": 102.19,
+      "brightness_std": 5.27,
+      "u": 122.55,
+      "v": 135.84,
+      "saturation": 17.01,
+      "motion": 1.436,
+      "motion_peak": 2.44,
+      "first": {
+        "y": 97.16,
+        "u": 123.66,
+        "v": 134.65
+      },
+      "last": {
+        "y": 109.69,
+        "u": 120.21,
+        "v": 137.6
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "121": {
+      "frames": 192,
+      "brightness": 109.34,
+      "brightness_std": 5.03,
+      "u": 109.49,
+      "v": 146.78,
+      "saturation": 26.21,
+      "motion": 2.722,
+      "motion_peak": 5.53,
+      "first": {
+        "y": 108.97,
+        "u": 108.96,
+        "v": 147.63
+      },
+      "last": {
+        "y": 119.22,
+        "u": 108.91,
+        "v": 146.18
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "122": {
+      "frames": 192,
+      "brightness": 98.12,
+      "brightness_std": 3.03,
+      "u": 110.33,
+      "v": 150.74,
+      "saturation": 29.66,
+      "motion": 3.068,
+      "motion_peak": 6.03,
+      "first": {
+        "y": 98.77,
+        "u": 109.24,
+        "v": 150.28
+      },
+      "last": {
+        "y": 91.1,
+        "u": 110.51,
+        "v": 150.82
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "123": {
+      "frames": 192,
+      "brightness": 80.66,
+      "brightness_std": 0.57,
+      "u": 121.37,
+      "v": 135.31,
+      "saturation": 17.16,
+      "motion": 0.771,
+      "motion_peak": 1.6,
+      "first": {
+        "y": 80.36,
+        "u": 121.34,
+        "v": 135.32
+      },
+      "last": {
+        "y": 80.28,
+        "u": 121.45,
+        "v": 135.09
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "124": {
+      "frames": 192,
+      "brightness": 99.39,
+      "brightness_std": 5.85,
+      "u": 108.13,
+      "v": 146.82,
+      "saturation": 27.49,
+      "motion": 3.36,
+      "motion_peak": 6.06,
+      "first": {
+        "y": 89.34,
+        "u": 110.08,
+        "v": 145.46
+      },
+      "last": {
+        "y": 105.51,
+        "u": 107.11,
+        "v": 147.23
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "125": {
+      "frames": 192,
+      "brightness": 104.19,
+      "brightness_std": 1.37,
+      "u": 109.38,
+      "v": 150.5,
+      "saturation": 29.86,
+      "motion": 2.463,
+      "motion_peak": 4.15,
+      "first": {
+        "y": 102.68,
+        "u": 109.84,
+        "v": 150.06
+      },
+      "last": {
+        "y": 102.25,
+        "u": 110.34,
+        "v": 149.96
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "126": {
+      "frames": 192,
+      "brightness": 78.36,
+      "brightness_std": 1.61,
+      "u": 121.91,
+      "v": 134.96,
+      "saturation": 13.49,
+      "motion": 0.674,
+      "motion_peak": 1.57,
+      "first": {
+        "y": 75.8,
+        "u": 122.08,
+        "v": 134.54
+      },
+      "last": {
+        "y": 79.67,
+        "u": 121.88,
+        "v": 135.1
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "127": {
+      "frames": 192,
+      "brightness": 85.89,
+      "brightness_std": 0.43,
+      "u": 113.47,
+      "v": 143.29,
+      "saturation": 25.53,
+      "motion": 0.586,
+      "motion_peak": 1.09,
+      "first": {
+        "y": 85.2,
+        "u": 113.52,
+        "v": 143.23
+      },
+      "last": {
+        "y": 85.71,
+        "u": 113.51,
+        "v": 143.08
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "128": {
+      "frames": 192,
+      "brightness": 97.47,
+      "brightness_std": 0.98,
+      "u": 111.04,
+      "v": 146.88,
+      "saturation": 25.37,
+      "motion": 1.272,
+      "motion_peak": 2.31,
+      "first": {
+        "y": 96.55,
+        "u": 111.34,
+        "v": 146.31
+      },
+      "last": {
+        "y": 98.83,
+        "u": 110.38,
+        "v": 147.59
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "129": {
+      "frames": 192,
+      "brightness": 107.88,
+      "brightness_std": 0.44,
+      "u": 109.95,
+      "v": 147.44,
+      "saturation": 29.74,
+      "motion": 0.417,
+      "motion_peak": 0.63,
+      "first": {
+        "y": 106.92,
+        "u": 109.89,
+        "v": 147.35
+      },
+      "last": {
+        "y": 108.48,
+        "u": 109.89,
+        "v": 147.44
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "130": {
+      "frames": 192,
+      "brightness": 79.45,
+      "brightness_std": 1.09,
+      "u": 129.45,
+      "v": 130.0,
+      "saturation": 18.27,
+      "motion": 1.923,
+      "motion_peak": 3.82,
+      "first": {
+        "y": 76.06,
+        "u": 129.16,
+        "v": 130.06
+      },
+      "last": {
+        "y": 78.5,
+        "u": 131.93,
+        "v": 127.24
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "131": {
+      "frames": 192,
+      "brightness": 81.83,
+      "brightness_std": 2.8,
+      "u": 112.61,
+      "v": 139.51,
+      "saturation": 21.95,
+      "motion": 5.711,
+      "motion_peak": 10.42,
+      "first": {
+        "y": 83.25,
+        "u": 112.96,
+        "v": 139.12
+      },
+      "last": {
+        "y": 76.89,
+        "u": 112.89,
+        "v": 141.18
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "132": {
+      "frames": 192,
+      "brightness": 89.3,
+      "brightness_std": 3.13,
+      "u": 106.63,
+      "v": 148.8,
+      "saturation": 31.34,
+      "motion": 1.413,
+      "motion_peak": 2.87,
+      "first": {
+        "y": 86.11,
+        "u": 108.47,
+        "v": 147.02
+      },
+      "last": {
+        "y": 94.08,
+        "u": 103.87,
+        "v": 154.38
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "133": {
+      "frames": 192,
+      "brightness": 84.27,
+      "brightness_std": 3.81,
+      "u": 115.99,
+      "v": 139.24,
+      "saturation": 19.67,
+      "motion": 3.017,
+      "motion_peak": 5.1,
+      "first": {
+        "y": 90.41,
+        "u": 112.78,
+        "v": 140.87
+      },
+      "last": {
+        "y": 78.68,
+        "u": 118.48,
+        "v": 137.64
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "134": {
+      "frames": 192,
+      "brightness": 82.1,
+      "brightness_std": 0.87,
+      "u": 115.11,
+      "v": 140.44,
+      "saturation": 17.7,
+      "motion": 0.476,
+      "motion_peak": 1.41,
+      "first": {
+        "y": 82.65,
+        "u": 114.97,
+        "v": 140.51
+      },
+      "last": {
+        "y": 81.08,
+        "u": 115.58,
+        "v": 139.77
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "135": {
+      "frames": 192,
+      "brightness": 80.16,
+      "brightness_std": 0.33,
+      "u": 121.61,
+      "v": 136.28,
+      "saturation": 18.24,
+      "motion": 0.482,
+      "motion_peak": 0.78,
+      "first": {
+        "y": 79.46,
+        "u": 121.78,
+        "v": 136.15
+      },
+      "last": {
+        "y": 80.48,
+        "u": 121.29,
+        "v": 136.41
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "136": {
+      "frames": 192,
+      "brightness": 65.94,
+      "brightness_std": 1.56,
+      "u": 127.98,
+      "v": 126.39,
+      "saturation": 11.57,
+      "motion": 1.523,
+      "motion_peak": 1.82,
+      "first": {
+        "y": 61.8,
+        "u": 128.34,
+        "v": 126.07
+      },
+      "last": {
+        "y": 68.26,
+        "u": 127.25,
+        "v": 126.97
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "137": {
+      "frames": 192,
+      "brightness": 76.84,
+      "brightness_std": 3.16,
+      "u": 126.93,
+      "v": 127.13,
+      "saturation": 15.96,
+      "motion": 3.583,
+      "motion_peak": 4.7,
+      "first": {
+        "y": 72.03,
+        "u": 124.74,
+        "v": 129.07
+      },
+      "last": {
+        "y": 75.92,
+        "u": 131.5,
+        "v": 123.72
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "138": {
+      "frames": 192,
+      "brightness": 99.77,
+      "brightness_std": 8.86,
+      "u": 111.87,
+      "v": 140.84,
+      "saturation": 25.88,
+      "motion": 2.494,
+      "motion_peak": 3.05,
+      "first": {
+        "y": 84.19,
+        "u": 119.45,
+        "v": 134.69
+      },
+      "last": {
+        "y": 114.23,
+        "u": 103.9,
+        "v": 147.25
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "139": {
+      "frames": 192,
+      "brightness": 65.64,
+      "brightness_std": 0.72,
+      "u": 127.35,
+      "v": 129.49,
+      "saturation": 11.32,
+      "motion": 0.638,
+      "motion_peak": 1.21,
+      "first": {
+        "y": 64.92,
+        "u": 127.41,
+        "v": 129.34
+      },
+      "last": {
+        "y": 65.5,
+        "u": 127.35,
+        "v": 129.46
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "140": {
+      "frames": 192,
+      "brightness": 80.37,
+      "brightness_std": 2.6,
+      "u": 120.86,
+      "v": 136.56,
+      "saturation": 12.89,
+      "motion": 1.252,
+      "motion_peak": 3.45,
+      "first": {
+        "y": 80.24,
+        "u": 120.85,
+        "v": 136.4
+      },
+      "last": {
+        "y": 76.88,
+        "u": 121.13,
+        "v": 136.36
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "141": {
+      "frames": 192,
+      "brightness": 92.52,
+      "brightness_std": 2.52,
+      "u": 112.16,
+      "v": 140.2,
+      "saturation": 22.89,
+      "motion": 1.769,
+      "motion_peak": 3.66,
+      "first": {
+        "y": 92.85,
+        "u": 112.13,
+        "v": 140.69
+      },
+      "last": {
+        "y": 92.69,
+        "u": 112.06,
+        "v": 140.37
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "142": {
+      "frames": 192,
+      "brightness": 93.5,
+      "brightness_std": 1.35,
+      "u": 105.76,
+      "v": 151.63,
+      "saturation": 32.92,
+      "motion": 0.773,
+      "motion_peak": 1.67,
+      "first": {
+        "y": 91.74,
+        "u": 106.5,
+        "v": 151.32
+      },
+      "last": {
+        "y": 95.79,
+        "u": 104.92,
+        "v": 151.98
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "143": {
+      "frames": 192,
+      "brightness": 105.45,
+      "brightness_std": 1.36,
+      "u": 113.89,
+      "v": 137.13,
+      "saturation": 19.23,
+      "motion": 0.661,
+      "motion_peak": 1.69,
+      "first": {
+        "y": 105.44,
+        "u": 113.88,
+        "v": 137.15
+      },
+      "last": {
+        "y": 105.18,
+        "u": 113.7,
+        "v": 137.22
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "144": {
+      "frames": 192,
+      "brightness": 89.21,
+      "brightness_std": 6.0,
+      "u": 114.94,
+      "v": 138.12,
+      "saturation": 17.23,
+      "motion": 1.786,
+      "motion_peak": 4.89,
+      "first": {
+        "y": 96.87,
+        "u": 112.7,
+        "v": 139.36
+      },
+      "last": {
+        "y": 80.04,
+        "u": 117.28,
+        "v": 136.49
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "145": {
+      "frames": 192,
+      "brightness": 70.74,
+      "brightness_std": 1.55,
+      "u": 123.77,
+      "v": 131.47,
+      "saturation": 11.34,
+      "motion": 1.112,
+      "motion_peak": 2.01,
+      "first": {
+        "y": 71.34,
+        "u": 123.19,
+        "v": 131.63
+      },
+      "last": {
+        "y": 67.33,
+        "u": 124.93,
+        "v": 130.57
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "146": {
+      "frames": 192,
+      "brightness": 85.19,
+      "brightness_std": 2.61,
+      "u": 114.71,
+      "v": 138.4,
+      "saturation": 18.36,
+      "motion": 1.192,
+      "motion_peak": 1.85,
+      "first": {
+        "y": 81.33,
+        "u": 115.56,
+        "v": 138.18
+      },
+      "last": {
+        "y": 90.61,
+        "u": 113.36,
+        "v": 138.92
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "147": {
+      "frames": 192,
+      "brightness": 112.3,
+      "brightness_std": 1.53,
+      "u": 115.8,
+      "v": 138.12,
+      "saturation": 17.39,
+      "motion": 1.152,
+      "motion_peak": 1.76,
+      "first": {
+        "y": 112.36,
+        "u": 115.38,
+        "v": 137.76
+      },
+      "last": {
+        "y": 107.92,
+        "u": 116.72,
+        "v": 138.59
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "148": {
+      "frames": 192,
+      "brightness": 80.13,
+      "brightness_std": 1.28,
+      "u": 114.2,
+      "v": 144.12,
+      "saturation": 21.19,
+      "motion": 2.415,
+      "motion_peak": 3.24,
+      "first": {
+        "y": 78.27,
+        "u": 115.69,
+        "v": 142.65
+      },
+      "last": {
+        "y": 80.79,
+        "u": 112.98,
+        "v": 145.5
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "149": {
+      "frames": 192,
+      "brightness": 95.49,
+      "brightness_std": 0.64,
+      "u": 111.64,
+      "v": 142.52,
+      "saturation": 23.7,
+      "motion": 1.037,
+      "motion_peak": 2.01,
+      "first": {
+        "y": 95.39,
+        "u": 111.78,
+        "v": 141.96
+      },
+      "last": {
+        "y": 94.65,
+        "u": 111.77,
+        "v": 142.41
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "150": {
+      "frames": 192,
+      "brightness": 62.23,
+      "brightness_std": 0.98,
+      "u": 127.43,
+      "v": 129.94,
+      "saturation": 7.91,
+      "motion": 1.916,
+      "motion_peak": 3.31,
+      "first": {
+        "y": 60.6,
+        "u": 127.21,
+        "v": 130.25
+      },
+      "last": {
+        "y": 60.61,
+        "u": 129.34,
+        "v": 127.95
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "151": {
+      "frames": 192,
+      "brightness": 71.9,
+      "brightness_std": 1.28,
+      "u": 121.09,
+      "v": 133.95,
+      "saturation": 13.01,
+      "motion": 0.664,
+      "motion_peak": 0.91,
+      "first": {
+        "y": 73.53,
+        "u": 120.54,
+        "v": 133.91
+      },
+      "last": {
+        "y": 69.47,
+        "u": 121.8,
+        "v": 133.59
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "152": {
+      "frames": 192,
+      "brightness": 62.72,
+      "brightness_std": 2.42,
+      "u": 126.71,
+      "v": 126.89,
+      "saturation": 10.39,
+      "motion": 2.559,
+      "motion_peak": 3.72,
+      "first": {
+        "y": 58.85,
+        "u": 126.55,
+        "v": 127.11
+      },
+      "last": {
+        "y": 64.78,
+        "u": 127.31,
+        "v": 125.54
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "153": {
+      "frames": 192,
+      "brightness": 62.21,
+      "brightness_std": 0.91,
+      "u": 127.65,
+      "v": 127.88,
+      "saturation": 9.89,
+      "motion": 0.927,
+      "motion_peak": 1.14,
+      "first": {
+        "y": 59.6,
+        "u": 128.0,
+        "v": 127.55
+      },
+      "last": {
+        "y": 62.58,
+        "u": 127.29,
+        "v": 128.17
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "154": {
+      "frames": 192,
+      "brightness": 59.69,
+      "brightness_std": 0.45,
+      "u": 135.49,
+      "v": 119.45,
+      "saturation": 11.58,
+      "motion": 2.807,
+      "motion_peak": 3.59,
+      "first": {
+        "y": 60.48,
+        "u": 133.91,
+        "v": 120.86
+      },
+      "last": {
+        "y": 59.69,
+        "u": 136.11,
+        "v": 118.92
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "155": {
+      "frames": 192,
+      "brightness": 59.37,
+      "brightness_std": 3.21,
+      "u": 132.11,
+      "v": 120.76,
+      "saturation": 9.85,
+      "motion": 0.962,
+      "motion_peak": 1.13,
+      "first": {
+        "y": 53.24,
+        "u": 131.22,
+        "v": 121.72
+      },
+      "last": {
+        "y": 63.12,
+        "u": 132.75,
+        "v": 120.11
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "156": {
+      "frames": 192,
+      "brightness": 81.63,
+      "brightness_std": 0.22,
+      "u": 119.19,
+      "v": 136.38,
+      "saturation": 16.85,
+      "motion": 0.437,
+      "motion_peak": 0.73,
+      "first": {
+        "y": 81.08,
+        "u": 119.12,
+        "v": 136.26
+      },
+      "last": {
+        "y": 81.53,
+        "u": 119.31,
+        "v": 136.34
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "157": {
+      "frames": 192,
+      "brightness": 55.54,
+      "brightness_std": 0.85,
+      "u": 138.42,
+      "v": 119.62,
+      "saturation": 13.2,
+      "motion": 0.353,
+      "motion_peak": 0.59,
+      "first": {
+        "y": 56.78,
+        "u": 138.59,
+        "v": 119.54
+      },
+      "last": {
+        "y": 56.36,
+        "u": 138.54,
+        "v": 119.4
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "158": {
+      "frames": 192,
+      "brightness": 74.6,
+      "brightness_std": 11.68,
+      "u": 124.36,
+      "v": 128.05,
+      "saturation": 13.4,
+      "motion": 3.561,
+      "motion_peak": 5.35,
+      "first": {
+        "y": 58.32,
+        "u": 129.55,
+        "v": 124.18
+      },
+      "last": {
+        "y": 91.22,
+        "u": 112.55,
+        "v": 137.59
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "159": {
+      "frames": 192,
+      "brightness": 80.79,
+      "brightness_std": 2.57,
+      "u": 123.02,
+      "v": 135.46,
+      "saturation": 13.89,
+      "motion": 0.615,
+      "motion_peak": 1.17,
+      "first": {
+        "y": 76.26,
+        "u": 123.8,
+        "v": 134.47
+      },
+      "last": {
+        "y": 85.14,
+        "u": 122.0,
+        "v": 136.45
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    },
+    "160": {
+      "frames": 192,
+      "brightness": 67.73,
+      "brightness_std": 0.85,
+      "u": 122.28,
+      "v": 135.31,
+      "saturation": 13.11,
+      "motion": 0.424,
+      "motion_peak": 1.0,
+      "first": {
+        "y": 68.25,
+        "u": 122.03,
+        "v": 135.39
+      },
+      "last": {
+        "y": 68.09,
+        "u": 122.09,
+        "v": 135.38
+      },
+      "qc": {
+        "issues": [],
+        "risk": 0,
+        "level": "ok"
+      }
+    }
+  }
+}

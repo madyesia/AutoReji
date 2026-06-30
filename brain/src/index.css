@@ -1,0 +1,225 @@
+@import "tailwindcss";
+
+/* ============================================================================
+   AutoReji — Tasarım Sistemi (premium, koyu, "cozy yağmur" ruhu)
+   Ghibli Mood ON · v1.1 · Blueprint §13.7
+   ========================================================================== */
+
+@theme {
+  /* ---- Mürekkep (koyu zemin katmanları) ---- */
+  --color-ink-950: #07090d;
+  --color-ink-900: #0b0e14;
+  --color-ink-850: #0f1320;
+  --color-ink-800: #141a27;   /* temel yüzey */
+  --color-ink-750: #1a2132;
+  --color-ink-700: #212a3d;   /* yükseltilmiş yüzey */
+  --color-ink-650: #2b3548;
+  --color-ink-600: #364056;   /* kenarlık */
+  --color-ink-500: #4a5572;
+
+  /* ---- Metin ---- */
+  --color-fg: #eaeefb;
+  --color-fg-muted: #97a3bd;
+  --color-fg-subtle: #78849e;  /* WCAG AA: ~5.1:1 (ink-900) — normal metin/etiket okunur eşiğin üstünde */
+  --color-fg-faint: #616c87;   /* WCAG: ~3.7:1 (ink-900) — yalnız dekoratif/idle; büyük ≥3:1 */
+
+  /* ---- Amber–altın imza vurgusu ---- */
+  --color-amber-200: #fce4b3;
+  --color-amber-300: #f6d293;
+  --color-amber-400: #eab866;   /* birincil vurgu */
+  --color-amber-500: #dc9f4a;
+  --color-amber-600: #b67d34;
+
+  /* ---- Rejim renkleri (Blueprint §13.3) ---- */
+  --color-ext: #6ba8d6;        /* dış — soğuk yağmur mavisi */
+  --color-ext-deep: #3f6f9c;
+  --color-int: #e6ad68;        /* iç — sıcak amber */
+  --color-int-deep: #b27e3f;
+  --color-sleep: #8a86d6;      /* uyku/gece — derin lacivert-mor */
+  --color-sleep-deep: #565299;
+
+  /* ---- Geçiş tipleri ---- */
+  --color-cut: #828ea6;        /* nötr */
+  --color-fade: #58c4bd;       /* teal — cross dissolve */
+  --color-dip: #8b86dd;        /* indigo — dip-to-black geçiş rengi · NOT: 'black' adı Tailwind'in bg-black'ini ezdiği için 'dip' kullanıldı */
+
+  /* ---- Semantik ---- */
+  --color-ok: #66d39a;
+  --color-warn: #ecc16b;
+  --color-danger: #ec7e6e;
+  --color-info: #6ba8d6;
+
+  /* ---- Tipografi ---- */
+  --font-sans: "Inter Variable", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+
+  /* ---- Yarıçap ---- */
+  --radius-sm: 0.4rem;
+  --radius-md: 0.65rem;
+  --radius-lg: 0.9rem;
+  --radius-xl: 1.15rem;
+  --radius-2xl: 1.5rem;
+
+  /* ---- Gölge (yumuşak, katmanlı) ---- */
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.3), 0 6px 16px -8px rgb(0 0 0 / 0.5);
+  --shadow-raised: 0 2px 4px rgb(0 0 0 / 0.35), 0 14px 34px -12px rgb(0 0 0 / 0.6);
+  --shadow-pop: 0 10px 28px -8px rgb(0 0 0 / 0.55), 0 30px 70px -24px rgb(0 0 0 / 0.7);
+
+  /* ---- Fosforlu glow (önceden-hesaplı rgba; color-mix gerektirmez — UXP panel paritesine hazır) ---- */
+  --glow-amber: rgb(234 184 102 / 0.35);
+  --glow-ok: rgb(102 211 154 / 0.32);
+  --glow-danger: rgb(236 126 110 / 0.32);
+  --glow-info: rgb(107 168 214 / 0.30);
+
+  /* ---- Geçiş eğrileri + süreler (Atlassian/Linear "feel" cilası) ---- */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-quart: cubic-bezier(0.5, 0, 0.75, 0);     /* çıkış: hızlanan son */
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);    /* hafif yay — vurgu girişleri */
+  /* asimetrik süreler: giriş yumuşak (~220ms), çıkış/hover hızlı (~130ms) */
+  --dur-fast: 130ms;
+  --dur-base: 220ms;
+  --dur-slow: 360ms;
+
+  /* ---- Animasyonlar ---- */
+  --animate-shimmer: shimmer 2.2s linear infinite;
+  --animate-breathe: breathe 4.5s var(--ease-out-quart) infinite;
+  --animate-float-up: float-up 0.5s var(--ease-out-expo) both;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes breathe {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.04); }
+}
+@keyframes float-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* RippleField — alttan yayılan ince halka (yalnız transform+opacity; metni kapatmaz) */
+@keyframes ripple-out {
+  0% { transform: translate(-50%, 0) scale(0.2); opacity: 0; }
+  15% { opacity: var(--ripple-peak, 0.42); }
+  100% { transform: translate(-50%, 0) scale(2.4); opacity: 0; }
+}
+
+/* ============================================================================ */
+@layer base {
+  html { color-scheme: dark; }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-fg);
+    background:
+      radial-gradient(135% 90% at 50% -15%, #12172300 0%, #0b0e14 0%),
+      radial-gradient(120% 80% at 50% -10%, #141b29 0%, #0b0e14 48%, #07090d 100%);
+    background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "cv02", "cv03", "cv04", "ss01";
+    letter-spacing: -0.011em;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  h1, h2, h3 { font-weight: 600; letter-spacing: -0.02em; color: var(--color-fg); }
+
+  ::selection { background: rgb(234 184 102 / 0.28); color: #fff; }
+
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(255 255 255 / 0.08);
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: rgb(255 255 255 / 0.18); background-clip: padding-box; }
+
+  :focus-visible { outline: 2px solid var(--color-amber-400); outline-offset: 2px; border-radius: 6px; }
+  button { cursor: pointer; }
+  button:disabled { cursor: default; }
+
+  /* Erişilebilirlik: kullanıcı sistemde "hareketi azalt" derse dekoratif animasyonları kıs (WCAG 2.3.3) */
+  @media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.05ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ============================================================================ */
+@layer components {
+  /* Cam yüzey — premium panel */
+  .glass {
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.045), rgb(255 255 255 / 0.012));
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid rgb(255 255 255 / 0.08);
+  }
+  /* Elevation katmanları — aynı ekranda en fazla 2; .glass-pop yalnız geçici/floating (modal/toast/onay) */
+  .glass-raised {
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.015));
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    border: 1px solid rgb(255 255 255 / 0.10);
+    box-shadow: var(--shadow-raised), inset 0 1px 0 0 rgb(255 255 255 / 0.07);
+  }
+  .glass-pop {
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.07), rgb(255 255 255 / 0.02));
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    border: 1px solid rgb(255 255 255 / 0.12);
+    box-shadow: var(--shadow-pop), inset 0 1px 0 0 rgb(255 255 255 / 0.08);
+  }
+  .hairline { border: 1px solid rgb(255 255 255 / 0.07); }
+  .hairline-t { border-top: 1px solid rgb(255 255 255 / 0.07); }
+  .hairline-b { border-bottom: 1px solid rgb(255 255 255 / 0.07); }
+  .hairline-r { border-right: 1px solid rgb(255 255 255 / 0.07); }
+
+  /* İnce üst-vurgu (premium kabartma hissi) */
+  .bevel { box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.06); }
+
+  .tabular { font-variant-numeric: tabular-nums; }
+
+  /* Amber metalik degrade metin */
+  .text-gold {
+    background: linear-gradient(180deg, #fce4b3, #eab866 55%, #c98f3f);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* İskelet/parlama yükleme */
+  .shimmer {
+    background: linear-gradient(100deg, transparent 20%, rgb(255 255 255 / 0.06) 50%, transparent 80%);
+    background-size: 200% 100%;
+    animation: var(--animate-shimmer);
+  }
+
+  /* Sürükle-bırak hedefi vurgu */
+  .dropring { box-shadow: 0 0 0 1.5px rgb(234 184 102 / 0.6), 0 0 40px -6px rgb(234 184 102 / 0.35); }
+
+  /* RippleField — yayılan halka alanı (RainCanvas rAF'ına ek JS döngüsü açmaz) */
+  .ripple-field { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+  .ripple-ring {
+    position: absolute; left: 50%; bottom: -8%;
+    width: 60vmin; height: 60vmin;
+    background: radial-gradient(circle, transparent 58%, var(--ripple-tint, var(--glow-amber)) 62%, transparent 70%);
+    filter: blur(6px);
+    will-change: transform, opacity;
+    animation: ripple-out var(--ripple-dur, 10s) var(--ease-out-quart) infinite;
+  }
+}
+
+/* İnce-kenar yardımcı (1px hat, alt katman) */
+@utility ring-hair {
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.08);
+}

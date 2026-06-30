@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <!-- AutoReji app icon — deep dark + gold raindrop. Brand palette pulled from brain/src UI:
+       bg #0b0e14 / #07090d / #141a27 ; gold #eab866 #f6d293 #fce4b3 #dc9f4a #b67d34. -->
+  <defs>
+    <!-- Rounded-square macOS-style backdrop (Tauri/sips keep transparency outside). -->
+    <radialGradient id="bg" cx="50%" cy="38%" r="78%">
+      <stop offset="0%" stop-color="#141a27"/>
+      <stop offset="60%" stop-color="#0b0e14"/>
+      <stop offset="100%" stop-color="#07090d"/>
+    </radialGradient>
+    <!-- Gold gradient for the drop. -->
+    <linearGradient id="gold" x1="32%" y1="6%" x2="68%" y2="100%">
+      <stop offset="0%" stop-color="#fce4b3"/>
+      <stop offset="34%" stop-color="#f6d293"/>
+      <stop offset="64%" stop-color="#eab866"/>
+      <stop offset="100%" stop-color="#b67d34"/>
+    </linearGradient>
+    <!-- Soft inner glow behind the drop. -->
+    <radialGradient id="glow" cx="50%" cy="52%" r="50%">
+      <stop offset="0%" stop-color="#eab866" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#eab866" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="round">
+      <rect x="64" y="64" width="896" height="896" rx="200" ry="200"/>
+    </clipPath>
+  </defs>
+
+  <!-- Backdrop -->
+  <g clip-path="url(#round)">
+    <rect x="64" y="64" width="896" height="896" fill="url(#bg)"/>
+    <!-- subtle top hairline highlight for premium feel -->
+    <rect x="64" y="64" width="896" height="896" rx="200" ry="200" fill="none"
+          stroke="#ffffff" stroke-opacity="0.06" stroke-width="3"/>
+    <circle cx="512" cy="540" r="300" fill="url(#glow)"/>
+  </g>
+
+  <!-- Raindrop: classic teardrop (pointed top, round bottom). -->
+  <path d="M512 250
+           C 512 250, 690 470, 690 612
+           a 178 178 0 1 1 -356 0
+           C 334 470, 512 250, 512 250 Z"
+        fill="url(#gold)"/>
+  <!-- Specular highlight on the drop -->
+  <ellipse cx="452" cy="560" rx="46" ry="74" fill="#ffffff" fill-opacity="0.30"/>
+  <!-- small secondary droplet for the 'auto/stream' motion hint -->
+  <circle cx="660" cy="372" r="34" fill="url(#gold)" fill-opacity="0.85"/>
+</svg>

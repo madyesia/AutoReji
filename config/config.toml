@@ -1,0 +1,85 @@
+# AutoReji — config.toml  (Blueprint §15: "tüm ayarlar tek yerde")
+# ════════════════════════════════════════════════════════════════════════════
+#  ❄️  FAZ 2 — DONMUŞ ALGORİTMA (2026-06-29)
+# ════════════════════════════════════════════════════════════════════════════
+#  Bu değerler Bölüm 2 (160 klip, Tip A) üzerinde kalibre edildi ve kullanıcı
+#  tarafından onaylandı; ayrıca prompt-omurgası (parser + sahne-benzerlik eşiği
+#  + rejim) 20 bölümde (3200 sahne) doğrulandı (DEVAM §7 / CHANGELOG v1.7.0).
+#
+#  "Donmuş" demek: çalışma anında AI/otomatik kalibrasyon YOK. Bu dosya
+#  davranışın TEK kaynağıdır; sidecar (decide.py / build_manifest.py) bunu okur.
+#  Değer değiştirmek = algoritmayı değiştirmek → 20-bölüm regresyonuyla test et,
+#  sonra burada güncelle (DEVAM §7'yi de güncelle).
+#
+#  Loader: Config.from_toml() tüm [tablo]'lardaki anahtarları okur; Config alan
+#  adıyla eşleşenleri uygular. Eşleşmeyen/eksik anahtar = kod varsayılanı (güvenli).
+# ════════════════════════════════════════════════════════════════════════════
+
+[sequence]                       # §10 — timeline kimliği (manifest'e yazılır)
+fps = 24                         # geçiş + kırpma kare hizalama tabanı (Premiere yuvarlama belirsizliğini kaldırır)
+
+[build]
+seed_policy = "episode_name"     # tekrarlanabilirlik: tüm jitter bölüm adından türer (Date.now/random YOK)
+
+# ── KARAR MOTORU (decide.py §5/§7) ──────────────────────────────────────────
+[decision]
+hysteresis = 3                   # rejim değişimini "komite" etmek için ardışık sahne sayısı
+sim_block_thresh = 0.18          # ardışık prompt Jaccard < bu → "sahne bloğu sınırı" → fade
+                                 #   ⟶ 20-bölüm doğrulaması: medyan 0.22, P25 0.158; 0.18 = medyanın
+                                 #     hemen altında, ham aday %33 (ritim filtresinden sonra ~%25 fade).
+                                 #     Bölüm 2'ye özel değil — 3200 sahnelik dağılıma oturuyor.
+
+# ── GEÇİŞ SÜRELERİ (decide.py §9) — hepsi kareye hizalanır ──────────────────
+[transition]
+fade_min = 1.0                   # cross-dissolve alt sınır (s)
+fade_max = 2.0                   # cross-dissolve üst sınır (s)
+black_min = 1.5                  # dip-to-black alt sınır (s)
+black_max = 2.5                  # dip-to-black üst sınır (s)
+round_to = 0.05
+min_cuts_between_fades = 2       # §9.5 #6 — major-olmayan fade çok erken gelirse cut'a iner (ritim)
+no_back_to_back_black = true     # §9.5 #6 — art arda iki black yasak (ikincisi fade olur)
+# sarsıcı-cut yumuşatma fade'i (kısa) — §9.5 #4
+soft_fade_min = 0.5
+soft_fade_max = 0.9
+
+# ── KIRPMA / HANDLE (trim.py §8) ────────────────────────────────────────────
+[trim]
+trim_base = 1.5                  # taban baş/son kırpma (s)
+trim_jit = 1.5                   # ± seeded jitter aralığı → düzensiz, "elle" his
+trim_min = 1.0                   # GARANTİ BAŞ kesimi: her klip baştan ≥1s (+1 kare, küsüratlı) — AI-üretim ilk ~0.5-1s bozuk; fade DAİMA ortalanır
+tail_min = 0.7                   # min SON kesimi (AI-üretim kuyruk artefaktı; baştan BÜYÜK). En uzun klip ≈ source−0.5−0.7 = 6.8s (~7s)
+keep_min = 4.30                  # KULLANICI KURALI: hiçbir klibin tutulan süresi bunun altında OLMASIN
+trim_max = 2.5
+transition_edge_extra = 0.5      # fade tutamağı marjı (≥ T/2 + bu) → asla single-sided / "siyahtan başlama"
+source_dur = 8.0                 # ffprobe yoksa varsayılan kaynak süresi
+
+# ── DERİN VİDEO ANALİZİ sinyalleri (analyze_video.py → decide/trim) ─────────
+[analysis]
+jarring_contrast = 45.0          # sınır görsel sıçraması bu üstü + cut + ACTION değil → kısa fade (§9.5 #4)
+motion_calm = 1.5                # bunun altı = sakin (uzun klip, fade'e yatkın)
+motion_busy = 4.0                # bunun üstü = hareketli (kısa klip, cut'a yatkın)
+motion_trim_k = 0.07             # hareketin kırpmaya etkisi (yüksek hareket → daha çok kırp)
+
+# ── §9.5 RAFİNELERİ (her biri etkisini decide/trim/manifest'te bulur) ───────
+[refinements]
+audio_micro_crossfade = 0.06     # #3 — HER birleşimde (cut dahil) çok kısa ses çapraz-geçişi (ASMR: tık yok)
+mask_stereo_shift = true         # #3 — rejim değişiminde stereo-alan kayması fade ile maskelenir
+intro_fade = 1.0                 # #5 — bölüm başı siyahtan fade-in (s)
+outro_fade = 1.5                 # #5 — bölüm sonu siyaha fade-out (s)
+
+# ── TEMPO MODÜLASYONU (trim.py içinde GÖMÜLÜ — §8/§9.5 #1/#2) ───────────────
+#  NOT: Aşağıdakiler şu an trim.py'de sabit; burası DONMUŞ KAYITTIR (kod henüz
+#  okumuyor). İleride Yönetmen paneli "canlı yeniden hesap" için bağlanabilir.
+#  Kırpma modülasyonu (+ = daha çok kırp/kısa, − = az kırp/uzun nefes):
+[trim.modulation]
+regime_interior_sleeping = -0.35 # iç/uyku uzun dursun (nefes)
+regime_exterior          =  0.25 # dış yolculuk tempolu/kısa
+scale_establishing_wide  = -0.35 # kuruluş/drone/geniş/manzara uzun (izleyici dalsın)
+scale_close_up           =  0.30 # yakın/aksiyon kısa/öz
+# v1.0.1 HEDEF-SÜRE modeli (trim.py): her klip için "hold" skoru → tutulan süre [keep_min, KEEP_MAX].
+#   keep_min = 4.30s (hiçbir klip altında olmaz) · KEEP_MAX ≈ source−head_min(0.5)−tail_min(0.7) ≈ 6.8s (~7s)
+#   hold (+uzun / −kısa): linger +0.6 (BİRİNCİL) · iç/uyku +0.2 / dış −0.2 · kuruluş-geniş +0.2 / yakın −0.25 ·
+#                          manzara-rol +0.15 / detay-aksiyon −0.15 · energy+motion eğrisi ±0.5 (sakin→uzun) · seeded ±0.15
+#   kırpma dağılımı: kuyruğa biraz daha (tail %55 / head %45), her biri ≥ head_min/tail_min (AI baş/son artefaktı kesilir).
+linger_hold              =  0.60 # görsel-AI "linger" (tut) → hedef süreyi belirgin uzatır (BİRİNCİL kaldıraç)
+intensity_amp            =  0.50 # energy+motion eğri katkısı (sakin→uzun, hareketli→kısa)

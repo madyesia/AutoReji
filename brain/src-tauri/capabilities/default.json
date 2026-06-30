@@ -1,0 +1,44 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "AutoReji ana pencere yetenekleri (dialog/fs/opener/shell)",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "core:path:default",
+    "opener:default",
+    "dialog:default",
+    "fs:default",
+    { "identifier": "fs:allow-write-text-file", "allow": [{ "path": "$HOME/**" }] },
+    { "identifier": "fs:allow-read-text-file", "allow": [{ "path": "$HOME/**" }] },
+    { "identifier": "fs:allow-exists", "allow": [{ "path": "$HOME/**" }] },
+    { "identifier": "fs:allow-mkdir", "allow": [{ "path": "$HOME/**" }] },
+    { "identifier": "fs:allow-write-file", "allow": [{ "path": "$HOME/**" }] },
+    { "identifier": "fs:allow-read-file", "allow": [{ "path": "$HOME/**" }] },
+    { "identifier": "fs:allow-remove", "allow": [{ "path": "$HOME/**" }] },
+    "dialog:allow-open",
+    "dialog:allow-save",
+    "opener:allow-open-path",
+    "opener:allow-reveal-item-in-dir",
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        { "name": "ollama", "cmd": "ollama", "args": true },
+        { "name": "which", "cmd": "which", "args": true },
+        { "name": "ls", "cmd": "ls", "args": true },
+        { "name": "open", "cmd": "open", "args": true },
+        { "name": "binaries/autoreji-sidecar", "sidecar": true, "args": true }
+      ]
+    },
+    {
+      "identifier": "shell:allow-spawn",
+      "allow": [
+        { "name": "ollama", "cmd": "ollama", "args": true },
+        { "name": "which", "cmd": "which", "args": true },
+        { "name": "ls", "cmd": "ls", "args": true },
+        { "name": "open", "cmd": "open", "args": true },
+        { "name": "binaries/autoreji-sidecar", "sidecar": true, "args": true }
+      ]
+    }
+  ]
+}

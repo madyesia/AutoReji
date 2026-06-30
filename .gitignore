@@ -1,0 +1,41 @@
+# AutoReji — .gitignore
+# Kişisel/ÖZEL repo (cihazlar arası senkron). SENİN TÜM İŞİN gider:
+#   kod · belgeler · prompt'lar · demo klipleri · önizleme kareleri/sprite'lar · deneme dosyaları · _manifest.
+# YALNIZCA dışlananlar:
+#   (1) REF/  → footage (2.4GB video/görsel; kullanıcı kararı: hariç)
+#   (2) otomatik ÜRETİLEN build önbellekleri → başka cihazda `setup`/build ile KENDİLİĞİNDEN oluşur,
+#       GitHub'a koymak gereksiz + depoyu şişirir/yavaşlatır + dosya limitini zorlar.
+
+# --- sistem / editör ---
+.DS_Store
+*.log
+.env
+.env.local
+.idea/
+.vscode/
+
+# --- (1) REF footage (KULLANICI: hariç) ---
+REF/
+
+# --- (2) OTOMATİK ÜRETİLEN BUILD ÖNBELLEKLERİ (regeneratable; başka cihazda setup/build ile gelir) ---
+node_modules/
+target/
+**/target/
+brain/src-tauri/target/
+brain/src-tauri/binaries/        # PyInstaller sidecar binary — build_sidecar.sh üretir
+.venv-sidecar/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+brain/dist/                      # Vite prod build çıktısı — npm run build üretir
+# indirilen AI modelleri (tek-komut fetch ile gelir; repoda olmamalı, GB'larca):
+_models/
+*.onnx
+*.mlmodel
+*.pt
+*.gguf
+
+# --- MCP/araç runtime cache (senin işin değil) ---
+.playwright-mcp/

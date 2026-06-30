@@ -1,0 +1,34 @@
+{
+  "id": "com.autoreji.derisk",
+  "name": "AutoReji",
+  "version": "0.1.0",
+  "main": "index.html",
+  "host": {
+    "app": "premierepro",
+    "minVersion": "25.0.0"
+  },
+  "manifestVersion": 5,
+  "requiredPermissions": {
+    "localFileSystem": "request",
+    "clipboard": "readAndWrite",
+    "allowCodeGenerationFromStrings": false
+  },
+  "entrypoints": [
+    {
+      "id": "autoreji.derisk.panel",
+      "type": "panel",
+      "label": { "default": "AutoReji" },
+      "minimumSize": { "width": 320, "height": 360 },
+      "maximumSize": { "width": 2400, "height": 2400 },
+      "preferredDockedSize": { "width": 460, "height": 720 },
+      "preferredFloatingSize": { "width": 560, "height": 820 },
+      "icons": [
+        { "width": 23, "height": 23, "path": "icons/dark.svg", "scale": [1, 2], "theme": ["darkest", "dark", "medium"] },
+        { "width": 23, "height": 23, "path": "icons/light.svg", "scale": [1, 2], "theme": ["lightest", "light"] }
+      ]
+    }
+  ],
+  "icons": [
+    { "width": 48, "height": 48, "path": "icons/plugin-icon.svg", "scale": [1, 2], "theme": ["darkest", "dark", "medium", "lightest", "light", "all"], "species": ["pluginList"] }
+  ]
+}

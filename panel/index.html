@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <!--
+      AutoReji UXP paneli — SEKMELİ + KAYDIRILABİLİR premium wizard.
+      3 sekme: Yükle → Kur → Rapor. Her sekme gövdesi bağımsız scroll (overflow-y:auto).
+
+      ⚑ KRİTİK RENDER KARARI (gerçek Premiere testinden + Adobe forum araştırması):
+        Native <button> elemanı UXP'de HOST/SPECTRUM stil kapsamı taşır → custom
+        background/linear-gradient EZİLİR, düz gri render olur (kullanıcı bunu gördü).
+        UXP'de `appearance:none` DESTEKLENMEZ → native button sıfırlanamaz.
+        ÇÖZÜM (Adobe CC forum uzmanı önerisi): tüm stilli kontrolleri <div role="button"
+        tabindex="0"> yap. <div> saf HTML, custom CSS + gradient GÜVENİLİR render eder.
+        Erişilebilirlik: ui.js her .btn'e click + keydown(Enter/Space) bağlar.
+        → Bu dosyada artık <button> YOK; tüm aksiyonlar .btn (div).
+
+      CSS, UXP-GÜVENLİ alt küme: flexbox + position absolute/relative + var() + calc()
+      + linear/radial-gradient (YALNIZ 2 DURAK — çok-duraklı gradient UXP'de DESTEKLENMEZ)
+      + border-radius + border + opacity + rgba.
+      KULLANILMAYANLAR (Premiere UXP'de sessizce kırılır): transition, @keyframes,
+      animation, backdrop-filter, filter, color-mix(), display:grid, text-shadow,
+      box-shadow (CSSNextSupport flag'i olmadan no-op → üst-vurgu ::before ile yapılır),
+      appearance, 3+ duraklı gradient, generic font aileleri (sans-serif/monospace).
+      Tüm hareket JS (ui.js) tarafında setTimeout ile sürülür (sekme göstergesi dahil).
+      SCROLL tuzağı: ara flex konteynerlerde min-height:0 ŞART + html/body height:100%.
+    -->
+    <style>
+      :root {
+        /* ink katmanları */
+        --ink-0: #07090d;
+        --ink-1: #0c0f16;
+        --ink-2: #141a27;
+        --ink-3: #1b2433;
+        /* çizgi / kenar */
+        --line: rgba(255, 255, 255, 0.08);
+        --line-strong: rgba(255, 255, 255, 0.14);
+        /* metin */
+        --txt: #e8ecf4;
+        --txt-dim: #8b93a7;
+        /* altın */
+        --gold: #eab866;
+        --gold-deep: #caa05a;
+        --gold-edge: #9a7a3e;   /* birincil butonun koyu altın kenarı (siyah yerine) */
+        --glow-amber: rgba(234, 184, 102, 0.34);
+        --glow-amber-soft: rgba(234, 184, 102, 0.14);
+        /* rejim renkleri */
+        --ext: #6ba8d6;
+        --int: #e6ad68;
+        --sleep: #8a86d6;
+        /* durum */
+        --ok: #7ddc8f;
+        --ok-glow: rgba(125, 220, 143, 0.30);
+        --err: #ff8f8f;
+        --err-glow: rgba(255, 143, 143, 0.28);
+        --warn: #ffd9a0;
+      }
+
+      * { box-sizing: border-box; }
+
+      /* ── SCROLL ZİNCİRİ: kökten body'ye height:100% ── */
+      html, body { height: 100%; }
+      body {
+        font-family: "SF Pro Text", Helvetica, Arial;
+        background: var(--ink-1);
+        color: var(--txt);
+        margin: 0;
+        padding: 0;
+        font-size: 12px;
+        overflow: hidden;            /* panel DIŞI taşma yok — scroll sekme içinde */
+      }
+
+      /* kök dikey yığın: panel boyutunu doldurur */
+      #panel {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        padding: 8px;
+      }
+
+      /* ── Sahte cam (blur YOK): koyu gradient + ince kenar ── */
+      .glass {
+        background: linear-gradient(180deg, rgba(27, 36, 51, 0.82), rgba(20, 26, 39, 0.72));
+        border: 1px solid var(--line);
+        border-radius: 12px;
+      }
+
+      /* ── HEADER (sabit) ── */
+      #header {
+        display: flex;
+        align-items: center;
+        padding: 9px 11px;
+        margin-bottom: 8px;
+        flex: 0 0 auto;
+      }
+      .brand-mark {
+        position: relative;
+        width: 20px;
+        height: 20px;
+        margin-right: 9px;
+        flex-shrink: 0;
+      }
+      .brand-name {
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        color: var(--gold);
+      }
+      .version-chip {
+        margin-left: 8px;
+        padding: 2px 7px;
+        border-radius: 8px;
+        background: var(--ink-3);
+        border: 1px solid var(--line);
+        color: var(--txt-dim);
+        font-size: 10px;
+        letter-spacing: 0.2px;
+      }
+      #header-right {
+        margin-left: auto;
+        text-align: right;
+        opacity: 0;
+        max-width: 52%;
+      }
+      #episode-name {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--txt);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      #episode-sub {
+        font-size: 10px;
+        color: var(--txt-dim);
+      }
+
+      /* ── SEKME RAYI (sabit, küçülmez) — İMZA MOTİF: altın ray + kayan gösterge ── */
+      #tabbar {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        flex: 0 0 auto;
+        margin-bottom: 8px;
+        border-bottom: 1px solid var(--line);
+      }
+      /* SEKME = div-buton (.tab). Aktif sekme altın gradient zemin taşır → native
+         <button> bunu eziyordu, o yüzden <div role="tab" tabindex>. */
+      .tab {
+        position: relative;
+        flex: 1 1 0;
+        display: block;
+        width: auto;
+        margin: 0;
+        padding: 8px 6px 9px;          /* ince ~36px yükseklik — kocaman blok DEĞİL */
+        border: none;
+        border-radius: 0;
+        background: transparent;       /* şeffaf zemin — düz gri blok yok */
+        color: var(--txt-dim);         /* pasif: sönük metin */
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: pointer;
+        user-select: none;
+      }
+      .tab:hover { background: transparent; color: var(--txt); border-color: transparent; }
+      .tab:active { opacity: 0.9; }
+      .tab.active {
+        color: var(--gold);            /* aktif: altın metin */
+        background: linear-gradient(180deg, var(--glow-amber-soft), rgba(234, 184, 102, 0));
+      }
+      /* aktif gösterge şeridi — JS left/width ile "kayar" (transition YOK), belirgin altın.
+         NOT: 3-duraklı gradient UXP'de render OLMAZ → 2-duraklı düz altın (güvenilir).
+         Glow box-shadow yerine ::after radial pseudo-glow (aşağıda). */
+      .tab-ind {
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        height: 2.5px;
+        width: 0;
+        border-radius: 2px;
+        background: linear-gradient(90deg, var(--gold-deep), var(--gold));
+        opacity: 0;
+      }
+      .tab-ind::after {
+        content: "";
+        position: absolute;
+        left: -6px;
+        right: -6px;
+        top: -5px;
+        height: 12px;
+        border-radius: 8px;
+        background: radial-gradient(circle, var(--glow-amber), rgba(234, 184, 102, 0));
+        opacity: 0.7;
+      }
+      .tab.locked {
+        opacity: 0.38;
+        color: var(--txt-dim);
+      }
+      .tab .lock-glyph {
+        display: inline-block;
+        width: 9px;
+        height: 7px;
+        margin-right: 4px;
+        position: relative;
+        vertical-align: middle;
+        opacity: 0;
+      }
+      .tab.locked .lock-glyph { opacity: 0.7; }
+      /* küçük çizgi-asma kilit: gövde + üst yay */
+      .tab .lock-glyph::before {
+        content: "";
+        position: absolute;
+        left: 0; bottom: 0;
+        width: 9px; height: 5px;
+        border-radius: 1px;
+        background: var(--gold-deep);
+      }
+      .tab .lock-glyph::after {
+        content: "";
+        position: absolute;
+        left: 2px; top: 0;
+        width: 5px; height: 4px;
+        border: 1.5px solid var(--gold-deep);
+        border-bottom: none;
+        border-radius: 3px 3px 0 0;
+      }
+
+      /* ── SEKME GÖVDESİ (esner, min-height:0 ŞART) ── */
+      #tabbody {
+        flex: 1 1 auto;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      .page { display: none; }
+      .page.active {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        min-height: 0;
+      }
+      /* asıl kaydırılan alan — her sekmenin gövdesi */
+      .scrollarea {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+      .page-footer {
+        flex: 0 0 auto;
+        padding-top: 6px;
+      }
+
+      /* son kurulum rozeti (localStorage) — Yükle sekmesinde */
+      #last-badge {
+        font-size: 10px;
+        color: var(--txt-dim);
+        padding: 3px 0 9px;
+        opacity: 0;
+      }
+      #last-badge .lb-dot {
+        display: inline-block;
+        width: 5px; height: 5px;
+        border-radius: 3px;
+        background: var(--ok);
+        margin-right: 5px;
+        vertical-align: middle;
+      }
+
+      /* ── YÜKLE SEKMESİ ── */
+      #load-intro {
+        font-size: 11px;
+        color: var(--txt-dim);
+        line-height: 1.45;
+        padding: 2px 2px 10px;
+      }
+      .divider {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 12px 0;
+        color: var(--txt-dim);
+        font-size: 10px;
+        letter-spacing: 1px;
+      }
+      .divider::before, .divider::after {
+        content: "";
+        flex: 1 1 auto;
+        height: 1px;
+      }
+      .divider::before { background: linear-gradient(90deg, rgba(255, 255, 255, 0), var(--line-strong)); margin-right: 9px; }
+      .divider::after  { background: linear-gradient(90deg, var(--line-strong), rgba(255, 255, 255, 0)); margin-left: 9px; }
+
+      #paste-json {
+        display: block;
+        width: 100%;
+        min-height: 96px;
+        padding: 9px 10px;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        background: linear-gradient(180deg, var(--ink-1), var(--ink-0));  /* koyu iç zemin */
+        color: var(--txt);
+        font-family: "SF Mono", Menlo, Courier;
+        font-size: 10px;
+        line-height: 1.4;
+        resize: vertical;
+      }
+      /* :focus altın kenar — UXP'de :focus + border-color çalışır (box-shadow no-op,
+         o yüzden kullanılmadı; çift kenar hissi 2px border ile verilir) */
+      #paste-json:focus {
+        border-color: var(--gold);
+        border-width: 1px;
+      }
+      #paste-json::placeholder { color: var(--txt-dim); }
+      .paste-wrap { position: relative; }
+      .paste-wrap::after {
+        content: "";
+        position: absolute;
+        left: 12%;
+        right: 12%;
+        bottom: -4px;
+        height: 18px;
+        border-radius: 12px;
+        background: radial-gradient(circle, var(--glow-amber) 0%, rgba(234, 184, 102, 0) 70%);
+        opacity: 0;
+      }
+      .paste-wrap.focused #paste-json { border-color: var(--gold); }
+      .paste-wrap.focused::after { opacity: 0.5; }
+
+      .load-btn-row {
+        display: flex;
+        flex-direction: row;
+        margin-top: 8px;
+      }
+      .load-btn-row button {
+        flex: 1 1 0;
+        margin: 0;
+        width: auto;
+      }
+      .load-btn-row button + button { margin-left: 7px; }
+
+      #load-error {
+        display: none;
+        margin-top: 9px;
+        padding: 8px 10px;
+        border-radius: 9px;
+        border: 1px solid var(--err-glow);
+        border-left: 2px solid var(--err);
+        background: linear-gradient(180deg, rgba(255, 143, 143, 0.08), var(--ink-2));
+        color: var(--err);
+        font-size: 11px;
+        line-height: 1.4;
+        word-break: break-word;
+      }
+
+      #load-summary {
+        display: none;
+        margin-top: 10px;
+        padding: 10px 11px;
+        border-radius: 11px;
+        border: 1px solid var(--ok-glow);
+        background: linear-gradient(180deg, rgba(125, 220, 143, 0.10), var(--ink-2));
+        opacity: 0;
+      }
+      #load-summary .ls-head {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+        min-width: 0; /* flex çocuğu (.ls-name) ellipsis için: parent shrink edebilmeli (uzun ad label dışına taşmasın) */
+      }
+      #load-summary .ls-tick {
+        color: var(--ok);
+        font-size: 14px;
+        margin-right: 7px;
+      }
+      #load-summary .ls-name {
+        flex: 1 1 auto;
+        min-width: 0; /* flex-item shrink → uzun dosya adı kesilir (… ) yerine taşmaz */
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--txt);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      #load-summary .ls-count {
+        font-size: 22px;
+        font-weight: 600;
+        color: var(--gold);
+        line-height: 1.1;
+      }
+      #load-summary .ls-count-label {
+        font-size: 11px;
+        color: var(--txt-dim);
+        margin-left: 6px;
+      }
+      #load-summary .ls-chips {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-top: 8px;
+      }
+      #load-summary .ls-chip {
+        padding: 3px 9px;
+        margin: 3px 5px 0 0;
+        border-radius: 7px;
+        background: var(--ink-3);
+        border: 1px solid var(--line);
+        color: var(--txt);
+        font-size: 11px;
+      }
+      #load-summary .ls-go {
+        font-size: 10px;
+        color: var(--txt-dim);
+        margin-top: 9px;
+      }
+
+      /* ── RAPOR PANELİ (çipler) — Kur + Rapor ── */
+      #report {
+        padding: 8px 9px;
+        margin-bottom: 9px;
+        min-height: 14px;
+      }
+      #report-chips {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      .report-chip {
+        position: relative;
+        padding: 4px 9px 4px 12px;
+        margin: 3px 5px 3px 0;
+        border-radius: 7px;
+        background: var(--ink-3);
+        border: 1px solid var(--line);
+        color: var(--txt);
+        font-size: 11px;
+        opacity: 0;
+      }
+      .report-chip::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 4px;
+        bottom: 4px;
+        width: 2px;
+        border-radius: 2px;
+        background: var(--gold);
+      }
+      .report-chip.c-clip::before { background: var(--gold); }
+      .report-chip.c-cut::before { background: var(--ext); }
+      .report-chip.c-fade::before { background: var(--int); }
+      .report-chip.c-black::before { background: var(--sleep); }
+      .report-chip.c-gap::before { background: var(--ok); }
+      .report-chip.c-crop::before { background: var(--gold); }
+      .report-chip.c-dur::before { background: var(--txt-dim); }
+      .report-chip.gap-clear {
+        border-color: var(--ok-glow);
+        background: linear-gradient(180deg, rgba(125, 220, 143, 0.12), var(--ink-3));
+      }
+
+      /* ── PIPELINE ── */
+      #pipeline {
+        position: relative;
+        padding: 4px 0 4px 0;
+        margin-bottom: 9px;
+      }
+      .spine {
+        position: absolute;
+        left: 9px;
+        top: 8px;
+        bottom: 8px;
+        width: 2px;
+        border-radius: 2px;
+        /* 2-duraklı (UXP 3+ durağı render etmez): üstte altın → altta sönük çizgi */
+        background: linear-gradient(180deg, var(--gold), var(--line));
+        opacity: 0.6;
+      }
+      .spine::after {
+        content: "";
+        position: absolute;
+        left: -22px;
+        top: 18%;
+        width: 60px;
+        height: 60px;
+        border-radius: 30px;
+        background: radial-gradient(circle, var(--glow-amber) 0%, rgba(234, 184, 102, 0) 70%);
+        opacity: 0.12;
+      }
+      #steps {
+        position: relative;
+        padding-left: 26px;
+      }
+
+      .step {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        padding: 7px 9px;
+        margin: 5px 0;
+        border-radius: 9px;
+        border: 1px solid transparent;
+        opacity: 0;
+      }
+      .step.active {
+        background: linear-gradient(180deg, rgba(234, 184, 102, 0.07), rgba(20, 26, 39, 0.0));
+        border-color: var(--line);
+      }
+      .step.done { border-color: rgba(125, 220, 143, 0.10); }
+      .step.error {
+        border-left: 2px solid var(--err);
+        background: linear-gradient(180deg, rgba(255, 143, 143, 0.07), rgba(20, 26, 39, 0.0));
+      }
+
+      /* sol omurga noktası — her kart, spine üstüne oturur */
+      .step-dot {
+        position: absolute;
+        left: -22px;
+        top: 11px;
+        width: 9px;
+        height: 9px;
+        border-radius: 5px;
+        background: var(--txt-dim);
+        opacity: 0.25;
+      }
+      .step.active .step-dot { background: var(--gold); opacity: 1; }
+      .step.done .step-dot { background: var(--gold); opacity: 1; }
+      .step.error .step-dot { background: var(--err); opacity: 1; }
+
+      .step-body {
+        flex: 1 1 auto;
+        min-width: 0;
+      }
+      .step-label {
+        font-size: 12px;
+        color: var(--txt-dim);
+        line-height: 1.3;
+      }
+      .step.active .step-label { color: var(--txt); }
+      .step.done .step-label { color: var(--txt); }
+      .step.error .step-label { color: var(--err); }
+      .step-sub {
+        font-size: 10px;
+        color: var(--txt-dim);
+        margin-top: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.3;
+        min-height: 0;
+      }
+      .step-err-row {
+        font-size: 10px;
+        color: var(--err);
+        margin-top: 3px;
+        line-height: 1.3;
+      }
+      .step-retry {
+        display: inline-block;
+        margin-top: 4px;
+        padding: 3px 9px;
+        border-radius: 7px;
+        background: var(--ink-2);
+        border: 1px solid var(--line-strong);
+        color: var(--txt);
+        font-size: 10px;
+        cursor: pointer;
+        user-select: none;
+      }
+      .step-retry:hover { background: var(--ink-3); }
+      .step-retry:focus { border-color: var(--gold-deep); }
+      .step-retry:active { opacity: 0.9; }
+
+      /* sağ taraf durum işareti (halka / spinner / tik / çarpı) */
+      .step-mark {
+        position: relative;
+        width: 16px;
+        height: 16px;
+        margin-left: 8px;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+      .mark-ring {
+        position: absolute;
+        left: 1px; top: 1px;
+        width: 14px; height: 14px;
+        border-radius: 7px;
+        border: 1.5px solid var(--line);
+      }
+      /* spinner segmentleri JS ile (12 absolute div) */
+      .seg {
+        position: absolute;
+        left: 7px; top: 0;
+        width: 1.5px; height: 4px;
+        border-radius: 1px;
+        background: var(--gold);
+        opacity: 0.2;
+      }
+      /* yeşil tik iki çizgisi (JS opacity/width) */
+      .check-short, .check-long {
+        position: absolute;
+        height: 2px;
+        border-radius: 1px;
+        background: var(--ok);
+        opacity: 0;
+      }
+      .check-short { left: 2px; top: 9px; width: 5px; }
+      .check-long  { left: 6px; top: 7px; width: 9px; }
+      /* çarpı iki çizgisi */
+      .cross-a, .cross-b {
+        position: absolute;
+        left: 1px; top: 7px;
+        width: 14px; height: 2px;
+        border-radius: 1px;
+        background: var(--err);
+      }
+      .step-badge {
+        font-size: 9px;
+        color: var(--txt-dim);
+        margin-top: 2px;
+        text-align: center;
+      }
+
+      /* ── HAM LOG (geliştirici) — varsayılan gizli ── */
+      #log-toggle {
+        display: block;
+        width: 100%;
+        margin: 0 0 6px;
+        padding: 5px 9px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--ink-2);
+        color: var(--txt-dim);
+        font-size: 10px;
+        text-align: left;
+        cursor: pointer;
+        user-select: none;
+      }
+      #log-toggle:focus { border-color: var(--gold-deep); }
+      #log-toggle:hover { background: var(--ink-3); }
+      #log {
+        display: none;
+        margin-bottom: 9px;
+        padding: 7px 9px;
+        height: 110px;
+        overflow-y: auto;
+        font-family: "SF Mono", Menlo, Courier;
+        font-size: 10px;
+        line-height: 1.4;
+        white-space: pre-wrap;
+        color: var(--txt-dim);
+      }
+      #log.open { display: block; }
+      #log div { margin: 1px 0; }
+
+      /* ── KONTROLLER — DIV-BUTON SİSTEMİ ──
+         ⚑ Tüm aksiyonlar `.btn` = <div role="button" tabindex="0"> (native <button> DEĞİL).
+            Gerekçe: native <button> UXP host-stilini taşır → gradient EZİLİR (düz gri).
+            <div> custom CSS + gradient'i GÜVENİLİR render eder. Erişilebilirlik (Enter/
+            Space + click) ui.js'te bindButtons() ile bağlanır.
+         İKİ KADEME:
+         • BİRİNCİL (.btn-primary → Seç/Doğrula/Kur): ALTIN GRADIENT (2-duraklı) + koyu
+           metin + ::before üst-ışık vurgusu (box-shadow YOK → pseudo ile). GERÇEK altın.
+         • İKİNCİL (.btn → Panodan Yapıştır/Geçişleri listele/Temizle): rafine cam. */
+      #controls { margin-bottom: 9px; }
+
+      /* İKİNCİL / varsayılan div-buton: rafine cam */
+      .btn {
+        position: relative;
+        display: block;
+        width: 100%;
+        margin: 5px 0;
+        padding: 9px 11px;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        background: linear-gradient(180deg, var(--ink-3), var(--ink-2));
+        color: var(--txt);
+        font-size: 12px;
+        font-weight: 500;
+        text-align: left;
+        cursor: pointer;
+        user-select: none;
+      }
+      .btn:hover {
+        background: linear-gradient(180deg, #20293a, var(--ink-3));
+        border-color: var(--line-strong);
+      }
+      .btn:active { opacity: 0.88; }
+      /* klavye odağı görünür (erişilebilirlik) — altın ince kenar */
+      .btn:focus { border-color: var(--gold-deep); }
+
+      /* BİRİNCİL: altın gradient (2-duraklı) + koyu metin + ::before üst-ışık şeridi */
+      .btn-primary {
+        background: linear-gradient(180deg, var(--gold), var(--gold-deep));
+        color: #1a140a;
+        font-weight: 600;
+        letter-spacing: 0.2px;
+        border: 1px solid var(--gold-edge);
+        text-align: center;
+        overflow: hidden;
+      }
+      /* üst-ışık vurgusu (box-shadow inset yerine — UXP'de box-shadow no-op) */
+      .btn-primary::before {
+        content: "";
+        position: absolute;
+        left: 0; right: 0; top: 0;
+        height: 50%;
+        border-radius: 9px 9px 0 0;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0));
+        opacity: 0.9;
+      }
+      .btn-primary:hover {
+        background: linear-gradient(180deg, #f4c97a, #d8b06a);
+        border-color: var(--gold-edge);
+      }
+      .btn-primary:active { opacity: 0.9; }
+      .btn-primary:focus { border-color: #1a140a; }
+      /* birincil buton içeriği ::before üstünde kalsın */
+      .btn-primary > * { position: relative; }
+      #btn-build.is-building { opacity: 0.55; }
+      #btn-build .build-spinner {
+        position: absolute;
+        right: 11px;
+        top: 9px;
+        width: 14px;
+        height: 14px;
+        z-index: 2;
+      }
+      /* footer dolan altın ilerleme çizgisi (build sırasında) */
+      #build-progress {
+        position: relative;
+        height: 3px;
+        margin: 0 0 6px;
+        border-radius: 2px;
+        background: var(--line);
+        overflow: hidden;
+        opacity: 0;
+      }
+      #build-progress .bp-fill {
+        position: absolute;
+        left: 0; top: 0; bottom: 0;
+        width: 0;
+        border-radius: 2px;
+        background: linear-gradient(90deg, var(--gold-deep), var(--gold));
+      }
+
+      /* ── DURUM ÇUBUĞU ── */
+      #statusbar {
+        display: flex;
+        align-items: center;
+        padding: 7px 10px;
+      }
+      #status-dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 5px;
+        background: var(--txt-dim);
+        opacity: 0.5;
+        margin-right: 8px;
+        flex-shrink: 0;
+      }
+      #status-dot.running { background: var(--gold); opacity: 1; }
+      #status-dot.done { background: var(--ok); opacity: 1; }
+      #status-dot.error { background: var(--err); opacity: 1; }
+      #status-text {
+        font-size: 11px;
+        color: var(--txt-dim);
+        flex: 1 1 auto;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      #elapsed {
+        font-family: "SF Mono", Menlo, Courier;
+        font-size: 10px;
+        color: var(--txt-dim);
+        margin-left: 8px;
+        flex-shrink: 0;
+      }
+
+      /* ── RECAP (final başarı) — Rapor sekmesi ── */
+      #recap {
+        padding: 10px 11px;
+        margin-bottom: 9px;
+        display: none;
+      }
+      #recap-title {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--gold);
+        margin-bottom: 7px;
+        letter-spacing: 0.2px;
+      }
+      #recap-badge {
+        display: inline-block;
+        margin-bottom: 9px;
+        padding: 3px 9px;
+        border-radius: 8px;
+        background: var(--ink-3);
+        border: 1px solid var(--line);
+        color: var(--ok);
+        font-size: 10px;
+      }
+      .recap-row {
+        position: relative;
+        padding: 4px 0 4px 16px;
+        font-size: 11px;
+        color: var(--txt);
+        opacity: 0;
+      }
+      .recap-row::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 6px;
+        bottom: 6px;
+        width: 3px;
+        border-radius: 2px;
+        background: var(--ok);
+      }
+      .recap-tick {
+        color: var(--ok);
+        margin-right: 5px;
+      }
+      #report-empty {
+        font-size: 11px;
+        color: var(--txt-dim);
+        line-height: 1.45;
+        padding: 6px 2px;
+      }
+
+      /* ── TOAST ── */
+      #toast-root {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        left: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+      }
+      .toast {
+        position: relative;
+        margin-top: 7px;
+        padding: 9px 11px 11px;
+        min-width: 60%;
+        max-width: 100%;
+        border-radius: 10px;
+        background: linear-gradient(180deg, rgba(27, 36, 51, 0.94), rgba(20, 26, 39, 0.90));
+        border: 1px solid var(--line-strong);
+        color: var(--txt);
+        font-size: 11px;
+        opacity: 0;
+        overflow: hidden;
+      }
+      .toast::before {
+        content: "";
+        position: absolute;
+        left: 0; top: 0; bottom: 0;
+        width: 3px;
+        background: var(--ok-glow);
+      }
+      .toast.err::before { background: var(--err-glow); }
+      .toast-bar {
+        position: absolute;
+        left: 3px; bottom: 0;
+        height: 2px;
+        width: 100%;
+        background: var(--ok);
+        opacity: 0.6;
+      }
+      .toast.err .toast-bar { background: var(--err); }
+      .toast-msg { padding-left: 4px; }
+    </style>
+  </head>
+  <body>
+    <div id="panel">
+      <header id="header" class="glass">
+        <div class="brand-mark">
+          <!-- basit, animasyonsuz altın logomark: iki üst üste yay -->
+          <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 12 A7 7 0 0 1 17 12" fill="none" stroke="#eab866" stroke-width="2" stroke-linecap="round" />
+            <path d="M6 15 A4 4 0 0 1 14 15" fill="none" stroke="#caa05a" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </div>
+        <span class="brand-name">AutoReji</span>
+        <span class="version-chip">beta v1.0</span>
+        <div id="header-right">
+          <div id="episode-name"></div>
+          <div id="episode-sub"></div>
+        </div>
+      </header>
+
+      <!-- SEKME RAYI — div-buton (native <button> gradient'i ezdiği için) -->
+      <nav id="tabbar">
+        <div class="tab active" data-tab="load" role="tab" tabindex="0"><span class="lock-glyph"></span>Yükle</div>
+        <div class="tab" data-tab="build" role="tab" tabindex="0"><span class="lock-glyph"></span>Kur</div>
+        <div class="tab" data-tab="report" role="tab" tabindex="0"><span class="lock-glyph"></span>Rapor</div>
+        <span class="tab-ind" id="tab-ind"></span>
+      </nav>
+
+      <div id="tabbody">
+        <!-- ───────── YÜKLE SEKMESİ ───────── -->
+        <section class="page active" id="page-load" role="tabpanel">
+          <div class="scrollarea">
+            <div id="last-badge"></div>
+            <div id="load-intro">
+              Brain'in ürettiği <b>manifest.json</b>'u seç ya da içeriğini yapıştır.
+              Doğrulanınca otomatik <b>Kur</b> sekmesine geçer.
+            </div>
+            <div id="btn-pick" class="btn btn-primary" role="button" tabindex="0"><span>Manifest Dosyası Seç</span></div>
+            <div class="divider">VEYA</div>
+            <div class="paste-wrap" id="paste-wrap">
+              <textarea id="paste-json" placeholder="manifest.json içeriğini buraya yapıştır (Cmd+V)"></textarea>
+            </div>
+            <div class="load-btn-row">
+              <div id="btn-paste-clip" class="btn" role="button" tabindex="0">Panodan Yapıştır</div>
+              <div id="btn-validate" class="btn btn-primary" role="button" tabindex="0"><span>Doğrula</span></div>
+            </div>
+            <div id="load-error"></div>
+            <section id="load-summary" class="glass">
+              <div class="ls-head">
+                <span class="ls-tick">✓</span>
+                <span class="ls-name" id="ls-name"></span>
+              </div>
+              <div>
+                <span class="ls-count" id="ls-count">0</span><span class="ls-count-label">klip</span>
+              </div>
+              <div class="ls-chips" id="ls-chips"></div>
+              <div class="ls-go">Kur sekmesine geçiliyor…</div>
+            </section>
+          </div>
+        </section>
+
+        <!-- ───────── KUR SEKMESİ ───────── -->
+        <section class="page" id="page-build" role="tabpanel">
+          <div class="scrollarea">
+            <section id="report" class="glass">
+              <div id="report-chips"></div>
+            </section>
+
+            <section id="pipeline">
+              <div class="spine"></div>
+              <div id="steps"></div>
+            </section>
+
+            <div id="log-toggle" role="button" tabindex="0">▸ Ham günlük (geliştirici)</div>
+            <div id="log" class="glass"></div>
+          </div>
+
+          <div class="page-footer">
+            <div id="build-progress"><span class="bp-fill"></span></div>
+            <footer id="controls">
+              <div id="btn-build" class="btn btn-primary" role="button" tabindex="0">▶&nbsp;&nbsp;Bölümü Kur</div>
+              <div id="btn-list" class="btn" role="button" tabindex="0">Geçişleri listele</div>
+              <div id="btn-clear" class="btn" role="button" tabindex="0">Temizle / Yeniden</div>
+            </footer>
+            <div id="statusbar" class="glass">
+              <span id="status-dot"></span>
+              <span id="status-text">Hazır</span>
+              <span id="elapsed">0:00.0</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ───────── RAPOR SEKMESİ ───────── -->
+        <section class="page" id="page-report" role="tabpanel">
+          <div class="scrollarea">
+            <section id="recap" class="glass">
+              <div id="recap-title">✓ BİTTİ — RENDER YOK</div>
+              <span id="recap-badge">Native stereo · düzenlenebilir klip + geçiş</span>
+              <div id="recap-rows"></div>
+            </section>
+            <div id="report-empty">Henüz kurulum yapılmadı. Bir bölüm kurulunca özet burada görünür.</div>
+          </div>
+          <div class="page-footer">
+            <div id="btn-new" class="btn btn-primary" role="button" tabindex="0"><span>Yeni bölüm kur</span></div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div id="toast-root"></div>
+
+    <script src="main.js"></script>
+    <script src="ui.js"></script>
+  </body>
+</html>
