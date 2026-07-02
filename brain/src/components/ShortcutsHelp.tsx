@@ -29,7 +29,7 @@ const GROUPS: { title: string; rows: { keys: string[]; desc: string }[] }[] = [
       { keys: ['Tık'], desc: 'Klibi seç + önizle' },
       { keys: ['⌘', 'Tık'], desc: 'Çoklu işaretle (toplu işlem)' },
       { keys: ['⇧', 'Tık'], desc: 'Seçiliden buraya aralık işaretle' },
-      { keys: ['Hover'], desc: 'Üzerine gel → kareyi kazı / önizle' },
+      { keys: ['Hover'], desc: 'Üzerine gel → canlı önizleme' },
     ],
   },
 ]

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { Film, Play } from 'lucide-react'
 import { useApp } from '../../lib/store'
-import { videoUrl, clipThumb, spriteUrl, SPRITE_FRAMES } from '../../lib/data'
+import { videoUrl, clipThumb, spriteUrl, SPRITE_FRAMES, hasSprite } from '../../lib/data'
 import { scaleColor, clamp } from '../../lib/utils'
 import type { Clip } from '../../lib/types'
 
@@ -58,7 +58,7 @@ export function InspectorPreview({ clip: c }: { clip: Clip }) {
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => { setHover(false); setFrame(-1) }}
       onMouseMove={(e) => {
-        if (!motionPreview || autoplay) return
+        if (!motionPreview || autoplay || !hasSprite(c)) return   // sprite yoksa (.app) kare gezinme kapalı — autoplay gerçek videoyla zaten çalışıyor
         const r = e.currentTarget.getBoundingClientRect()
         const f = Math.max(0, Math.min(SPRITE_FRAMES - 1, Math.floor(((e.clientX - r.left) / r.width) * SPRITE_FRAMES)))
         setFrame((p) => (p === f ? p : f))

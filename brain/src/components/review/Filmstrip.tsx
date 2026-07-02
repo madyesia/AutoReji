@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useRef, useState, type MouseEvent } from 'react'
 import { Minus, Plus, Layers, Pencil, AlertTriangle, Film, ImageOff, Trash2, Undo } from 'lucide-react'
 import { useApp } from '../../lib/store'
-import { clipThumb, spriteUrl, SPRITE_FRAMES, needsAttention, riskColor } from '../../lib/data'
+import { clipThumb, spriteUrl, SPRITE_FRAMES, hasSprite, needsAttention, riskColor } from '../../lib/data'
 import { REGIME, TRANSITION, getTransition, fmtDur, scaleLabel, scaleColor, cn } from '../../lib/utils'
 import type { Clip } from '../../lib/types'
 import { Tip } from '../ui'
@@ -37,9 +37,9 @@ export function Filmstrip() {
     <div className="flex shrink-0 flex-col"
       style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012)), #0a0d15' }}>
       <div className="flex h-9 shrink-0 items-center justify-between px-4 hairline-t">
-        <span className="text-[11.5px] text-fg-subtle tabular">{clips.length} klip · film şeridi{motionPreview ? ' · üstüne gel → kare kazı' : ''}</span>
+        <span className="text-[11.5px] text-fg-subtle tabular">{clips.length} klip · film şeridi{motionPreview && clips.some(hasSprite) ? ' · üstüne gel → içinde gezin' : ''}</span>
         <div className="flex items-center gap-1.5">
-          <Tip label={motionPreview ? 'Hareketli önizleme AÇIK — kapat (statik kareler)' : 'Hareketli önizleme KAPALI — aç (hover-scrub + video)'}>
+          <Tip label={motionPreview ? 'Hareketli önizleme AÇIK — kapat (statik kareler)' : 'Hareketli önizleme KAPALI — aç (üstüne gelince video oynar)'}>
             <button onClick={toggleMotion} className={cn('flex h-7 items-center gap-1.5 rounded-md px-2 text-[11.5px] font-medium transition-colors duration-[var(--dur-fast)]', motionPreview ? 'bg-amber-400/15 text-amber-300' : 'text-fg-muted hover:bg-white/8 hover:text-fg')}>
               {motionPreview ? <Film size={13} /> : <ImageOff size={13} />} Hareketli
             </button>
@@ -91,7 +91,7 @@ function ClipCard({ clip: c, width, selected, marked, dim, onClick, onHover }: {
       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(e as unknown as MouseEvent) } }}
       onMouseEnter={onHover}
       onMouseMove={(e) => {
-        if (!motionPreview) return         // hareketli önizleme kapalıysa kare kazıma yok (statik thumbnail)
+        if (!motionPreview || !hasSprite(c)) return   // kapalıysa veya sprite yoksa (.app) kare gezinme yok — sahte ilerleme gösterme
         const rect = e.currentTarget.getBoundingClientRect()
         const f = Math.max(0, Math.min(SPRITE_FRAMES - 1, Math.floor(((e.clientX - rect.left) / rect.width) * SPRITE_FRAMES)))
         setFrame((p) => (p === f ? p : f))

@@ -204,8 +204,9 @@ function PremiereSection({ idx, revealed }: { idx: number; revealed: boolean }) 
   const st = setup.premiere
   return (
     <SpineCard idx={idx} revealed={revealed} color={ackColor(st)} icon={<Clapperboard size={20} />} title="Premiere Pro 2026" badge={<AckBadge st={st} />}>
-      <p className="text-[12.5px] leading-snug text-fg-subtle">UXP eklentisini çalıştırmak için Premiere Pro 25.6+ ve <b className="text-fg-muted">geliştirici modu</b> gerekir (sende 2026 var ✓).</p>
-      <Steps items={['Premiere Pro\'yu aç.', 'Ayarlar → Plugins → "Enable Developer Mode" işaretle, Premiere\'i yeniden başlat.']} />
+      {/* .ccx çift-tıkla kurulduğu için geliştirici modu GEREKMEZ (v1.14.3 araştırması — UDT kaldırıldı); MONTAJCI kartıyla tek hikâye */}
+      <p className="text-[12.5px] leading-snug text-fg-subtle">MONTAJCI paneli için <b className="text-fg-muted">Premiere Pro 25.6 veya üstü</b> yeterli — ek ayar gerekmez.</p>
+      <Steps items={['Premiere Pro\'yu bir kez aç (sürümün uygun olduğunu görmek için).', 'Sürümün 25.6 veya üstüyse "Premiere hazır"ı işaretle.']} />
       <div className="mt-3"><AckButton st={st} onAck={() => setSetup({ premiere: 'ack' })} onUndo={() => setSetup({ premiere: 'pending' })} label="Premiere hazır ✓" /></div>
     </SpineCard>
   )
@@ -410,7 +411,7 @@ function PluginSection({ idx, revealed }: { idx: number; revealed: boolean }) {
 
   return (
     <SpineCard idx={idx} revealed={revealed} color={ackColor(st)} icon={<PlugZap size={20} />} title="MONTAJCI panelini Premiere'e kur" badge={pluginBadge}>
-      <p className="text-[12.5px] leading-snug text-fg-subtle">Kurgu yapan paneli Premiere'e kur. <Badge color="var(--color-info)">.ccx · imzasız · geliştirici modu gerekmez · offline</Badge></p>
+      <p className="text-[12.5px] leading-snug text-fg-subtle">Kurgu yapan paneli Premiere'e kur. <Badge color="var(--color-info)">tek dosya · çift tıkla kurulur · internet gerekmez</Badge></p>
 
       {status === 'installing' ? (
         <div className="mt-3 flex items-center gap-4">
@@ -463,7 +464,7 @@ function PluginSection({ idx, revealed }: { idx: number; revealed: boolean }) {
         <div className="mt-3">{InstallSteps}</div>
       ) : (
         <div className="mt-3 flex flex-wrap items-center gap-2">
-          <Button size="sm" variant="primary" onClick={install}><DownloadCloud size={14} /> MONTAJCI'yı Kur</Button>
+          <Button size="sm" variant="primary" onClick={install}><DownloadCloud size={14} /> MONTAJCI'yı İndir</Button>
           <Badge color="var(--color-info)">indir · çift-tıkla kur · test et</Badge>
         </div>
       )}

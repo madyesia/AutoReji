@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { Play, Pause, RotateCcw, X, Volume2 } from 'lucide-react'
-import { thumbUrl } from '../../lib/data'
+import { clipThumb } from '../../lib/data'
 import { getTransition, TRANSITION, fmtDur, clamp } from '../../lib/utils'
 import type { Clip } from '../../lib/types'
 
@@ -49,7 +49,7 @@ export function PreviewModal({ clip, prev, onClose }: { clip: Clip; prev: Clip |
         <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-[640px] max-w-[92vw] -translate-x-1/2 -translate-y-1/2 rounded-2xl glass p-5 shadow-[var(--shadow-pop)] focus:outline-none">
           <div className="mb-3 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Dialog.Title className="text-[15px] font-semibold">Geçiş önizleme</Dialog.Title>
+              <Dialog.Title className="text-[15px] font-semibold">Geçiş önizlemesi</Dialog.Title>
               <span className="rounded-md px-1.5 py-0.5 text-[11px] font-medium" style={{ background: `color-mix(in srgb, ${TRANSITION[t].color} 18%, transparent)`, color: TRANSITION[t].color }}>
                 {prev ? `${prev.scene} → ${clip.scene}` : `Sahne ${clip.scene}`} · {TRANSITION[t].label}{t !== 'cut' && ` ${fmtDur(dur)}`}
               </span>
@@ -60,22 +60,22 @@ export function PreviewModal({ clip, prev, onClose }: { clip: Clip; prev: Clip |
           <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-black ring-hair">
             {prev ? (
               <>
-                <img ref={prevRef} src={thumbUrl(prev.scene)} alt="" className="absolute inset-0 h-full w-full object-cover" />
-                <img ref={curRef} src={thumbUrl(clip.scene)} alt="" className="absolute inset-0 h-full w-full object-cover" style={{ opacity: 0 }} />
+                <img ref={prevRef} src={clipThumb(prev)} alt={`Sahne ${prev.scene} karesi`} className="absolute inset-0 h-full w-full object-cover" />
+                <img ref={curRef} src={clipThumb(clip)} alt={`Sahne ${clip.scene} karesi`} className="absolute inset-0 h-full w-full object-cover" style={{ opacity: 0 }} />
                 <div ref={blackRef} className="absolute inset-0 bg-black" style={{ opacity: 0 }} />
               </>
             ) : (
-              <img src={thumbUrl(clip.scene)} alt="" className="absolute inset-0 h-full w-full object-cover" />
+              <img src={clipThumb(clip)} alt={`Sahne ${clip.scene} karesi`} className="absolute inset-0 h-full w-full object-cover" />
             )}
             <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/10" />
           </div>
 
           <div className="mt-3 flex items-center justify-between">
             <div className="flex items-center gap-1.5">
-              <button onClick={() => setPlaying((p) => !p)} className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/8 text-fg hover:bg-white/12">{playing ? <Pause size={16} /> : <Play size={16} />}</button>
-              <button onClick={restart} className="flex h-9 w-9 items-center justify-center rounded-lg text-fg-muted hover:bg-white/8 hover:text-fg"><RotateCcw size={15} /></button>
+              <button onClick={() => setPlaying((p) => !p)} aria-label={playing ? 'Duraklat' : 'Oynat'} className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/8 text-fg hover:bg-white/12">{playing ? <Pause size={16} /> : <Play size={16} />}</button>
+              <button onClick={restart} aria-label="Baştan oynat" className="flex h-9 w-9 items-center justify-center rounded-lg text-fg-muted hover:bg-white/8 hover:text-fg"><RotateCcw size={15} /></button>
             </div>
-            <div className="flex items-center gap-1.5 text-[12px] text-fg-subtle"><Volume2 size={14} /> Native stereo ses tam uygulamada (Premiere önizleme)</div>
+            <div className="flex items-center gap-1.5 text-[12px] text-fg-subtle"><Volume2 size={14} /> Bu önizleme sessizdir — gerçek stereo sesi Premiere'de duyarsın.</div>
           </div>
         </Dialog.Content>
       </Dialog.Portal>

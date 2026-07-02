@@ -101,6 +101,16 @@
 - [~] Performans + hata toleransı — sidecar pipeline kullanıcının GERÇEK testinde (gerçek video klasörü + Ollama, ~dk)
 - [x] **Bitti kriteri (yapısal):** `.app` derlenir+imzalanır+açılır; gömülü sidecar frozen ping; tarayıcı akışı 0 konsol hatası. ⚠️ **Offline/Premiere/sidecar-pipeline UÇTAN UCA = kullanıcının GUI testi (otomatik EDİLEMEZ)**
 
+## Faz 5 — UI/UX Geliştirme Turları (kaynak: `docs/UI_UX_DENETIM_2026-07-02.md` + `docs/tasarim/README.md`)
+> 16-ajanlık denetim → 7 turluk plan. ⏸️ Ticarileşme/Vizyon-2.0 RAFTA (yalnız beta/kendi kullanımı). Her tur: test → prod build → sürüm bump → CHANGELOG/DEVAM/PLAN.
+- [x] **TUR 0 — Kırıklar + dürüstlük (v1.0.2):** PreviewModal `clipThumb` · hover-scrub `hasSprite` kapısı · Kur'da ölü mod anahtarı · 🔴 kopyalar ("kuruluma hazır", Build adımları, "MONTAJCI'yı İndir", dev-mode çelişkisi, "Farklı Kaydet", panel "Brain") · panel sessiz-hata toast + Kur çift-tık kilidi (.ccx yeniden paketlendi)
+- [ ] **TUR 1 — Veri güvenliği UX:** Review boş-durum kilidi · Build ön-uçuş kontrolü · arşiv sil/yeniden-aç onayları · toplu silme onayı · önizleme hata/yükleme durumu · eyleme dönük analiz hataları · işaretli-set (marked) kaybına koruma
+- [ ] **TUR 2 — Token + dil konsolidasyonu** (`spec-tokenlar.md` + `tarama-kopya.md` 🟡)
+- [ ] **TUR 3 — Hareket Sistemi 2.0** (`spec-motion.md`: motion.ts + yönlü geçiş + filmstrip stagger + kutlamalar + ambient)
+- [ ] **TUR 4 — İnceleme 2.0** (`tarama-review.md` §3/§8: enerji eğrisi + linger + Timeline katmanlama + varyant seçici + mod sadeleştirme)
+- [ ] **TUR 5 — Ekran kompozisyonu** (`tarama-ekranlar.md`: Build'e yağmur+RippleField · glass-raised hiyerarşi · Setup özet-satırı · Archive hero)
+- [ ] **TUR 6 — Panel + referans desenleri** (`tarama-panel.md` P1/P2 + `spec-referans-desenler.md` seçmeleri)
+
 ## Sürekli — Teslim / Devir paketi (§20)
 - [x] `DEVAM.md` + `CHANGELOG.md` her faz/oturum sonunda güncel (v1.14.6)
 - [x] `README.md` sıfırdan kurulum güncel (üretim durumu + son-kullanıcı kurulum + Madyes/lisans)

@@ -11,7 +11,9 @@ import { ApprovedSeal, ProgressRing, StageTimeline, BirthStat, RevealPanel } fro
 import { prettyEpisode } from '../components/AppShell'
 import type { Clip } from '../lib/types'
 
-const STEPS = ['Klipler import ediliyor (native stereo)', 'Sequence kuruluyor', 'Boşluklar kapatılıyor (tick-tam)', 'Geçişler ekleniyor (ortalı)', 'Crop · intro/outro']
+// DÜRÜSTLÜK: bu adımlar Premiere'de DEĞİL, burada hazırlanan kurgu PLANININ bölümleri —
+// gerçek kurulum MONTAJCI panelinde olur. Adlar "hazırlanıyor" dilinde ve jargonsuz.
+const STEPS = ['Klip listesi hazırlanıyor', 'Kurgu sırası diziliyor', 'Boşluk kontrolü planlanıyor', 'Geçişler yerleştiriliyor', 'Çerçeve + giriş-çıkış ayarı']
 
 function sampleEvenly<T>(arr: T[], n: number): T[] {
   if (n <= 1) return arr.slice(0, Math.max(0, n))
@@ -136,8 +138,8 @@ export function BuildScreen() {
                 <span className="text-[19px] font-semibold tabular leading-none text-gold">{Math.round(prog * 100)}<span className="text-[11px]">%</span></span>
               </ProgressRing>
               <div>
-                <h1 className="text-[24px] font-semibold">Kuruluyor…</h1>
-                <p className="mt-1 text-[13px] text-fg-subtle">UXP paneli timeline'ı kuruyor · <b className="text-fg-muted">render yok</b></p>
+                <h1 className="text-[24px] font-semibold">Hazırlanıyor…</h1>
+                <p className="mt-1 text-[13px] text-fg-subtle">Kurgu planı ve manifest hazırlanıyor · <b className="text-fg-muted">render yok</b></p>
               </div>
             </div>
             <div className="mt-7"><StageTimeline stages={STEPS.map((s) => ({ label: s }))} activeIndex={Math.min(STEPS.length - 1, Math.floor(prog * STEPS.length))} /></div>
@@ -148,15 +150,15 @@ export function BuildScreen() {
           <motion.div initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }} className="pt-4">
             <div className="relative flex flex-col items-center text-center">
               <ApprovedSeal kind="real" size={72} />
-              <h1 className="mt-5 text-[26px] font-semibold">Bölüm kuruldu 🌧️</h1>
-              <p className="mt-1.5 max-w-md text-[14px] text-fg-muted">Premiere'de native stereo, düzenlenebilir, render'sız timeline hazır. İnce ayarı orada yapabilirsin.</p>
+              <h1 className="mt-5 text-[26px] font-semibold">Bölüm kuruluma hazır 🌧️</h1>
+              <p className="mt-1.5 max-w-md text-[14px] text-fg-muted">Kurgu planın tamam. Şimdi manifest dosyasını kaydet ve MONTAJCI panelinde aç — Premiere zaman çizelgesini render almadan, native stereo kurar.</p>
             </div>
 
             <div className="mt-7 space-y-4 rounded-2xl glass p-5">
               {setup.plugin === 'pending' && (
                 <button onClick={() => setScreen('setup')} className="flex w-full items-center gap-2.5 rounded-xl bg-amber-500/[0.08] px-3.5 py-2.5 text-left ring-1 ring-amber-400/25 transition-colors hover:bg-amber-500/[0.12]">
                   <PlugZap size={15} className="shrink-0 text-amber-400" />
-                  <span className="flex-1 text-[12.5px] leading-snug text-fg-muted">MONTAJCI panelini henüz bağlamadın — bu olmadan bölüm Premiere'de açılmaz. <b className="text-amber-300">Hazırlığı aç →</b></span>
+                  <span className="flex-1 text-[12.5px] leading-snug text-fg-muted">MONTAJCI paneli henüz bağlı değil — bu olmadan bölüm Premiere'de açılmaz. <b className="text-amber-300">Hazırlığı aç →</b></span>
                 </button>
               )}
               <Recap stats={stats} downgraded={manifest?.build.fades_downgraded_to_cut ?? 0} />

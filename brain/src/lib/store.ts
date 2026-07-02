@@ -158,7 +158,7 @@ export const useApp = create<AppState>((set, get) => {
       // .app: arşivde kayıtlı GERÇEK manifesti diskten oku (savedPath). Tarayıcı önizleme: örnek manifest.
       let m: Manifest | null = null
       if (tauriAvailable()) {
-        if (!entry.savedPath) { get().pushToast('Bu kaydın manifest yolu yok — önce "Farklı Kaydet" ile kaydet', { kind: 'amber', icon: 'alert', ttl: 5000 }); return }
+        if (!entry.savedPath) { get().pushToast('Bu bölümün manifest dosyası kaydedilmemiş', { kind: 'amber', icon: 'alert', ttl: 6000, sub: 'Bölümü yeniden aç → Kur ekranında "Manifest\'i Kaydet"e bas.' }); return }
         const raw = await readText(entry.savedPath)
         try { if (raw) m = JSON.parse(raw) as Manifest } catch { /* bozuk JSON → aşağıda yakalanır */ }
         if (!m) { get().pushToast('Kayıtlı manifest okunamadı', { kind: 'danger', icon: 'alert' }); return }

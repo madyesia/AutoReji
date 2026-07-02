@@ -3,6 +3,27 @@
 Tüm önemli değişiklikler burada. Biçim: [Keep a Changelog] benzeri; sürümleme SemVer benzeri.
 Başlangıç sürümü **v1.1**; her güncellemede artar.
 
+## [beta v1.0 · 1.0.2] — 2026-07-02 — UI/UX TUR 0: kırıklar + dürüstlük (16-ajanlık denetimin ilk uygulama turu)
+> Kaynak: `docs/UI_UX_DENETIM_2026-07-02.md` + `docs/tasarim/` (4+12 ajanlık tarama — fihrist: `docs/tasarim/README.md`). Tur planı orada; bu sürüm **TUR 0**.
+### .app'te kırık özellikler (tarayıcıda görünmüyordu)
+- **Geçiş önizleme modalı .app'te İKİ BOŞ GÖRSEL arasında oynuyordu** — `PreviewModal` mock `thumbUrl` kullanıyordu → gerçek kareye düşen `clipThumb`'a geçirildi (+ Play/Duraklat/Baştan butonlarına aria-label, anlamlı alt metinleri).
+- **Hover-scrub .app'te SAHTE geri bildirim veriyordu** (sprite dosyaları yalnız dev mock'unda var; kare değişmezken amber ilerleme çizgisi oynuyordu) → `hasSprite` kapısı: sprite yoksa kare-gezinme + ilerleme çizgisi + "üstüne gel → içinde gezin" başlık eki tamamen kapalı (`Filmstrip`, `InspectorPreview`, `ShortcutsHelp` kopyaları dahil).
+### Dürüstlük düzeltmeleri ("sahte yok" ilkesi — kopya gerçeği yansıtmıyordu)
+- **"Bölüm kuruldu 🌧️" → "Bölüm kuruluma hazır 🌧️"**: bu ekran yalnız kurgu planını hazırlar; gerçek kurulum MONTAJCI'da. Gövde metni de dürüstleşti ("manifest'i kaydet → MONTAJCI'da aç → Premiere kurar").
+- Build "Kuruluyor…" → **"Hazırlanıyor…"** + 5 adım adı jargonsuz/dürüst dile ("Klipler import ediliyor (native stereo)" → "Klip listesi hazırlanıyor" vb.).
+- Intake tarayıcı kopyası "Sürükle-bırak veya tıkla" → **"Örneği yüklemek için tıkla"** (drop handler yok — boş vaatti).
+- Setup **"MONTAJCI'yı Kur" → "MONTAJCI'yı İndir"** (buton yalnız indirir, kurulum çift-tık ile).
+- Setup **Premiere kartı ↔ MONTAJCI kartı çelişkisi giderildi**: "geliştirici modu gerekir + Enable Developer Mode adımı" KALKTI (v1.14.3 araştırması: .ccx çift-tıkla kurulur, dev modu gerekmez) → tek hikâye "25.6+ yeterli — ek ayar gerekmez"; statik "(sende 2026 var ✓)" iddiası da gitti. Rozet "imzasız·..." → **"tek dosya · çift tıkla kurulur · internet gerekmez"** (güven dili).
+- Arşiv toast'ı var olmayan **"Farklı Kaydet"** butonuna yönlendiriyordu → gerçek yol: 'Bölümü yeniden aç → Kur ekranında "Manifest'i Kaydet"'.
+- Panel: **"Brain"** iç kod adı kullanıcıya sızıyordu → "AutoReji". PreviewModal alt notu "Native stereo ses tam uygulamada" → "Bu önizleme sessizdir — gerçek stereo sesi Premiere'de duyarsın."; "Geçiş önizleme(si)" dilbilgisi; Build eklenti uyarısı suçlayıcı dilden arındırıldı.
+### Ölü kontrol
+- **Kur ekranındaki mod anahtarı kaldırıldı** (BuildScreen modu hiç okumuyor — v1.14.6 "ölü kontrol" turunun kaçırdığı) → yalnız İnceleme'de görünür.
+### MONTAJCI paneli (⚠️ `.ccx` yeniden paketlendi — Premiere'de yeniden kurulmalı)
+- **Sessiz hata yolları görünür oldu**: adım-DIŞI `err()`/`warn()` artık toast da atar ("Açık proje yok", "Pano boş", "Önce manifest yükle"… kullanıcı butona basıp 'hiçbir şey olmadı' sanmaz). Adım-içi hatalar zaten step-error ile görünürdü — çifte bildirim engellendi (manifest okunamadı/geçersiz yolları salt-günlük).
+- **"Bölümü Kur" yeniden-giriş kilidi**: kurulum sürerken ikinci tık iç içe ikinci pipeline başlatıyordu → `BUILD_RUNNING` bayrağı + "Kurulum zaten sürüyor" toast'ı.
+### Doğrulama
+- `tsc` strict + `vite build` temiz (608KB, önceki seviye) · `node --check panel/main.js` temiz · tarayıcıda uçtan uca gözle doğrulandı (Hazırlık→Giriş→örnek→Analiz→İnceleme→Kur; yeni kopyalar + film şeridi başlığı + Kur'da mod anahtarının yokluğu ekran görüntüsüyle) · `.app` + `.ccx` yeniden derlendi.
+
 ## [beta v1.0 · 1.0.1] — 2026-07-01 — Görsel-AI'yı süreye GERÇEKTEN bağla + AI-üretim baş/son garanti kesimi + gerçek önizleme kareleri
 > **Faz 2 (kurgu motoru) kullanıcı onayıyla bilinçli AÇILDI — yalnız SÜRE/KIRPMA + thumbnail.** Geçiş kararları DEĞİŞMEDİ (REF Bölüm 2: cut 117 / fade 40 / black 2 — birebir). Amaç: bekletilen görsel-AI'yı boşa çalıştırmamak, en verimli işe koşmak.
 ### Süre motoru (trim.py) — HEDEF-SÜRE modeli (additive-mod'dan yeniden tasarlandı)

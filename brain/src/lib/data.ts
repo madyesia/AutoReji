@@ -21,6 +21,10 @@ export function clipThumb(c: Clip): string {
 // hover-scrub: her klip için yatay sprite şeridi (SPRITE_FRAMES kare tek görselde, ağ çağrısı yok)
 export const SPRITE_FRAMES = 8
 export const spriteUrl = (scene: number) => `/sprites/${scene}.jpg`
+// Sprite şeritleri yalnız dev önizlemenin mock verisinde var; pipeline .app için üretmiyor.
+// .app'te scrub arayüzü (kare değişimi + ilerleme çizgisi + kopya) bu kapıyla tamamen kapanır —
+// aksi hâlde kare değişmezken ilerleme çizgisi oynuyor gibi görünür (sahte geri bildirim).
+export const hasSprite = (_c: Clip) => !tauriAvailable()
 // Gerçek video önizleme: paketlenmiş .app'te asset protokolü (convertFileSrc → asset://); dev tarayıcıda Vite /@fs.
 export function videoUrl(file: string): string {
   if (tauriAvailable()) {

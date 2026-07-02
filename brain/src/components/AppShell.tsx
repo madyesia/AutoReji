@@ -63,7 +63,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const setup = useApp((s) => s.setup)
   const setupReady = setupReadyCount(setup)
   const setupAllOk = setupReady === SETUP_ITEM_COUNT && !setup.skipped
-  const showModes = screen === 'review' || screen === 'build'
+  const showModes = screen === 'review'   // yalnız İnceleme: BuildScreen modu okumuyor — orada göstermek ölü kontrol olur
   const [about, setAbout] = useState(false)
 
   return (

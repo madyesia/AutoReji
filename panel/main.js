@@ -45,12 +45,21 @@ function log(msg, color, level) {
   PANEL.emit("log", msg, level || "info");
 }
 const ok = (m) => log("✓ " + m, "#7ddc8f", "ok");
-const err = (m) => log("✗ " + m, "#ff8f8f", "err");
+// Adım DIŞINDAKİ hata/uyarılar ("Açık proje yok", "Pano boş"…) yalnız günlüğe düşüyordu →
+// kullanıcı butona basıp hiçbir şey olmadığını sanıyordu. Adım içindekiler step-error ile
+// zaten görünür; o yüzden toast yalnız CURRENT_STEP == null iken (çifte bildirim olmasın).
+const err = (m) => {
+  log("✗ " + m, "#ff8f8f", "err");
+  if (CURRENT_STEP == null) PANEL.emit("toast", "err", m);
+};
 const info = (m) => {
   log(m, "#cfd6e6", "info");
   if (CURRENT_STEP != null) PANEL.emit("step-substep", CURRENT_STEP, m);
 };
-const warn = (m) => log("⚠ " + m, "#ffd9a0", "warn");
+const warn = (m) => {
+  log("⚠ " + m, "#ffd9a0", "warn");
+  if (CURRENT_STEP == null) PANEL.emit("toast", "err", "⚠ " + m);
+};
 const clearLog = () => {
   const el = document.querySelector("#log");
   if (el) el.innerHTML = "";
@@ -93,6 +102,9 @@ async function listTransitions() {
 
 // Oturum-içi saklı doğrulanmış manifest (loadAndPreview yazar, runBuild okur).
 let LOADED_MANIFEST = null;
+// "Bölümü Kur" yeniden-giriş kilidi: kurulum sürerken ikinci tık iç içe ikinci
+// pipeline başlatıyordu (çifte import/sequence). Bayrak wire()'daki sarmalayıcıda yönetilir.
+let BUILD_RUNNING = false;
 
 // Dosya seçici (file) veya yapıştırılan metin (paste) → ham obje.
 // source='file' → getFileForOpening akışı (sağlamlaştırıldı); source='paste' → textarea JSON.parse.
@@ -313,7 +325,7 @@ async function loadAndPreview(source) {
     manifest = await loadManifest(source || "file");
   } catch (e) {
     const m = (e && e.message) ? e.message : String(e);
-    err("Manifest okunamadı: " + m);
+    log("✗ Manifest okunamadı: " + m, "#ff8f8f", "err");   // salt günlük — toast'ı aşağıda kendisi atıyor (çifte bildirim olmasın)
     // GÖRÜNÜR geri bildirim: Yükle sekmesindeki kırmızı satır + üstte toast (kullanıcı
     // "hiçbir şey olmadı" görmesin). Dosya seçici hatası da bu yola düşer.
     PANEL.emit("manifest-error", m);
@@ -332,7 +344,7 @@ async function loadAndPreview(source) {
     v = validateManifest(manifest);
   } catch (e) {
     const m = (e && e.message) ? e.message : String(e);
-    err("Manifest geçersiz: " + m);
+    log("✗ Manifest geçersiz: " + m, "#ff8f8f", "err");   // salt günlük — manifest-error satırı görünür bildirimi veriyor
     PANEL.emit("manifest-error", m);
     return;
   }
@@ -596,7 +608,12 @@ function wire() {
 
   // Kur sekmesi: bölümü kur (manifest zaten yüklü) + yardımcılar
   const bBuild = document.querySelector("#btn-build") || document.querySelector("#btn-manifest");
-  if (bBuild) bBuild.addEventListener("click", runBuild);
+  if (bBuild) bBuild.addEventListener("click", () => {
+    if (BUILD_RUNNING) { PANEL.emit("toast", "err", "Kurulum zaten sürüyor — bitmesini bekle."); return; }   // adım içinde de görünsün → doğrudan toast
+    BUILD_RUNNING = true;
+    // runBuild içindeki TÜM çıkış yolları (erken return / hata) bayrağı burada temizler.
+    Promise.resolve(runBuild()).finally(() => { BUILD_RUNNING = false; });
+  });
   const bList = document.querySelector("#btn-list");
   if (bList) bList.addEventListener("click", listTransitions);
   const bClear = document.querySelector("#btn-clear");

@@ -106,7 +106,7 @@ export function IntakeScreen() {
                 </div>
                 <div className={cn('mt-1 w-full truncate rounded-lg px-2.5 py-1.5 text-[12px] tabular transition-colors',
                   on ? 'bg-ink-900/80 text-amber-200/90' : 'bg-white/[0.03] text-fg-faint')}>
-                  {on ? (paths[s.key] ? baseName(paths[s.key]) : s.sample) : (tauriAvailable() ? 'Seçmek için tıkla' : 'Sürükle-bırak veya tıkla')}
+                  {on ? (paths[s.key] ? baseName(paths[s.key]) : s.sample) : (tauriAvailable() ? 'Seçmek için tıkla' : 'Örneği yüklemek için tıkla')}
                 </div>
               </motion.button>
             )
