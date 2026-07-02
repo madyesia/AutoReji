@@ -3,6 +3,10 @@
 Tüm önemli değişiklikler burada. Biçim: [Keep a Changelog] benzeri; sürümleme SemVer benzeri.
 Başlangıç sürümü **v1.1**; her güncellemede artar.
 
+## [beta v1.1 · 1.1.0] — 2026-07-02 — Görünen sürüm etiketi güncellemelerle artacak (kullanıcı kararı)
+- **YENİ SÜRÜM KURALI (kullanıcı 2026-07-02):** görünen etiket artık sabit kalmaz — her anlamlı güncelleme paketi görünen sürümü de artırır. TUR 0 + TUR 1 paketleri = **"beta v1.1"** (teknik semver **1.1.0**'a hizalandı).
+- Etiket 6 yerde güncellendi: `APP_VERSION` (üst bar) · panel çipi (**`.ccx` yeniden paketlendi → yeniden kur**) · pencere başlığı + `copyright` (tauri.conf → Info.plist) · Hakkında footer · `LICENSE` · `README`.
+
 ## [beta v1.0 · 1.0.3] — 2026-07-02 — UI/UX TUR 1: veri güvenliği UX (A1-A6 + F2)
 > Kaynak: denetim A maddeleri. Yeni ortak bileşen: **`ConfirmDialog`** (Radix Dialog — odak tuzağı/Esc/scroll kilidi hazır; normal + danger varyantı).
 - **A1 — Boş kurgu artık kurulamaz:** tüm klipler çıkarılınca İnceleme'de önizleme+çizelge yerine rehber boş-durum kartı ("Kurguda hiç klip kalmadı" + Geri al / Tümünü geri getir; film şeridi açık kalır — kartlardan tek tek geri getirilebilir) ve **"Premiere'de Kur" kilitlenir** (tooltip nedenini söyler). Eskiden boş/bozuk timeline üretilebiliyordu.

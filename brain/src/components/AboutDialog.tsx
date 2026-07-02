@@ -38,7 +38,7 @@ export function AboutDialog({ open, onClose }: { open: boolean; onClose: () => v
           </div>
 
           <div className="mt-4 hairline-t pt-3 text-[11px] text-fg-faint">
-            AutoReji beta v1.0 · Developed by Madyes © 2026
+            AutoReji beta v1.1 · Developed by Madyes © 2026
           </div>
         </Dialog.Content>
       </Dialog.Portal>
