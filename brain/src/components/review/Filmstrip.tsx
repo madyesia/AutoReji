@@ -23,6 +23,8 @@ export function Filmstrip() {
   const toggleMark = useApp((s) => s.toggleMark)
   const markRange = useApp((s) => s.markRange)
   const clearMarks = useApp((s) => s.clearMarks)
+  const setMarked = useApp((s) => s.setMarked)
+  const pushToast = useApp((s) => s.pushToast)
   const [z, setZ] = useState(1)
   const scrollRef = useRef<HTMLDivElement>(null)
   const w = ZOOM[z]
@@ -60,7 +62,14 @@ export function Filmstrip() {
                 onClick={(e) => {
                   if (e.metaKey || e.ctrlKey) { toggleMark(c.scene); select(c.scene) }       // ⌘/Ctrl: tekil işaretle/kaldır
                   else if (e.shiftKey) { markRange(c.scene) }                                  // Shift: seçiliden buraya aralık
-                  else { clearMarks(); select(c.scene); if (playScene != null) setPlayScene(c.scene) }  // normal: tek seç
+                  else {                                                                       // normal: tek seç
+                    // F2 koruması: tek yanlış tık büyük işaret setini sessizce uçurmasın — geri alınabilir yap
+                    if (marked.length >= 3) {
+                      const prev = [...marked]
+                      pushToast(`${prev.length} işaret temizlendi`, { kind: 'amber', icon: 'undo', ttl: 5000, action: { label: 'Geri al', run: () => setMarked(prev) } })
+                    }
+                    clearMarks(); select(c.scene); if (playScene != null) setPlayScene(c.scene)
+                  }
                 }}
                 onHover={() => setHovered(c.scene)} />
             </Fragment>

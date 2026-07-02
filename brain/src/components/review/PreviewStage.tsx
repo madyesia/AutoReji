@@ -18,6 +18,7 @@ export function PreviewStage() {
   const [paused, setPaused] = useState(false)
   const [dip, setDip] = useState(0)
   const [prog, setProg] = useState(0)        // aktif klip içi ilerleme 0–1
+  const [vidState, setVidState] = useState<'loading' | 'ready' | 'error'>('ready')  // A5: eksik/bozuk dosyada sessiz siyah ekran kalmasın
   const videoRef = useRef<HTMLVideoElement>(null)
   const dipTimer = useRef<number>(0)
 
@@ -38,6 +39,7 @@ export function PreviewStage() {
     if (!v || !active) return
     if (v.dataset.scene !== String(active.scene)) {
       v.dataset.scene = String(active.scene)
+      setVidState('loading')
       v.src = videoUrl(active.file)
       v.load()
     }
@@ -144,9 +146,27 @@ export function PreviewStage() {
           poster={clipThumb(active)}
           muted={muted} playsInline preload="auto"
           onLoadedMetadata={seekAndPlay}
+          onLoadedData={() => setVidState('ready')}
+          onError={() => setVidState('error')}
           onTimeUpdate={onTime}
         />
         <div className="pointer-events-none absolute inset-0 bg-black transition-opacity duration-200" style={{ opacity: dip }} />
+
+        {/* A5: yükleme çipi + okunamayan dosya rozeti (eskiden sahne sessizce siyah kalıyordu) */}
+        {vidState === 'loading' && (
+          <span className="pointer-events-none absolute bottom-3 right-3 flex h-7 items-center gap-1.5 rounded-md bg-black/55 px-2.5 text-[11.5px] text-white/80 backdrop-blur-sm">
+            <span className="h-3 w-3 animate-spin rounded-full border-[1.5px] border-white/30 border-t-white/90" /> yükleniyor…
+          </span>
+        )}
+        {vidState === 'error' && (
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/60">
+            <div className="max-w-[80%] rounded-xl bg-ink-900/90 px-4 py-3 text-center ring-1 ring-danger/40">
+              <div className="text-[13px] font-semibold text-danger">Klip okunamadı</div>
+              <div className="mt-1 truncate text-[11.5px] text-fg-muted" title={active.file}>{active.file.split('/').pop()}</div>
+              <div className="mt-1 text-[11px] text-fg-subtle">Dosya taşınmış ya da bozuk olabilir — video klasörünü kontrol et.</div>
+            </div>
+          </div>
+        )}
 
         {/* üst bilgi (frame içi) */}
         <div className="pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between bg-gradient-to-b from-black/60 to-transparent p-3">

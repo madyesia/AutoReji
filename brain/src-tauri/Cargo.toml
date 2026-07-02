@@ -1,6 +1,6 @@
 [package]
 name = "autoreji"
-version = "1.0.2"
+version = "1.0.3"
 description = "AutoReji — Ghibli Mood ON otomatik kurgu"
 authors = ["Madyes"]
 license-file = "../../LICENSE"

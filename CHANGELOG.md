@@ -3,6 +3,17 @@
 Tüm önemli değişiklikler burada. Biçim: [Keep a Changelog] benzeri; sürümleme SemVer benzeri.
 Başlangıç sürümü **v1.1**; her güncellemede artar.
 
+## [beta v1.0 · 1.0.3] — 2026-07-02 — UI/UX TUR 1: veri güvenliği UX (A1-A6 + F2)
+> Kaynak: denetim A maddeleri. Yeni ortak bileşen: **`ConfirmDialog`** (Radix Dialog — odak tuzağı/Esc/scroll kilidi hazır; normal + danger varyantı).
+- **A1 — Boş kurgu artık kurulamaz:** tüm klipler çıkarılınca İnceleme'de önizleme+çizelge yerine rehber boş-durum kartı ("Kurguda hiç klip kalmadı" + Geri al / Tümünü geri getir; film şeridi açık kalır — kartlardan tek tek geri getirilebilir) ve **"Premiere'de Kur" kilitlenir** (tooltip nedenini söyler). Eskiden boş/bozuk timeline üretilebiliyordu.
+- **A2 — Build ön-uçuş kontrolü:** MONTAJCI 'pending' ise READY fazında uyarı bandı ("manifest hazırlanır ama Premiere'de açılamaz" + Hazırlığı aç) ve CTA'da onay ("Yine de hazırla"). Eskiden uyarı yalnız 3.6sn animasyondan SONRA görünüyordu.
+- **A3 — Arşivden üzerine-açma onayı:** aktif bölümde elle değişiklik varken "Yeniden aç" artık sorar ("Mevcut düzenlemenin üzerine açılsın mı?"). Eskiden sessizce eziyordu.
+- **A4 — Yıkıcı işlem onayları:** toplu "Sil" >5 klipte onay ister ("N klibi kurgudan çıkar?" — dosyaların silinmediğini söyler); arşiv kaydı silme her zaman onaylı (undo toast'ı da duruyor).
+- **A5 — Önizleme yükleme/hata durumu:** video kaynağı değişince "yükleniyor…" çipi; dosya okunamazsa açık hata rozeti (dosya adı + "taşınmış/bozuk olabilir" rehberi). Eskiden sahne sessizce siyah kalıyordu.
+- **A6 — Analiz hatasında yol haritası:** hata kartına 3 maddelik kontrol listesi (belge-klasör eşleşmesi · yeniden seç · detayı not al) — "Tekrar dene" kısır döngüsüne rehber.
+- **F2 — İşaret seti kaybına koruma:** ≥3 klip işaretliyken yanlış düz-tık işaretleri temizlerse "N işaret temizlendi — Geri al" toast'ı (store'a `setMarked`). Eskiden geri alınamıyordu (işaretler undo geçmişinde değil).
+- Doğrulama: `tsc` strict + build temiz; tarayıcıda mekanik senaryolar: 160→0 klip boş-durum + kilitli CTA + "Tümünü geri getir" dönüşü · 9-klip toplu onay · arşiv silme onayı (Vazgeç korur) · yeniden-aç onayı · işaret-temizlendi toast'ı — hepsi GEÇTİ. `.app` yeniden derlendi.
+
 ## [beta v1.0 · 1.0.2] — 2026-07-02 — UI/UX TUR 0: kırıklar + dürüstlük (16-ajanlık denetimin ilk uygulama turu)
 > Kaynak: `docs/UI_UX_DENETIM_2026-07-02.md` + `docs/tasarim/` (4+12 ajanlık tarama — fihrist: `docs/tasarim/README.md`). Tur planı orada; bu sürüm **TUR 0**.
 ### .app'te kırık özellikler (tarayıcıda görünmüyordu)

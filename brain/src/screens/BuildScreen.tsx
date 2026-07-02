@@ -7,6 +7,7 @@ import { fmtMin, fmtDur, TRANSITION, scaleColor } from '../lib/utils'
 import { saveTextFile } from '../lib/native'
 import { buildArchiveEntry, writeArchiveEntry, readArchive, markArchiveSaved } from '../lib/archive'
 import { Button, Dot, SectionLabel, Tip } from '../components/ui'
+import { ConfirmDialog } from '../components/ConfirmDialog'
 import { ApprovedSeal, ProgressRing, StageTimeline, BirthStat, RevealPanel } from '../components/motifs'
 import { prettyEpisode } from '../components/AppShell'
 import type { Clip } from '../lib/types'
@@ -32,6 +33,7 @@ export function BuildScreen() {
   const stats = useMemo(() => computeStats(clips), [clips])
   const [phase, setPhase] = useState<'ready' | 'building' | 'done'>('ready')
   const [prog, setProg] = useState(0)
+  const [confirmNoPlugin, setConfirmNoPlugin] = useState(false)   // A2: eklentisiz devam onayı
   const [saved, setSaved] = useState<{ name: string; path: string | null } | null>(null)
   const wroteRef = useRef(false)
 
@@ -125,8 +127,18 @@ export function BuildScreen() {
               </RevealPanel>
             </div>
 
+            {/* A2 ön-uçuş: MONTAJCI doğrulanmadan animasyona GİRMEDEN uyar (eskiden yalnız done'da, 3.6sn sonra görünüyordu) */}
+            {setup.plugin === 'pending' && (
+              <div className="mt-7 flex items-start gap-2.5 rounded-xl bg-amber-500/[0.08] px-3.5 py-2.5 ring-1 ring-amber-400/25">
+                <PlugZap size={15} className="mt-0.5 shrink-0 text-amber-400" />
+                <span className="flex-1 text-[12.5px] leading-snug text-fg-muted">
+                  MONTAJCI paneli henüz kurulu değil — manifest hazırlanır ama <b className="text-fg">Premiere'de açılamaz</b>.
+                  <button onClick={() => setScreen('setup')} className="ml-1 font-semibold text-amber-300 hover:underline">Hazırlığı aç →</button>
+                </span>
+              </div>
+            )}
             <div className="mt-8 flex justify-end">
-              <Button variant="primary" size="lg" onClick={() => { setProg(0); setPhase('building') }}><Hammer size={18} /> Premiere'de Kur</Button>
+              <Button variant="primary" size="lg" onClick={() => (setup.plugin === 'pending' ? setConfirmNoPlugin(true) : (setProg(0), setPhase('building')))}><Hammer size={18} /> Premiere'de Kur</Button>
             </div>
           </motion.div>
         )}
@@ -210,6 +222,13 @@ export function BuildScreen() {
           </motion.div>
         )}
       </div>
+
+      {/* A2: eklentisiz devam — bilinçli karar olsun */}
+      <ConfirmDialog open={confirmNoPlugin} onOpenChange={setConfirmNoPlugin}
+        title="MONTAJCI paneli kurulu değil"
+        desc="Manifest yine hazırlanır ama panel kurulmadan bölüm Premiere'de açılamaz. İstersen önce Hazırlık'tan MONTAJCI'yı kur, istersen devam et — manifesti sonra da kullanabilirsin."
+        confirmLabel="Yine de hazırla"
+        onConfirm={() => { setProg(0); setPhase('building') }} />
     </div>
   )
 }

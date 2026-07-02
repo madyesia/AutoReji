@@ -39,6 +39,7 @@ interface AppState {
   toggleMark: (scene: number) => void
   markRange: (toScene: number) => void
   clearMarks: () => void
+  setMarked: (scenes: number[]) => void   // işaret setini geri yükle (yanlış tıkla temizlenince "Geri al")
   bulkTransition: (t: TransitionType) => void
   bulkSetEnabled: (enabled: boolean) => void
   setHovered: (scene: number | null) => void
@@ -114,6 +115,7 @@ export const useApp = create<AppState>((set, get) => {
         return { marked: [...new Set([...s.marked, ...range])] }
       }),
     clearMarks: () => set({ marked: [] }),
+    setMarked: (scenes) => set({ marked: scenes }),
     // toplu geçiş: işaretli kliplere uygula (ilk klibe geçiş yok); tek undo adımı
     bulkTransition: (t) => {
       const n = get().marked.length

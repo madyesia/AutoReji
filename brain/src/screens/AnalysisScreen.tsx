@@ -134,7 +134,13 @@ export function AnalysisScreen() {
               <h2 className="mt-5 text-[18px] font-semibold">Analiz tamamlanamadı</h2>
               <p className="mt-1.5 max-w-xs text-[13px] text-fg-muted">Bir şeyler eksik kalmış görünüyor — birlikte düzeltelim.</p>
               {errMsg && <div className="mt-3 max-h-28 w-full overflow-y-auto break-words rounded-lg bg-ink-900/70 px-3 py-2 text-left text-[11.5px] text-fg-subtle ring-hair">{errMsg}</div>}
-              <div className="mt-6 flex gap-2.5">
+              {/* A6: "Tekrar dene" aynı girdilerle döner — girdiler bozuksa kısır döngü olmasın diye yol göster */}
+              <ul className="mt-3 w-full space-y-1 text-left text-[11.5px] leading-snug text-fg-subtle">
+                <li>· Video klasörü ile prompt belgesi <b className="text-fg-muted">aynı bölüme</b> ait mi?</li>
+                <li>· Dosyalar taşındı/silindiyse Giriş'ten <b className="text-fg-muted">yeniden seç</b>.</li>
+                <li>· Sorun sürerse üstteki hata detayını not al — hangi dosyada takıldığını söyler.</li>
+              </ul>
+              <div className="mt-5 flex gap-2.5">
                 <Button variant="ghost" onClick={() => setScreen('intake')}><ArrowLeft size={15} /> Girişe dön</Button>
                 <Button variant="primary" onClick={onRetry}><RotateCcw size={15} /> Tekrar dene</Button>
               </div>

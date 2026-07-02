@@ -1,9 +1,10 @@
-import { useEffect, useMemo } from 'react'
-import { Undo2, Redo2, Hammer, Focus, AlertTriangle, ShieldCheck, Trash2, RotateCcw } from 'lucide-react'
+import { useEffect, useMemo, useState } from 'react'
+import { Undo2, Redo2, Hammer, Focus, AlertTriangle, ShieldCheck, Trash2, RotateCcw, FilmIcon } from 'lucide-react'
 import { useApp } from '../lib/store'
 import { computeStats, countRisky } from '../lib/data'
 import { fmtMin, fmtDur, TRANSITION, cn } from '../lib/utils'
 import { Button, IconButton, Switch, Tip, Dot } from '../components/ui'
+import { ConfirmDialog } from '../components/ConfirmDialog'
 import { PreviewStage } from '../components/review/PreviewStage'
 import { Timeline } from '../components/review/Timeline'
 import { Filmstrip } from '../components/review/Filmstrip'
@@ -25,6 +26,8 @@ export function ReviewScreen() {
   const stats = useMemo(() => computeStats(clips), [clips])
   const riskN = useMemo(() => countRisky(clips), [clips])
   const overridden = useMemo(() => clips.filter((c) => c.decision.user_overridden).length, [clips])
+  const empty = stats.enabled === 0                      // A1: hiç etkin klip yok → kurulum kilitli
+  const [confirmBulkRemove, setConfirmBulkRemove] = useState(false)   // A4: >5 klipte onay
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -50,8 +53,26 @@ export function ReviewScreen() {
       <div className="flex min-h-0 flex-1">
         {mode === 'director' && <DirectorPanel />}
         <div className="flex min-w-0 flex-1 flex-col">
-          <PreviewStage />
-          <Timeline />
+          {empty ? (
+            /* A1 boş durum: önizleme+çizelge yerine rehber kart; film şeridi AÇIK kalır (kartlardaki Geri al ile klip döndürülebilir) */
+            <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-3 px-8 text-center">
+              <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-400/12 text-amber-300"><FilmIcon size={24} /></span>
+              <h2 className="text-[18px] font-semibold">Kurguda hiç klip kalmadı</h2>
+              <p className="max-w-md text-[13px] leading-snug text-fg-muted">
+                Tüm klipler kurgudan çıkarılmış — böyle bir bölüm Premiere'de kurulamaz.
+                Film şeridindeki bir kartın <b className="text-fg">Geri al</b> düğmesiyle klip döndür, ya da:
+              </p>
+              <div className="mt-1 flex items-center gap-2">
+                <Button variant="subtle" onClick={undo} disabled={!canUndo}><Undo2 size={15} /> Geri al</Button>
+                <Button variant="primary" onClick={resetAll}><RotateCcw size={15} /> Tümünü geri getir</Button>
+              </div>
+            </div>
+          ) : (
+            <>
+              <PreviewStage />
+              <Timeline />
+            </>
+          )}
           <Filmstrip />
         </div>
         {mode !== 'fast' && <Inspector />}
@@ -66,7 +87,7 @@ export function ReviewScreen() {
             <button onClick={() => bulkTransition('fade')} className="h-7 rounded-md px-2 font-medium transition-colors hover:bg-white/8" style={{ color: TRANSITION.fade.color }}>Fade</button>
             <button onClick={() => bulkTransition('black')} className="h-7 rounded-md px-2 font-medium transition-colors hover:bg-white/8" style={{ color: TRANSITION.black.color }}>Black</button>
             <div className="mx-0.5 h-4 w-px bg-white/10" />
-            <button onClick={() => bulkSetEnabled(false)} className="flex h-7 items-center gap-1 rounded-md px-2 font-medium text-danger transition-colors hover:bg-danger/10"><Trash2 size={13} /> Sil</button>
+            <button onClick={() => (marked.length > 5 ? setConfirmBulkRemove(true) : bulkSetEnabled(false))} className="flex h-7 items-center gap-1 rounded-md px-2 font-medium text-danger transition-colors hover:bg-danger/10"><Trash2 size={13} /> Sil</button>
             <button onClick={clearMarks} className="h-7 rounded-md px-2 text-fg-subtle transition-colors hover:text-fg">Temizle</button>
           </div>
         ) : (
@@ -108,8 +129,17 @@ export function ReviewScreen() {
           <Tip label="Geri al ⌘Z"><span><IconButton aria-label="Geri al" onClick={undo} disabled={!canUndo} className="disabled:opacity-30"><Undo2 size={17} /></IconButton></span></Tip>
           <Tip label="İleri al ⇧⌘Z"><span><IconButton aria-label="İleri al" onClick={redo} disabled={!canRedo} className="disabled:opacity-30"><Redo2 size={17} /></IconButton></span></Tip>
         </div>
-        <Button variant="primary" onClick={() => setScreen('build')}><Hammer size={16} /> Premiere'de Kur</Button>
+        <Tip label={empty ? 'Kurguda hiç klip yok — en az 1 klip geri getir' : "Kurgu planını hazırla → Premiere'e geç"}>
+          <span><Button variant="primary" disabled={empty} onClick={() => setScreen('build')}><Hammer size={16} /> Premiere'de Kur</Button></span>
+        </Tip>
       </div>
+
+      {/* A4: büyük toplu çıkarma onayı (≤5 klipte sorulmaz; her durumda undo toast'ı da var) */}
+      <ConfirmDialog open={confirmBulkRemove} onOpenChange={setConfirmBulkRemove} danger
+        title={`${marked.length} klibi kurgudan çıkar?`}
+        desc="İşaretli klipler kurguya girmez (dosyalar silinmez). İstediğin an Geri al ile döndürebilirsin."
+        confirmLabel={`${marked.length} klibi çıkar`}
+        onConfirm={() => bulkSetEnabled(false)} />
     </div>
   )
 }

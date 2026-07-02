@@ -9,6 +9,7 @@ import { thumbUrl, spriteUrl, SPRITE_FRAMES } from '../lib/data'
 import { REGIME, TRANSITION, fmtClock, cn } from '../lib/utils'
 import type { ArchiveEntry, Regime } from '../lib/types'
 import { Segmented, Button, Tip, SectionLabel } from '../components/ui'
+import { ConfirmDialog } from '../components/ConfirmDialog'
 import { prettyEpisode } from '../components/AppShell'
 
 type Density = 'gallery' | 'list'
@@ -33,8 +34,18 @@ export function ArchiveScreen() {
   const setScreen = useApp((s) => s.setScreen)
   const reopen = useApp((s) => s.reopenArchived)
   const pushToast = useApp((s) => s.pushToast)
+  const activeManifest = useApp((s) => s.manifest)
+  const hasEdits = useApp((s) => s.past.length > 0)
   const [density, setDensity] = useState<Density>('gallery')
   const [entries, setEntries] = useState<ArchiveEntry[]>(() => readArchive())
+  const [confirmDel, setConfirmDel] = useState<ArchiveEntry | null>(null)      // A4: silme onayı
+  const [confirmOpen, setConfirmOpen] = useState<ArchiveEntry | null>(null)    // A3: üzerine-açma onayı
+
+  // A3: aktif bölümde elle düzenleme varken arşivden açmak onları kaybettirir → sor
+  const handleReopen = (e: ArchiveEntry) => {
+    if (activeManifest && hasEdits) setConfirmOpen(e)
+    else void reopen(e)
+  }
 
   // Faz 4: kaydedilen manifest klasörünü Finder'da aç (Tauri). Tarayıcıda yol yoksa pano fallback.
   const handleReveal = async (e: ArchiveEntry) => {
@@ -88,7 +99,7 @@ export function ArchiveScreen() {
                 <SectionLabel>{GROUP_LABEL[k]}</SectionLabel>
                 <div className={cn('mt-3', density === 'gallery' ? 'grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3' : 'space-y-2.5')}>
                   {items.map((e, i) => (
-                    <ArchiveCard key={e.seed + e.createdAt} e={e} i={i} density={density} onReopen={() => reopen(e)} onReveal={() => handleReveal(e)} onDelete={() => handleDelete(e)} />
+                    <ArchiveCard key={e.seed + e.createdAt} e={e} i={i} density={density} onReopen={() => handleReopen(e)} onReveal={() => handleReveal(e)} onDelete={() => setConfirmDel(e)} />
                   ))}
                 </div>
               </section>
@@ -96,6 +107,20 @@ export function ArchiveScreen() {
           </div>
         )}
       </div>
+
+      {/* A4: arşiv silme onayı (silme sonrası undo toast'ı da duruyor) */}
+      <ConfirmDialog open={confirmDel != null} onOpenChange={(o) => !o && setConfirmDel(null)} danger
+        title="Arşiv kaydını sil?"
+        desc={confirmDel ? `"${prettyEpisode(confirmDel.name)}" arşiv listesinden kaldırılır. Diskteki manifest/videolara dokunulmaz; yine de kısa süre "Geri al" ile dönebilirsin.` : ''}
+        confirmLabel="Sil"
+        onConfirm={() => { if (confirmDel) handleDelete(confirmDel) }} />
+
+      {/* A3: aktif düzenlemenin üstüne açma onayı */}
+      <ConfirmDialog open={confirmOpen != null} onOpenChange={(o) => !o && setConfirmOpen(null)}
+        title="Mevcut düzenlemenin üzerine açılsın mı?"
+        desc={confirmOpen ? `Şu an açık bölümde elle değişikliklerin var. "${prettyEpisode(confirmOpen.name)}" açılırsa bu değişiklikler kaybolur.` : ''}
+        confirmLabel="Yine de aç"
+        onConfirm={() => { if (confirmOpen) void reopen(confirmOpen) }} />
     </div>
   )
 }
