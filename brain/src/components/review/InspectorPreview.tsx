@@ -69,7 +69,7 @@ export function InspectorPreview({ clip: c }: { clip: Clip }) {
       title="Büyük önizlemede oynat" aria-label={`Sahne ${c.scene} — büyük önizlemede oynat`}
       className="group relative h-16 w-[114px] shrink-0 overflow-hidden rounded-xl transition-transform duration-[var(--dur-fast)] hover:scale-[1.03]"
       style={{
-        background: `color-mix(in srgb, ${sc} 20%, #0b0e14)`,
+        background: `color-mix(in srgb, ${sc} 20%, var(--color-ink-900))`,
         boxShadow: `0 0 0 1.5px color-mix(in srgb, ${sc} 60%, var(--color-amber-400)), 0 0 18px -4px color-mix(in srgb, ${sc} 55%, transparent), inset 0 0 22px rgba(0,0,0,.45)`,
       }}
     >
@@ -83,7 +83,7 @@ export function InspectorPreview({ clip: c }: { clip: Clip }) {
           style={{ backgroundImage: `url(${spriteUrl(c.scene)})`, backgroundSize: `${SPRITE_FRAMES * 100}% 100%`, backgroundPosition: `${(frame / (SPRITE_FRAMES - 1)) * 100}% 50%` }} />
       )}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" />
-      <span className="absolute left-1.5 top-1.5 flex h-5 items-center rounded-md bg-black/55 px-1.5 text-[11px] font-semibold tabular text-white backdrop-blur-sm">{c.scene}</span>
+      <span className="absolute left-1.5 top-1.5 flex h-5 items-center rounded-md bg-black/55 px-1.5 text-caption font-semibold tabular text-white backdrop-blur-sm">{c.scene}</span>
       <span className="absolute right-1.5 top-1.5 text-amber-300 opacity-0 transition-opacity duration-[var(--dur-fast)] group-hover:opacity-100">
         {autoplay ? <Film size={12} /> : <Play size={12} />}
       </span>

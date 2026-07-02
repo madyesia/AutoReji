@@ -73,14 +73,14 @@ export function ArchiveScreen() {
     <div className="relative h-full overflow-y-auto">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-amber-500/[0.05] to-transparent" />
       <div className="relative mx-auto max-w-5xl px-8 py-10">
-        <button onClick={() => setScreen('intake')} className="mb-5 inline-flex items-center gap-1.5 text-[13px] text-fg-muted transition-colors hover:text-fg">
+        <button onClick={() => setScreen('intake')} className="mb-5 inline-flex items-center gap-1.5 text-body text-fg-muted transition-colors hover:text-fg">
           <Clapperboard size={15} /> Giriş'e dön
         </button>
 
         <div className="flex items-end justify-between gap-4">
           <div>
-            <h1 className="flex items-center gap-2.5 text-[30px] font-semibold"><Library size={26} className="text-amber-400" /> Arşiv</h1>
-            <p className="mt-1 text-[14px] text-fg-muted">{entries.length ? `${entries.length} kurulan bölüm` : 'Kurulan bölümler burada birikir'}</p>
+            <h1 className="flex items-center gap-2.5 text-display font-semibold"><Library size={26} className="text-amber-400" /> Arşiv</h1>
+            <p className="mt-1 text-ui text-fg-muted">{entries.length ? `${entries.length} kurulan bölüm` : 'Kurulan bölümler burada birikir'}</p>
           </div>
           {entries.length > 0 && (
             <Segmented<Density>
@@ -144,7 +144,7 @@ function TxDots({ e }: { e: ArchiveEntry }) {
     ['black', e.blacks, TRANSITION.black.color],
   ]
   return (
-    <div className="flex items-center gap-2.5 text-[11px] tabular text-fg-subtle">
+    <div className="flex items-center gap-2.5 text-caption tabular text-fg-subtle">
       {rows.map(([k, n, c]) => (
         <span key={k} className="flex items-center gap-1">
           <span className="h-1.5 w-1.5 rounded-full" style={{ background: c, boxShadow: `0 0 6px -1px ${c}` }} /> {n}
@@ -164,7 +164,7 @@ function ArchiveCard({ e, i, density, onReopen, onReveal, onDelete }: { e: Archi
   const Cover = (
     <div
       className={cn('group/cover relative shrink-0 overflow-hidden bg-ink-900', density === 'gallery' ? 'aspect-video w-full rounded-t-2xl' : 'aspect-video w-36 rounded-l-2xl')}
-      style={{ background: `linear-gradient(135deg, color-mix(in srgb, ${r.color} 24%, #0b0e14), #0b0e14)` }}
+      style={{ background: `linear-gradient(135deg, color-mix(in srgb, ${r.color} 24%, var(--color-ink-900)), var(--color-ink-900))` }}
       onMouseMove={(ev) => {
         if (!motionPreview || e.coverScene == null) return
         const rect = ev.currentTarget.getBoundingClientRect()
@@ -180,19 +180,19 @@ function ArchiveCard({ e, i, density, onReopen, onReveal, onDelete }: { e: Archi
       <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/0 to-black/20" />
       <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3"
         style={{ background: `linear-gradient(to top, color-mix(in srgb, ${r.color} 40%, transparent), transparent)` }} />
-      <span className="absolute left-2 top-2 flex h-5 items-center rounded-md bg-black/55 px-1.5 text-[10.5px] tabular text-white/90 backdrop-blur-sm">{fmtWhen(e.createdAt)}</span>
+      <span className="absolute left-2 top-2 flex h-5 items-center rounded-md bg-black/55 px-1.5 text-caption tabular text-white/90 backdrop-blur-sm">{fmtWhen(e.createdAt)}</span>
       {e.savedAt && (
-        <span className="absolute right-2 top-2 flex h-5 items-center gap-1 rounded-md bg-ok/85 px-1.5 text-[10px] font-semibold text-black/85 backdrop-blur-sm" title={`Manifest kaydedildi${e.savedName ? ` · ${e.savedName}` : ''}`}><Check size={11} /> kaydedildi</span>
+        <span className="absolute right-2 top-2 flex h-5 items-center gap-1 rounded-md bg-ok/85 px-1.5 text-micro font-semibold text-black/85 backdrop-blur-sm" title={`Manifest kaydedildi${e.savedName ? ` · ${e.savedName}` : ''}`}><Check size={11} /> kaydedildi</span>
       )}
-      <span className="absolute bottom-2 left-2 flex h-5 items-center rounded-md bg-black/55 px-1.5 text-[10.5px] font-medium tabular text-white/90 backdrop-blur-sm">{e.clips} klip · {fmtClock(e.durationSec)}</span>
+      <span className="absolute bottom-2 left-2 flex h-5 items-center rounded-md bg-black/55 px-1.5 text-caption font-medium tabular text-white/90 backdrop-blur-sm">{e.clips} klip · {fmtClock(e.durationSec)}</span>
     </div>
   )
 
   const Info = (
     <div className="flex min-w-0 flex-1 flex-col gap-2 p-3.5">
       <div className="min-w-0">
-        <div className="truncate text-[14px] font-semibold" title={prettyEpisode(e.name)}>{prettyEpisode(e.name)}</div>
-        <div className="mt-0.5 flex items-center gap-2 text-[11px] text-fg-subtle">
+        <div className="truncate text-ui font-semibold" title={prettyEpisode(e.name)}>{prettyEpisode(e.name)}</div>
+        <div className="mt-0.5 flex items-center gap-2 text-caption text-fg-subtle">
           <span className="flex items-center gap-1"><span className="h-1.5 w-1.5 rounded-full" style={{ background: r.color }} />{r.label}</span>
           <span className="truncate">seed {e.seed.slice(0, 14)}…</span>
         </div>
@@ -218,7 +218,7 @@ function ArchiveCard({ e, i, density, onReopen, onReveal, onDelete }: { e: Archi
       initial={reduce ? false : { opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1], delay: reduce ? 0 : Math.min(i * 0.045, 0.4) }}
-      className={cn('group glass overflow-hidden rounded-2xl ring-1 ring-white/10 transition-all duration-[var(--dur-base)] ease-[var(--ease-out-quart)] hover:-translate-y-1.5 hover:shadow-[var(--shadow-pop)] hover:ring-white/20',
+      className={cn('group glass overflow-hidden rounded-2xl ring-1 ring-white/10 transition-all duration-[var(--dur-base)] ease-[var(--ease-out-quart)] hover:-translate-y-1.5 hover:shadow-pop hover:ring-white/20',
         density === 'list' && 'flex items-stretch')}
     >
       {Cover}
@@ -236,8 +236,8 @@ function EmptyState({ onStart }: { onStart: () => void }) {
         <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-amber-400/12 text-amber-300 animate-[breathe_4.5s_var(--ease-out-quart)_infinite]">
           <Film size={30} />
         </div>
-        <h2 className="mt-5 text-[20px] font-semibold">Henüz arşiv yok</h2>
-        <p className="mt-1.5 max-w-sm text-[13.5px] text-fg-muted">Bir bölümü Premiere'de kurduğunda burada sinematik bir kart olarak birikir — tek tıkla yeniden açarsın.</p>
+        <h2 className="mt-5 text-headline font-semibold">Henüz arşiv yok</h2>
+        <p className="mt-1.5 max-w-sm text-body text-fg-muted">Bir bölümü Premiere'de kurduğunda burada sinematik bir kart olarak birikir — tek tıkla yeniden açarsın.</p>
         <Button variant="primary" size="lg" className="mt-6" onClick={onStart}><Clapperboard size={17} /> İlk bölümünü kur</Button>
       </div>
     </div>

@@ -5,7 +5,7 @@ import { convertFileSrc } from '@tauri-apps/api/core'
 
 export async function loadEpisode(): Promise<Manifest> {
   const r = await fetch('/episode.json')
-  if (!r.ok) throw new Error('Manifest yüklenemedi')
+  if (!r.ok) throw new Error('Örnek bölüm yüklenemedi — sayfayı yenileyip tekrar dene.')
   return r.json()
 }
 

@@ -4,7 +4,7 @@ import type { Clip, Regime, Scale, TransitionType } from './types'
 
 export const cn = (...a: ClassValue[]) => twMerge(clsx(a))
 
-export const APP_VERSION = 'beta v1.1'
+export const APP_VERSION = 'beta v1.2'
 
 export const clamp = (x: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, x))
 
@@ -30,25 +30,30 @@ export const REGIME: Record<Regime, Meta> = {
   unknown: { key: 'unknown', label: '—', color: 'var(--color-fg-subtle)' },
 }
 
-export const TRANSITION: Record<TransitionType, Meta & { glyph: string }> = {
-  cut: { key: 'cut', label: 'Cut', color: 'var(--color-cut)', glyph: '╱' },
-  fade: { key: 'fade', label: 'Fade', color: 'var(--color-fade)', glyph: '◑' },
-  black: { key: 'black', label: 'Black', color: 'var(--color-dip)', glyph: '●' },
+export const TRANSITION: Record<TransitionType, Meta & { glyph: string; dative: string }> = {
+  cut: { key: 'cut', label: 'Cut', color: 'var(--color-cut)', glyph: '╱', dative: "Cut'a" },
+  fade: { key: 'fade', label: 'Fade', color: 'var(--color-fade)', glyph: '◑', dative: "Fade'e" },
+  black: { key: 'black', label: 'Black', color: 'var(--color-dip)', glyph: '●', dative: "Black'e" },
 }
 
-/** Çekim ölçeği → etiket + kimlik rengi (film şeridi alt-glow + timeline'da kullanılır) */
+/** Çekim ölçeği → etiket + kimlik rengi. Renklerin TEK kaynağı index.css @theme
+ *  (--color-scale-*); tüm tüketiciler CSS bağlamı (color-mix/gradient/background) → var() güvenli. */
 export const SCALE_META: Record<Scale, { label: string; color: string }> = {
-  drone:            { label: 'Drone',     color: '#7fb6e6' },  // gök mavisi
-  wide:             { label: 'Geniş',     color: '#5ec9a6' },  // teal-yeşil
-  medium:           { label: 'Orta',      color: '#e7b667' },  // amber
-  close_up:         { label: 'Yakın',     color: '#e98c5a' },  // turuncu
-  extreme_close_up: { label: 'Çok yakın', color: '#e36d8d' },  // pembe-kırmızı
-  pov:              { label: 'POV',       color: '#ab8ce2' },  // mor
-  top_down:         { label: 'Tepeden',   color: '#6f8ce2' },  // indigo
-  other:            { label: 'Genel',     color: '#8a93a8' },  // nötr gri
+  drone:            { label: 'Drone',     color: 'var(--color-scale-drone)' },
+  wide:             { label: 'Geniş',     color: 'var(--color-scale-wide)' },
+  medium:           { label: 'Orta',      color: 'var(--color-scale-medium)' },
+  close_up:         { label: 'Yakın',     color: 'var(--color-scale-close)' },
+  extreme_close_up: { label: 'Çok yakın', color: 'var(--color-scale-xclose)' },
+  pov:              { label: 'POV',       color: 'var(--color-scale-pov)' },
+  top_down:         { label: 'Tepeden',   color: 'var(--color-scale-top)' },
+  other:            { label: 'Genel',     color: 'var(--color-scale-other)' },
 }
 export const scaleLabel = (s: Scale) => SCALE_META[s]?.label ?? 'Genel'
-export const scaleColor = (s: Scale) => SCALE_META[s]?.color ?? '#8a93a8'
+export const scaleColor = (s: Scale) => SCALE_META[s]?.color ?? 'var(--color-scale-other)'
+
+/** İkon boyut standardı (DS2 C5) — lucide `size` prop'u bunlardan alınmalı (dekoratif ≥22 muaf).
+ *  NOT: mevcut kullanımların migrasyonu ayrı tur (görsel mikro-farklar ekran ekran onayla). */
+export const ICON = { xs: 12, sm: 14, md: 16, lg: 18 } as const
 
 /** güven skoru → renk (yeşil→amber→kırmızı) */
 export const confColor = (c: number) =>

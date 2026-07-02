@@ -28,7 +28,7 @@ export function Inspector() {
 
   if (!c) return (
     <aside className="flex w-[360px] shrink-0 items-center justify-center glass hairline-l">
-      <p className="text-[13px] text-fg-subtle">Bir klip seç</p>
+      <p className="text-body leading-snug text-fg-subtle">Henüz klip seçilmedi. Film şeridinden bir klibe tıkla — kararı, geçişi ve kırpması burada açılır.</p>
     </aside>
   )
 
@@ -44,12 +44,12 @@ export function Inspector() {
           <InspectorPreview key={c.scene} clip={c} />
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2">
-              <span className="text-[15px] font-semibold">Sahne {c.scene}</span>
+              <span className="text-lead font-semibold">Sahne {c.scene}</span>
               <Badge color={r.color}>{r.label}</Badge>
               {isPreview && <Badge color="var(--color-amber-400)"><Eye size={10} /> önizleme</Badge>}
               {!c.enabled && <Badge color="var(--color-danger)">çıkarıldı</Badge>}
             </div>
-            <div className="mt-0.5 truncate text-[11px] text-fg-subtle" title={basename(c.file)}>{basename(c.file)}</div>
+            <div className="mt-0.5 truncate text-caption text-fg-subtle" title={basename(c.file)}>{basename(c.file)}</div>
             <div className="mt-1.5 flex gap-1.5">
               <Tip label="Geçişi uygulamada önizle (stereo)"><Button size="sm" variant="subtle" onClick={() => setPreview(true)}><Eye size={13} /> Önizle</Button></Tip>
             </div>
@@ -62,24 +62,24 @@ export function Inspector() {
         {c.qc && (c.qc.risk > 0 ? (
           <div className="rounded-xl p-3 ring-1" style={{ background: `color-mix(in srgb, ${riskColor(c.qc.level)} 10%, transparent)`, borderColor: `color-mix(in srgb, ${riskColor(c.qc.level)} 35%, transparent)` }}>
             <div className="flex items-center gap-1.5" style={{ color: riskColor(c.qc.level) }}>
-              <ShieldAlert size={14} /><span className="text-[11px] font-semibold uppercase tracking-wider">Kalite riski · {c.qc.risk}/100</span>
+              <ShieldAlert size={14} /><span className="text-caption font-semibold uppercase tracking-wider">Kalite riski · {c.qc.risk}/100</span>
             </div>
             <ul className="mt-1.5 space-y-1">
-              {c.qc.issues.map((x, k) => <li key={k} className="flex gap-1.5 text-[12.5px] text-fg"><span style={{ color: riskColor(c.qc!.level) }}>•</span>{x.d}</li>)}
+              {c.qc.issues.map((x, k) => <li key={k} className="flex gap-1.5 text-body text-fg"><span style={{ color: riskColor(c.qc!.level) }}>•</span>{x.d}</li>)}
             </ul>
-            <p className="mt-2 text-[11px] text-fg-subtle">İncele; sorunluysa aşağıdan <b className="text-fg">Klibi çıkar</b> ile atla.</p>
+            <p className="mt-2 text-caption text-fg-subtle">İncele; sorunluysa aşağıdan <b className="text-fg">Klibi çıkar</b> ile atla.</p>
           </div>
         ) : (
-          <div className="flex items-center gap-1.5 text-[12px] text-ok"><ShieldCheck size={14} /> Kalite kontrol: kare-kare tarandı, sorun yok</div>
+          <div className="flex items-center gap-1.5 text-label text-ok"><ShieldCheck size={14} /> Kalite kontrol: kare-kare tarandı, sorun yok</div>
         ))}
 
         {/* GEÇİŞ */}
         <Section icon={<Sparkle size={13} />} title={isFirst ? 'Açılış' : 'Geçiş — bu klibe giriş'}>
           {isFirst ? (
             (manifest?.intro?.fade_in_from_black ?? 0) > 0 ? (
-              <p className="text-[12.5px] text-fg-muted">Bölüm açılışı: <span className="text-fg">siyahtan fade-in {fmtDur(manifest?.intro?.fade_in_from_black ?? 0)}</span> — kanal imzası.</p>
+              <p className="text-body text-fg-muted">Bölüm açılışı: <span className="text-fg">siyahtan fade-in {fmtDur(manifest?.intro?.fade_in_from_black ?? 0)}</span> — kanal imzası.</p>
             ) : (
-              <p className="text-[12.5px] text-fg-muted">Bölüm açılışı: <span className="text-fg">düz başlangıç</span> — siyah fade kapalı (kanal tercihi).</p>
+              <p className="text-body text-fg-muted">Bölüm açılışı: <span className="text-fg">düz başlangıç</span> — siyah fade kapalı (kanal tercihi).</p>
             )
           ) : (
             <TransitionEditor clip={c} />
@@ -93,9 +93,9 @@ export function Inspector() {
 
         {/* KARAR */}
         <Section title="Karar — neden böyle?">
-          <p className="text-[13px] leading-snug text-fg">{c.decision.reason}</p>
+          <p className="text-body leading-snug text-fg">{c.decision.reason}</p>
           <div className="mt-2.5">
-            <div className="mb-1 flex items-center justify-between text-[11px] text-fg-subtle">
+            <div className="mb-1 flex items-center justify-between text-caption text-fg-subtle">
               <span>Güven</span><span className="tabular" style={{ color: confColor(c.decision.confidence) }}>{Math.round(c.decision.confidence * 100)}%</span>
             </div>
             <div className="h-1.5 overflow-hidden rounded-full bg-white/8">
@@ -104,9 +104,9 @@ export function Inspector() {
           </div>
           <div className="mt-2.5 flex flex-wrap gap-1.5">
             {c.decision.signals.regime_change && <Badge color="var(--color-info)">{c.decision.signals.regime_change}</Badge>}
-            {c.decision.signals.prompt_sim_prev != null && <Badge>benzerlik {c.decision.signals.prompt_sim_prev.toFixed(2)}</Badge>}
-            {c.decision.signals.action && <Badge color="var(--color-ext)">ACTION</Badge>}
-            {c.decision.signals.environment && <Badge color="var(--color-int)">ENV</Badge>}
+            {c.decision.signals.prompt_sim_prev != null && <Badge>benzerlik %{Math.round(c.decision.signals.prompt_sim_prev * 100)}</Badge>}
+            {c.decision.signals.action && <Badge color="var(--color-ext)">hareket sahnesi</Badge>}
+            {c.decision.signals.environment && <Badge color="var(--color-int)">ortam sahnesi</Badge>}
             {c.decision.signals.motion != null && <Badge color="var(--color-ext)">hareket {c.decision.signals.motion}</Badge>}
             {!!c.decision.signals.visual_contrast && <Badge color="var(--color-amber-400)">görsel sıçrama {c.decision.signals.visual_contrast}</Badge>}
           </div>
@@ -117,10 +117,10 @@ export function Inspector() {
           <Section icon={<Sparkle size={13} />} title="Sahne analizi · görsel-AI">
             {c.analysis.energy != null && <Row label="Enerji" value={`${c.analysis.energy}/5 · ${c.analysis.energy <= 2 ? 'sakin' : c.analysis.energy >= 4 ? 'hareketli' : 'orta'}`} />}
             {c.analysis.role && <Row label="Tür" value={ROLE_TR[c.analysis.role] ?? c.analysis.role} />}
-            {c.analysis.linger && <Row label="Ritim" value="oyalanma anı → uzun + fade" />}
+            {c.analysis.linger && <Row label="Ritim" value="oyalanma anı → uzun tutuş" />}
             <Row label="Hareket" value={c.analysis.motion ?? '—'} />
             <Row label="Parlaklık" value={c.analysis.brightness ?? '—'} />
-            <p className="mt-1 text-[11px] text-fg-subtle">Yerel görsel-AI sahneyi gördü → süre + geçiş buna göre ayarlandı.</p>
+            <p className="mt-1 text-caption text-fg-subtle">Yerel görsel-AI sahneyi gördü → süre + geçiş buna göre ayarlandı.</p>
           </Section>
         )}
 
@@ -133,10 +133,10 @@ export function Inspector() {
         </Section>
 
         {/* VARYANT */}
-        <Section title="Varyant seçimi">
+        <Section title="Çekim seçimi">
           <Row label="Seçilen" value={c.variant.chosen ? basename(c.variant.chosen) : '—'} />
           <Row label="Aday" value={`${c.variant.candidates.length} çekim`} />
-          <p className="mt-1 text-[11.5px] text-fg-subtle">{c.variant.reason}</p>
+          <p className="mt-1 text-label text-fg-subtle">{c.variant.reason}</p>
         </Section>
       </div>
 
@@ -164,12 +164,12 @@ function TransitionEditor({ clip: c }: { clip: Clip }) {
       <Segmented options={opts} value={t} onChange={(v) => setType(c.scene, v)} className="w-full [&>button]:flex-1" />
       {t !== 'cut' && c.transition_in && (
         <div>
-          <div className="mb-1.5 flex items-center justify-between text-[12px]">
+          <div className="mb-1.5 flex items-center justify-between text-label">
             <span className="text-fg-muted">Süre</span>
             <span className="tabular font-medium" style={{ color: TRANSITION[t].color }}>{fmtDur(c.transition_in.dur)}</span>
           </div>
           <Slider value={c.transition_in.dur} min={0.25} max={2.5} step={1 / 24} accent={TRANSITION[t].color} onValueChange={(v) => setDur(c.scene, v)} />
-          <div className="mt-1.5 flex justify-between text-[10.5px] text-fg-faint tabular">
+          <div className="mt-1.5 flex justify-between text-caption text-fg-subtle tabular">
             <span>0.25s</span>
             {c.transition_in.handle != null && <span>tutamak payı {fmtDur(c.transition_in.handle)} ✓</span>}
             <span>2.5s</span>
@@ -193,12 +193,12 @@ function TrimEditor({ clip: c }: { clip: Clip }) {
         <div className="absolute inset-y-0 right-0 bg-white/[0.03]" style={{ width: pct(c.source_dur - c.out) }} />
         <div className="absolute inset-y-0 bg-gradient-to-r from-amber-400/30 to-amber-500/30 ring-1 ring-amber-400/40"
           style={{ left: pct(c.in), width: pct(dur) }}>
-          <span className="absolute inset-0 flex items-center justify-center text-[10px] font-medium tabular text-amber-200">{fmtDur(dur)}</span>
+          <span className="absolute inset-0 flex items-center justify-center text-micro font-medium tabular text-amber-200">{fmtDur(dur)}</span>
         </div>
       </div>
       <div className="space-y-2.5">
-        <SliderRow label="Baş (in)" value={c.in} min={0} max={c.out - 0.5} onChange={(v) => setTrim(c.scene, v, c.out)} suffix={fmtDur(c.in)} />
-        <SliderRow label="Son (out)" value={c.out} min={c.in + 0.5} max={c.source_dur} onChange={(v) => setTrim(c.scene, c.in, v)} suffix={fmtDur(c.out)} />
+        <SliderRow label="Baş" value={c.in} min={0} max={c.out - 0.5} onChange={(v) => setTrim(c.scene, v, c.out)} suffix={fmtDur(c.in)} />
+        <SliderRow label="Son" value={c.out} min={c.in + 0.5} max={c.source_dur} onChange={(v) => setTrim(c.scene, c.in, v)} suffix={fmtDur(c.out)} />
       </div>
       <div className="mt-2.5 grid grid-cols-3 gap-2 text-center">
         <Mini label="Süre" value={fmtDur(dur)} />
@@ -220,7 +220,7 @@ function Section({ title, icon, children }: { title: string; icon?: ReactNode; c
 }
 function Row({ label, value }: { label: string; value: ReactNode }) {
   return (
-    <div className="flex items-baseline justify-between gap-3 py-0.5 text-[12.5px]">
+    <div className="flex items-baseline justify-between gap-3 py-0.5 text-body">
       <span className="shrink-0 text-fg-subtle">{label}</span>
       <span className="min-w-0 truncate text-right text-fg">{value}</span>
     </div>
@@ -229,7 +229,7 @@ function Row({ label, value }: { label: string; value: ReactNode }) {
 function SliderRow({ label, value, min, max, onChange, suffix }: { label: string; value: number; min: number; max: number; onChange: (v: number) => void; suffix: string }) {
   return (
     <div>
-      <div className="mb-1 flex justify-between text-[11px]"><span className="text-fg-subtle">{label}</span><span className="tabular text-fg-muted">{suffix}</span></div>
+      <div className="mb-1 flex justify-between text-caption"><span className="text-fg-subtle">{label}</span><span className="tabular text-fg-muted">{suffix}</span></div>
       <Slider value={value} min={min} max={max} step={1 / 24} onValueChange={onChange} />
     </div>
   )
@@ -237,15 +237,15 @@ function SliderRow({ label, value, min, max, onChange, suffix }: { label: string
 function Mini({ label, value, ok }: { label: string; value: string; ok?: boolean }) {
   return (
     <div className="rounded-lg bg-white/[0.03] py-1.5">
-      <div className="text-[10px] text-fg-subtle">{label}</div>
-      <div className="text-[12px] font-medium tabular" style={ok === false ? { color: 'var(--color-warn)' } : undefined}>{value}</div>
+      <div className="text-micro text-fg-subtle">{label}</div>
+      <div className="text-label font-medium tabular" style={ok === false ? { color: 'var(--color-warn)' } : undefined}>{value}</div>
     </div>
   )
 }
 function ResetButton({ scene, overridden }: { scene: number; overridden: boolean }) {
   const reset = useApp((s) => s.resetClip)
   return (
-    <Tip label={overridden ? 'Algoritmanın kararına döndür' : 'Değişiklik yok'}>
+    <Tip label={overridden ? "AutoReji'nin kararına döndür" : 'Değişiklik yok'}>
       <span><Button size="sm" variant="ghost" disabled={!overridden} onClick={() => reset(scene)}><RotateCcw size={13} /> Sıfırla</Button></span>
     </Tip>
   )

@@ -46,11 +46,11 @@ export function PreviewModal({ clip, prev, onClose }: { clip: Clip; prev: Clip |
     <Dialog.Root open onOpenChange={(o) => !o && onClose()}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-ink-950/85 data-[state=open]:animate-[float-up_.2s_ease-out]" />
-        <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-[640px] max-w-[92vw] -translate-x-1/2 -translate-y-1/2 rounded-2xl glass p-5 shadow-[var(--shadow-pop)] focus:outline-none">
+        <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-[640px] max-w-[92vw] -translate-x-1/2 -translate-y-1/2 rounded-2xl glass p-5 shadow-pop focus:outline-none">
           <div className="mb-3 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Dialog.Title className="text-[15px] font-semibold">Geçiş önizlemesi</Dialog.Title>
-              <span className="rounded-md px-1.5 py-0.5 text-[11px] font-medium" style={{ background: `color-mix(in srgb, ${TRANSITION[t].color} 18%, transparent)`, color: TRANSITION[t].color }}>
+              <Dialog.Title className="text-lead font-semibold">Geçiş önizlemesi</Dialog.Title>
+              <span className="rounded-md px-1.5 py-0.5 text-caption font-medium" style={{ background: `color-mix(in srgb, ${TRANSITION[t].color} 18%, transparent)`, color: TRANSITION[t].color }}>
                 {prev ? `${prev.scene} → ${clip.scene}` : `Sahne ${clip.scene}`} · {TRANSITION[t].label}{t !== 'cut' && ` ${fmtDur(dur)}`}
               </span>
             </div>
@@ -75,7 +75,7 @@ export function PreviewModal({ clip, prev, onClose }: { clip: Clip; prev: Clip |
               <button onClick={() => setPlaying((p) => !p)} aria-label={playing ? 'Duraklat' : 'Oynat'} className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/8 text-fg hover:bg-white/12">{playing ? <Pause size={16} /> : <Play size={16} />}</button>
               <button onClick={restart} aria-label="Baştan oynat" className="flex h-9 w-9 items-center justify-center rounded-lg text-fg-muted hover:bg-white/8 hover:text-fg"><RotateCcw size={15} /></button>
             </div>
-            <div className="flex items-center gap-1.5 text-[12px] text-fg-subtle"><Volume2 size={14} /> Bu önizleme sessizdir — gerçek stereo sesi Premiere'de duyarsın.</div>
+            <div className="flex items-center gap-1.5 text-label text-fg-subtle"><Volume2 size={14} /> Bu önizleme sessizdir — gerçek stereo sesi Premiere'de duyarsın.</div>
           </div>
         </Dialog.Content>
       </Dialog.Portal>

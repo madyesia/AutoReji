@@ -10,6 +10,9 @@ export function RainCanvas({ intensity = 1, className }: { intensity?: number; c
     if (!canvas || !parent || !ctx) return
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
     const dpr = Math.min(window.devicePixelRatio || 1, 2)
+    // Yağmur rengi TEK kaynaktan: @theme --color-rain (canvas var() almaz → hex'i JS'te çöz)
+    const rainHex = getComputedStyle(document.documentElement).getPropertyValue('--color-rain').trim() || '#b0caea'
+    const [rr, rg, rb] = [1, 3, 5].map((i) => parseInt(rainHex.slice(i, i + 2), 16))
     let w = 0, h = 0, raf = 0, last = performance.now()
     type Drop = { x: number; y: number; len: number; sp: number; a: number; wd: number }
     let drops: Drop[] = []
@@ -36,7 +39,7 @@ export function RainCanvas({ intensity = 1, className }: { intensity?: number; c
       for (const d of drops) {
         d.y += d.sp * dt
         if (d.y > h + d.len) { d.y = -d.len; d.x = Math.random() * w }
-        ctx.strokeStyle = `rgba(176,202,234,${d.a})`
+        ctx.strokeStyle = `rgba(${rr},${rg},${rb},${d.a})`
         ctx.lineWidth = d.wd
         ctx.beginPath()
         ctx.moveTo(d.x, d.y)
@@ -50,7 +53,7 @@ export function RainCanvas({ intensity = 1, className }: { intensity?: number; c
     ro.observe(parent)
     if (!reduce) raf = requestAnimationFrame(frame)
     else { // tek kare statik
-      for (const d of drops) { ctx.strokeStyle = `rgba(176,202,234,${d.a})`; ctx.lineWidth = d.wd; ctx.beginPath(); ctx.moveTo(d.x, d.y); ctx.lineTo(d.x + 2, d.y + d.len); ctx.stroke() }
+      for (const d of drops) { ctx.strokeStyle = `rgba(${rr},${rg},${rb},${d.a})`; ctx.lineWidth = d.wd; ctx.beginPath(); ctx.moveTo(d.x, d.y); ctx.lineTo(d.x + 2, d.y + d.len); ctx.stroke() }
     }
     return () => { cancelAnimationFrame(raf); ro.disconnect() }
   }, [intensity])

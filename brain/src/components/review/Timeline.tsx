@@ -28,7 +28,7 @@ export function Timeline() {
 
   return (
     <div className="shrink-0 glass hairline-t px-4 py-2.5">
-      <div className="mb-1.5 flex items-center justify-between text-[10.5px] text-fg-subtle">
+      <div className="mb-1.5 flex items-center justify-between text-caption text-fg-subtle">
         <span className="uppercase tracking-[0.14em]">Genel bakış · zaman çizelgesi</span>
         <span className="tabular">{fmtClock(total)} · {clips.filter((c) => c.enabled).length} klip</span>
       </div>
@@ -64,7 +64,7 @@ export function Timeline() {
         })}
         {/* playhead */}
         {playSeg && (
-          <span className="pointer-events-none absolute top-0 z-10 h-full w-0.5 bg-white shadow-[0_0_8px_rgba(255,255,255,.8)]"
+          <span className="pointer-events-none absolute top-0 z-10 h-full w-0.5 bg-white playhead-glow"
             style={{ left: `${playLeft}%`, transition: `left ${playSeg.dur}s linear` }} />
         )}
       </div>

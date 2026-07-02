@@ -88,7 +88,7 @@ async function runStep(id, label, fn) {
 
 async function getProject() {
   const p = await ppro.Project.getActiveProject();
-  if (!p) { err("Açık proje yok. File > New > Project."); return null; }
+  if (!p) { err("Premiere'de açık proje yok — kurulum bir projenin içine yapılır. File → Open ile projeni aç (veya File → New → Project), sonra tekrar 'Bölümü Kur'a bas."); return null; }
   return p;
 }
 
@@ -122,13 +122,13 @@ async function loadManifest(source) {
   if (source === "paste") {
     const ta = document.querySelector("#paste-json");
     const txt = ta ? String(ta.value || "").trim() : "";
-    if (!txt) throw new Error("Yapıştırılan metin boş — manifest JSON'unu textarea'ya yapıştır.");
+    if (!txt) throw new Error("Yapıştırılan metin boş — manifest içeriğini yukarıdaki kutuya yapıştır.");
     return JSON.parse(txt);   // throw → loadAndPreview yakalar
   }
   // source === "file" (varsayılan)
   const storage = (uxp && uxp.storage) ? uxp.storage : (require("uxp").storage);
   if (!storage || !storage.localFileSystem) {
-    throw new Error("Dosya sistemi erişilemiyor (UXP storage yok) — JSON'u yapıştırma yolunu kullan.");
+    throw new Error("Dosya seçici bu Premiere sürümünde açılamıyor — manifest içeriğini kopyalayıp kutuya yapıştır, 'Doğrula'ya bas.");
   }
   const lfs = storage.localFileSystem;
   const fileTypes = storage.fileTypes;
@@ -164,14 +164,14 @@ async function loadManifest(source) {
 
 // Hafif doğrulama: clips dizi + en az 1 etkin klip; episode.name / sequence.fps düşse de devam.
 function validateManifest(obj) {
-  if (!obj || typeof obj !== "object") throw new Error("Manifest bir JSON nesnesi değil.");
-  if (!Array.isArray(obj.clips)) throw new Error("Manifest 'clips' dizisi yok.");
+  if (!obj || typeof obj !== "object") throw new Error("Bu dosya bir AutoReji manifest'i değil — Kur ekranında kaydettiğin '..._manifest.json'u seçtiğinden emin ol.");
+  if (!Array.isArray(obj.clips)) throw new Error("Bu dosya bir AutoReji manifest'i değil (klip listesi yok) — Kur ekranında kaydettiğin '..._manifest.json'u seç.");
   const enabled = obj.clips.filter((c) => c && c.enabled !== false);
   if (!enabled.length) throw new Error("Etkin klip yok.");
   for (const c of enabled) {
     const sc = c.scene != null ? c.scene : c.index;
     if (typeof c.file !== "string" || !c.file) throw new Error("Klip #" + sc + ": dosya yolu (file) eksik.");
-    if (!isFinite(c.in) || !isFinite(c.out) || c.in >= c.out) throw new Error("Klip #" + sc + ": geçersiz in/out (" + c.in + " → " + c.out + ").");
+    if (!isFinite(c.in) || !isFinite(c.out) || c.in >= c.out) throw new Error("Sahne " + sc + ": kırpma değerleri bozuk (" + c.in + " → " + c.out + ") — bölümü AutoReji'de yeniden kur.");
   }
   return { enabledCount: enabled.length };
 }
@@ -393,11 +393,11 @@ async function runBuild() {
 
     const items = await runStep("map", "2) Proje öğelerini eşle", async () => {
       const { out, missing } = await findImportedClips(project, clips.map((c) => c.file));
-      if (missing.length) throw new Error(missing.length + " bulunamadı: " + missing.slice(0, 4).join(", "));
+      if (missing.length) throw new Error(missing.length + " klip Premiere projesinde bulunamadı (" + missing.slice(0, 4).join(", ") + "…). Videolar taşınmış olabilir — hâlâ manifest'teki klasörde olduklarından emin ol, sonra yeniden dene.");
       return out;
     });
 
-    await runStep("media", "2.5) Medya hazır bekleniyor", async () => {
+    await runStep("media", "3) Medya hazırlanıyor", async () => {
       if (!(await waitForMedia(items))) warn("Bazı medya yüklenmedi; devam.");
     });
 
@@ -448,7 +448,7 @@ async function runBuild() {
       PANEL.emit("report", { gaps: g.gaps, maxTicks: g.maxTicks });
       info("   MİKRO BOŞLUK: " + g.gaps + (g.gaps ? " (en büyük " + g.maxTicks + " tick = " + g.maxFrames + " kare)" : ""));
       if (g.gaps) warn(g.first.join(" "));
-      else ok("Tam kare hizası — alt-kare boşluk bile YOK 🎉");
+      else ok("Tam kare hizası — alt-kare boşluk yok.");
     });
 
     // 7) Geçişler (manifest transition_in) — tek transaction
@@ -556,14 +556,14 @@ async function runBuild() {
     await runStep("verify", "9) Son boşluk kontrolü", async () => {
       const g = await measureGaps(seq);
       PANEL.emit("report", { gaps: g.gaps, maxTicks: g.maxTicks });
-      info("   MİKRO BOŞLUK (geçişlerden sonra): " + g.gaps + (g.gaps ? " — " + g.first.join(" ") : " 🎉"));
+      info("   MİKRO BOŞLUK (geçişlerden sonra): " + g.gaps + (g.gaps ? " — " + g.first.join(" ") : ""));
     });
 
     log("———————————————", "#5a6880");
-    ok("BİTTİ — RENDER YOK. Klipler + geçişler + intro/outro, native stereo, boşluksuz.");
+    ok("Bitti — render alınmadı. Klipler, geçişler ve giriş-çıkış hazır; ses native stereo, boşluk yok.");
     PANEL.emit("done", { name: name, clips: clips.length, duration: totalSec });
   } catch (e) {
-    err("Durduruldu — HATA satırına bak.");
+    err("Kurulum durdu — aşağıdaki kırmızı satırda sebebi yazıyor.");
     PANEL.emit("failed", { step: (e && e.message) ? e.message : String(e) });
     // eslint-disable-next-line no-console
     console.error(e);

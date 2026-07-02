@@ -11,8 +11,8 @@ export function ChangeSummaryToast({ p }: { p: ChangeSummaryPayload }) {
     <div className="min-w-0">
       <div className="flex items-center gap-1.5">
         <Wand2 size={13} className="shrink-0 text-amber-300" />
-        <span className="text-gold text-[13px] font-semibold">{p.label}</span>
-        <span className="text-[12px] text-fg-subtle">kurgu stili</span>
+        <span className="text-gold text-body font-semibold">{p.label}</span>
+        <span className="text-label text-fg-subtle">kurgu stili</span>
       </div>
       <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
         {shown.map((d, i) => (
@@ -21,7 +21,7 @@ export function ChangeSummaryToast({ p }: { p: ChangeSummaryPayload }) {
             initial={reduce ? false : { opacity: 0, y: 4 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: reduce ? 0 : i * 0.045, duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            className="inline-flex h-[22px] items-center gap-1 rounded-md px-1.5 text-[11.5px] font-medium tabular"
+            className="inline-flex h-[22px] items-center gap-1 rounded-md px-1.5 text-label font-medium tabular"
             style={{
               color: d.accent === 'amber' ? 'var(--color-amber-300)' : 'var(--color-fg-muted)',
               background: d.accent === 'amber'
@@ -34,7 +34,7 @@ export function ChangeSummaryToast({ p }: { p: ChangeSummaryPayload }) {
             {fmtDelta(d)}
           </motion.span>
         ))}
-        {extra > 0 && <span className="text-[11px] text-fg-subtle">+{extra} daha</span>}
+        {extra > 0 && <span className="text-caption text-fg-subtle">+{extra} daha</span>}
       </div>
     </div>
   )

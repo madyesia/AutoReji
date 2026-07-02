@@ -18,7 +18,7 @@ const GROUPS: { title: string; rows: { keys: string[]; desc: string }[] }[] = [
       { keys: ['C'], desc: 'Seçili klibi Cut yap' },
       { keys: ['F'], desc: 'Seçili klibi Fade yap' },
       { keys: ['B'], desc: 'Seçili klibi Black yap' },
-      { keys: ['Delete'], desc: 'Seçili klibi sil (kurgudan çıkar)' },
+      { keys: ['Delete'], desc: 'Seçili klibi kurgudan çıkar' },
       { keys: ['⌘', 'Z'], desc: 'Geri al' },
       { keys: ['⇧', '⌘', 'Z'], desc: 'İleri al' },
     ],
@@ -50,20 +50,20 @@ export function ShortcutsHelp() {
   if (!open) return null
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/55 px-4 backdrop-blur-[2px]" onClick={() => setOpen(false)}>
-      <div className="w-full max-w-lg overflow-hidden rounded-2xl glass shadow-[var(--shadow-pop)]" onClick={(e) => e.stopPropagation()}>
+      <div className="w-full max-w-lg overflow-hidden rounded-2xl glass shadow-pop" onClick={(e) => e.stopPropagation()}>
         <div className="flex items-center gap-2 border-b border-white/8 px-5 py-3.5">
           <Keyboard size={16} className="text-amber-400" />
-          <span className="text-[14px] font-semibold">Klavye kısayolları</span>
+          <span className="text-ui font-semibold">Klavye kısayolları</span>
           <span className="ml-auto"><Kbd>esc</Kbd></span>
         </div>
         <div className="max-h-[64vh] space-y-5 overflow-y-auto p-5">
           {GROUPS.map((g) => (
             <div key={g.title}>
-              <div className="mb-2 text-[11px] font-medium uppercase tracking-[0.14em] text-fg-subtle">{g.title}</div>
+              <div className="mb-2 text-caption font-medium uppercase tracking-[0.14em] text-fg-subtle">{g.title}</div>
               <div className="space-y-1.5">
                 {g.rows.map((r, i) => (
                   <div key={i} className="flex items-center justify-between gap-4">
-                    <span className="text-[13px] text-fg-muted">{r.desc}</span>
+                    <span className="text-body text-fg-muted">{r.desc}</span>
                     <span className="flex shrink-0 items-center gap-1">
                       {r.keys.map((k, j) => <Kbd key={j}>{k}</Kbd>)}
                     </span>

@@ -3,6 +3,26 @@
 Tüm önemli değişiklikler burada. Biçim: [Keep a Changelog] benzeri; sürümleme SemVer benzeri.
 Başlangıç sürümü **v1.1**; her güncellemede artar.
 
+## [beta v1.2 · 1.2.0] — 2026-07-03 — UI/UX TUR 2: Tasarım Sistemi 2.0 token konsolidasyonu + tam Türkçe dil temizliği
+> Kaynak: `docs/tasarim/spec-tokenlar.md` + `tarama-kopya.md`. Marka birebir aynı (aynı ink/amber) — bu tur **konsolidasyon**, yeniden tema değil.
+### Tasarım Sistemi 2.0 (index.css @theme ekleri + tüketim)
+- **9 adımlı adlandırılmış tip ölçeği** (`text-micro…text-display`, satır aralıklı): 21 keyfi `text-[Npx]` boyutu (213 kullanım) → 0. Yarım-piksel boyutlar (10.5/11.5/12.5/13.5) tam sayıya oturdu (1x ekranda daha net); hero H1'ler 30↔34 → **32**'de birleşti.
+- **Gölge konsolidasyonu:** ~41 keyfi gölge → token'lar. 2 yeni token: `--shadow-glow-sm` (primary buton/segmented) + `--shadow-glow-lg` (seçili/işaretli film kartı halesi); `shadow-[var(--…)]` yazımları utility'ye (`shadow-pop/raised/soft`); birleşik istisnalar `index.css` bileşen sınıflarına taşındı (`.frame-gold` altın video çerçevesi · `.playhead-glow` · `.ctrl-glass`). Kalan tek `shadow-[`: 2 danger halesi (bilinçli — token tüketiyor).
+- **Kenarlık:** `--color-hairline` (.07/.08→**.10**) + `--color-hairline-strong` (.14, glass-pop) — hat/kart tanımı hafif belirginleşti (denetim C6, istenen).
+- **Ham hex temizliği:** kamera-ölçeği 8 rengi `--color-scale-*` token'larına (utils.ts artık var() döndürür) · RainCanvas `--color-rain`'i `getComputedStyle` ile okur · inline `#0b0e14`ler `var(--color-ink-900)` · Logo/motifs amber hex'leri token · PreviewStage/Filmstrip yakın-hex zeminleri ink token'larına. **brain/src'de ham hex: 0.**
+- **Disabled standardı:** `opacity-30/40` (~1.7-2.2:1, okunmaz) → **`opacity-60`** (fg-muted üstünde ~3.4:1 ✓).
+- **fg-faint terfileri:** aksiyon linkleri ("tekrar kontrol et/test et", "Kaldır", "İptal") + bilgi taşıyan etiketler `fg-subtle`e; fg-faint yalnız dekor/placeholder.
+- `ICON` sabiti eklendi (xs12/sm14/md16/lg18 — kullanım migrasyonu sonraki tur) · `rounded-[1.7rem]`→`rounded-2xl` · **`scripts/ds_guard.sh`** koruma scripti (text-[Npx]/shadow-[/ham hex/disabled grep'leri — 4/4 ✓).
+### Türkçe dil temizliği (~45 metin)
+- **Terim birliği:** "offline"→**çevrimdışı** (6 yer) · "Sil"→**Çıkar** ailesi (geri alınabilir eylem; "sil" yalnız arşivde) · "{n} klip seçili"→**işaretli** · "timeline"→**zaman çizelgesi** · "Reji'ye"→**İnceleme'ye** · "varyant/çift çekim"→**çekim ailesi** (aday/yedek çekim) · "opsiyonel"→**isteğe bağlı** · "Rejim"→**Mekân** · "algoritma"→**AutoReji** (marka sesi).
+- **Jargon söküldü:** ffprobe (3), Q4_K_M→"sıkıştırılmış sürüm", QC→kalite kontrol, "durum makinesi"→kurgu kuralları, L≠R→"tek ses katmanı, sol-sağ gerçek stereo", ACTION/ENV→hareket/ortam sahnesi, "Baş (in)/Son (out)"→Baş/Son, benzerlik 0.82→**%82**, seed satırları korunmadı→(kurgu kodu Tur sonrası), Ollama'nın "Manifest çekiliyor"→"İndirme hazırlanıyor" (AutoReji manifest'iyle çakışıyordu).
+- **Türkçe ek uyumu:** geçiş baloncuğu "Fade'**a**" → TRANSITION meta'ya `dative` alanı ("Cut'a/Fade'e/Black'e") · ⌘K "Sahne 40'e git"→**"Sahneye git: 40"**.
+- **E3:** Intake'teki sabit "cozy yağmur ASMR" çipi artık **seçilen belgeden türeyen bölüm adını** gösterir.
+- **Hata formülü** (ne oldu + neden + ne yapmalı): model indirilemedi · kayıtlı manifest açılamadı · örnek bölüm yüklenemedi · Inspector/palet boş-durumları dolduruldu · çift-✓ toast'ları tekilleştirildi · "🎬" başlık emojisi kaldırıldı (🌧️ tek imza olarak kaldı).
+- **Panel (⚠️ `.ccx` yeniden paketlendi):** "Açık proje yok" formüle bağlandı · "BİTTİ — RENDER YOK"→"Bitti — render alınmadı" (bağırma bitti) · 🎉 kaldırıldı (UXP emoji güvenilmez) · JSON/textarea/UXP jargonu kullanıcı diline · "2.5) Medya"→"3) Medya hazırlanıyor" · durum çubuğu bağlama göre ("Manifest bekleniyor" / "Hazır — Bölümü Kur'a basabilirsin").
+### Doğrulama
+- `ds_guard.sh` 4/4 ✓ · `tsc` strict + build temiz · `node --check` panel temiz · tarayıcıda gözle: 32px display H1, hairline, "işaretli/Çıkar", glow token kartta, çevrimdışı metinleri — 0 konsol hatası · `.app` + `.ccx` yeniden derlendi.
+
 ## [beta v1.1 · 1.1.0] — 2026-07-02 — Görünen sürüm etiketi güncellemelerle artacak (kullanıcı kararı)
 - **YENİ SÜRÜM KURALI (kullanıcı 2026-07-02):** görünen etiket artık sabit kalmaz — her anlamlı güncelleme paketi görünen sürümü de artırır. TUR 0 + TUR 1 paketleri = **"beta v1.1"** (teknik semver **1.1.0**'a hizalandı).
 - Etiket 6 yerde güncellendi: `APP_VERSION` (üst bar) · panel çipi (**`.ccx` yeniden paketlendi → yeniden kur**) · pencere başlığı + `copyright` (tauri.conf → Info.plist) · Hakkında footer · `LICENSE` · `README`.

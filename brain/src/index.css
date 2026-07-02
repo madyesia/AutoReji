@@ -85,6 +85,51 @@
   --animate-shimmer: shimmer 2.2s linear infinite;
   --animate-breathe: breathe 4.5s var(--ease-out-quart) infinite;
   --animate-float-up: float-up 0.5s var(--ease-out-expo) both;
+
+  /* ================= Tasarım Sistemi 2.0 — EK TOKEN'LAR (spec-tokenlar.md) ================= */
+
+  /* ---- Tip ölçeği (C4) — 9 adlandırılmış adım; leading-none serbest kalır ---- */
+  --text-micro: 10px;                    /* süs/mini sayı: % son eki, geçiş baloncuğu sayısı */
+  --text-micro--line-height: 14px;
+  --text-caption: 11px;                  /* mikro etiket: rozet, kicker, ipucu (en yaygın adım) */
+  --text-caption--line-height: 15px;
+  --text-label: 12px;                    /* veri çipi: sahne no, süre rozeti, tooltip */
+  --text-label--line-height: 16px;
+  --text-body: 13px;                     /* gövde/açıklama metni */
+  --text-body--line-height: 18px;
+  --text-ui: 14px;                       /* girdi, orta buton, palet input */
+  --text-ui--line-height: 20px;
+  --text-lead: 15px;                     /* büyük buton, satır başlığı */
+  --text-lead--line-height: 22px;
+  --text-title: 18px;                    /* panel/dialog/durum başlığı */
+  --text-title--line-height: 24px;
+  --text-headline: 24px;                 /* büyük durum başlığı + orta sayaç */
+  --text-headline--line-height: 30px;
+  --text-headline--letter-spacing: -0.02em;
+  --text-display: 32px;                  /* ekran hero H1 + büyük % sayacı */
+  --text-display--line-height: 38px;
+  --text-display--letter-spacing: -0.02em;
+
+  /* ---- Elevation ekleri (C3) — soft/raised/pop AYNEN; 2 amber-glow eklendi ---- */
+  --shadow-glow-sm: 0 2px 10px -2px rgb(234 184 102 / 0.55);   /* küçük kontroller: primary buton, segmented aktif */
+  --shadow-glow-lg: 0 12px 36px -10px rgb(234 184 102 / 0.50); /* seçili/işaretli film kartı halesi */
+
+  /* ---- Kenarlık (C6) — hairline .07/.08 → .10; güçlü kenar .14 ---- */
+  --color-hairline: rgb(255 255 255 / 0.10);
+  --color-hairline-strong: rgb(255 255 255 / 0.14);
+
+  /* ---- Kamera-ölçeği kimlik renkleri (C2) — utils.ts SCALE_META'nın TEK kaynağı ---- */
+  --color-scale-drone:  #7fb6e6;
+  --color-scale-wide:   #5ec9a6;
+  --color-scale-medium: #e7b667;
+  --color-scale-close:  #e98c5a;
+  --color-scale-xclose: #e36d8d;
+  --color-scale-pov:    #ab8ce2;
+  --color-scale-top:    #6f8ce2;
+  --color-scale-other:  #8a93a8;
+
+  /* ---- Yağmur rengi (C1) — RainCanvas'ın TEK kaynağı (JS getComputedStyle ile okur) ---- */
+  --color-rain: #b0caea;
 }
 
 @keyframes shimmer {
@@ -162,27 +207,28 @@
     background: linear-gradient(180deg, rgb(255 255 255 / 0.045), rgb(255 255 255 / 0.012));
     backdrop-filter: blur(18px) saturate(140%);
     -webkit-backdrop-filter: blur(18px) saturate(140%);
-    border: 1px solid rgb(255 255 255 / 0.08);
+    border: 1px solid var(--color-hairline);
   }
   /* Elevation katmanları — aynı ekranda en fazla 2; .glass-pop yalnız geçici/floating (modal/toast/onay) */
   .glass-raised {
     background: linear-gradient(180deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.015));
     backdrop-filter: blur(20px) saturate(150%);
     -webkit-backdrop-filter: blur(20px) saturate(150%);
-    border: 1px solid rgb(255 255 255 / 0.10);
+    border: 1px solid var(--color-hairline);
     box-shadow: var(--shadow-raised), inset 0 1px 0 0 rgb(255 255 255 / 0.07);
   }
   .glass-pop {
     background: linear-gradient(180deg, rgb(255 255 255 / 0.07), rgb(255 255 255 / 0.02));
     backdrop-filter: blur(22px) saturate(160%);
     -webkit-backdrop-filter: blur(22px) saturate(160%);
-    border: 1px solid rgb(255 255 255 / 0.12);
+    border: 1px solid var(--color-hairline-strong);
     box-shadow: var(--shadow-pop), inset 0 1px 0 0 rgb(255 255 255 / 0.08);
   }
-  .hairline { border: 1px solid rgb(255 255 255 / 0.07); }
-  .hairline-t { border-top: 1px solid rgb(255 255 255 / 0.07); }
-  .hairline-b { border-bottom: 1px solid rgb(255 255 255 / 0.07); }
-  .hairline-r { border-right: 1px solid rgb(255 255 255 / 0.07); }
+  /* C6: .07 → --color-hairline (.10) — kart/hat tanımı hafif belirginleşir (istenen) */
+  .hairline { border: 1px solid var(--color-hairline); }
+  .hairline-t { border-top: 1px solid var(--color-hairline); }
+  .hairline-b { border-bottom: 1px solid var(--color-hairline); }
+  .hairline-r { border-right: 1px solid var(--color-hairline); }
 
   /* İnce üst-vurgu (premium kabartma hissi) */
   .bevel { box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.06); }
@@ -207,6 +253,21 @@
   /* Sürükle-bırak hedefi vurgu */
   .dropring { box-shadow: 0 0 0 1.5px rgb(234 184 102 / 0.6), 0 0 40px -6px rgb(234 184 102 / 0.35); }
 
+  /* ---- DS2 birleşik istisna gölgeleri (spec §4) — TSX'ten buraya taşındı, piksel birebir ---- */
+  /* Altın video çerçevesi (PreviewStage) — 5 katmanlı sinematik birleşim */
+  .frame-gold {
+    box-shadow:
+      0 0 0 1px rgb(234 184 102 / 0.6),
+      0 0 30px -2px rgb(234 184 102 / 0.42),
+      0 28px 72px -18px rgb(0 0 0 / 0.88),
+      0 6px 20px -6px rgb(0 0 0 / 0.7),
+      inset 0 0 60px rgb(0 0 0 / 0.4);
+  }
+  /* Playhead beyaz parlaması (Timeline) */
+  .playhead-glow { box-shadow: 0 0 8px rgb(255 255 255 / 0.8); }
+  /* Cam kontrol butonu birleşimi (PreviewStage gömülü kontroller) */
+  .ctrl-glass { box-shadow: 0 2px 8px -2px rgb(0 0 0 / 0.6), inset 0 1px 0 rgb(255 255 255 / 0.18); }
+
   /* RippleField — yayılan halka alanı (RainCanvas rAF'ına ek JS döngüsü açmaz) */
   .ripple-field { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
   .ripple-ring {
@@ -219,7 +280,7 @@
   }
 }
 
-/* İnce-kenar yardımcı (1px hat, alt katman) */
+/* İnce-kenar yardımcı (1px hat, alt katman) — C6: .08 → hairline token (.10) */
 @utility ring-hair {
-  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.08);
+  box-shadow: inset 0 0 0 1px var(--color-hairline);
 }

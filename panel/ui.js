@@ -15,7 +15,7 @@
   var STEPS = [
     { id: "import",     label: "1) Import" },
     { id: "map",        label: "2) Proje öğelerini eşle" },
-    { id: "media",      label: "2.5) Medya hazır bekleniyor" },
+    { id: "media",      label: "3) Medya hazırlanıyor" },
     { id: "trim",       label: "3) Kırpma (in/out, kare-hizalı)" },
     { id: "sequence",   label: "4) Sequence + ham dizim" },
     { id: "closegaps",  label: "5) Boşlukları kapat (video + ses)" },
@@ -567,7 +567,7 @@
     var toastRoot = $("#toast-root");
     if (toastRoot) toastRoot.innerHTML = "";
     buildStepCards();
-    setStatus("idle", "Hazır");
+    setStatus("idle", "Manifest bekleniyor — Yükle sekmesi");
     var elp = $("#elapsed");
     if (elp) elp.textContent = "0:00.0";
   }
@@ -709,7 +709,7 @@
     var box = $("#load-error");
     if (box) {
       box.style.display = "block";
-      box.textContent = String(msg || "Geçersiz manifest");
+      box.textContent = String(msg || "Manifest doğrulanamadı — dosyayı kontrol et.");
     }
     var sum = $("#load-summary");
     if (sum) sum.style.display = "none";
@@ -723,6 +723,7 @@
     meta = meta || {};
     tabState.loaded = true;
     renderGating();
+    setStatus("idle", "Hazır — Bölümü Kur'a basabilirsin");
     // hata kutusunu kapat, textarea kenarını sıfırla
     var box = $("#load-error");
     if (box) box.style.display = "none";
@@ -840,7 +841,7 @@
 
   function init() {
     buildStepCards();
-    setStatus("idle", "Hazır");
+    setStatus("idle", "Manifest bekleniyor — Yükle sekmesi");
     showLastBadge();
     wireTabs();
     wireLoad();

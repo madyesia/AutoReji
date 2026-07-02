@@ -131,14 +131,13 @@ export function PreviewStage() {
   const clipDur = active.out - active.in
 
   // premium gömülü kontrol butonu (cam + gradient dolgu + iç-üst vurgu)
-  const ctrlBtn = 'flex items-center justify-center rounded-xl bg-gradient-to-b from-white/20 to-white/[0.06] text-white ring-1 ring-white/15 shadow-[0_2px_8px_-2px_rgba(0,0,0,.6),inset_0_1px_0_rgba(255,255,255,.18)] backdrop-blur-md transition-all duration-[var(--dur-fast)] hover:from-white/30 hover:to-white/12 active:translate-y-px'
+  const ctrlBtn = 'flex items-center justify-center rounded-xl bg-gradient-to-b from-white/20 to-white/[0.06] text-white ring-1 ring-white/15 ctrl-glass backdrop-blur-md transition-all duration-[var(--dur-fast)] hover:from-white/30 hover:to-white/12 active:translate-y-px'
 
   return (
     <div className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden p-3"
-      style={{ background: 'radial-gradient(125% 120% at 50% 0%, #11151f 0%, #0b0e16 45%, #070910 100%)' }}>
+      style={{ background: 'radial-gradient(125% 120% at 50% 0%, var(--color-ink-850) 0%, var(--color-ink-900) 45%, var(--color-ink-950) 100%)' }}>
       {/* premium altın çerçeveli video — TÜM kontroller bunun İÇİNE gömülü (taşmaz) */}
-      <div className="group relative h-full aspect-video max-w-full overflow-hidden rounded-2xl ring-2 ring-amber-400/60"
-        style={{ boxShadow: '0 0 0 1px rgba(234,184,102,0.6), 0 0 30px -2px rgba(234,184,102,0.42), 0 28px 72px -18px rgba(0,0,0,0.88), 0 6px 20px -6px rgba(0,0,0,0.7), inset 0 0 60px rgba(0,0,0,0.4)' }}>
+      <div className="group relative h-full aspect-video max-w-full overflow-hidden rounded-2xl ring-2 ring-amber-400/60 frame-gold">
         <video
           ref={videoRef}
           className="h-full w-full object-cover bg-black"
@@ -154,16 +153,16 @@ export function PreviewStage() {
 
         {/* A5: yükleme çipi + okunamayan dosya rozeti (eskiden sahne sessizce siyah kalıyordu) */}
         {vidState === 'loading' && (
-          <span className="pointer-events-none absolute bottom-3 right-3 flex h-7 items-center gap-1.5 rounded-md bg-black/55 px-2.5 text-[11.5px] text-white/80 backdrop-blur-sm">
+          <span className="pointer-events-none absolute bottom-3 right-3 flex h-7 items-center gap-1.5 rounded-md bg-black/55 px-2.5 text-label text-white/80 backdrop-blur-sm">
             <span className="h-3 w-3 animate-spin rounded-full border-[1.5px] border-white/30 border-t-white/90" /> yükleniyor…
           </span>
         )}
         {vidState === 'error' && (
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/60">
             <div className="max-w-[80%] rounded-xl bg-ink-900/90 px-4 py-3 text-center ring-1 ring-danger/40">
-              <div className="text-[13px] font-semibold text-danger">Klip okunamadı</div>
-              <div className="mt-1 truncate text-[11.5px] text-fg-muted" title={active.file}>{active.file.split('/').pop()}</div>
-              <div className="mt-1 text-[11px] text-fg-subtle">Dosya taşınmış ya da bozuk olabilir — video klasörünü kontrol et.</div>
+              <div className="text-body font-semibold text-danger">Klip okunamadı</div>
+              <div className="mt-1 truncate text-label text-fg-muted" title={active.file}>{active.file.split('/').pop()}</div>
+              <div className="mt-1 text-caption text-fg-subtle">Dosya taşınmış ya da bozuk olabilir — video klasörünü kontrol et.</div>
             </div>
           </div>
         )}
@@ -171,18 +170,18 @@ export function PreviewStage() {
         {/* üst bilgi (frame içi) */}
         <div className="pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between bg-gradient-to-b from-black/60 to-transparent p-3">
           <div className="flex items-center gap-2">
-            <span className="flex h-6 items-center rounded-md bg-black/55 px-2 text-[12px] font-semibold tabular text-white backdrop-blur-sm">Sahne {active.scene}</span>
-            <span className="flex h-6 items-center gap-1.5 rounded-md bg-black/45 px-2 text-[11.5px] text-white/85 backdrop-blur-sm">
+            <span className="flex h-6 items-center rounded-md bg-black/55 px-2 text-label font-semibold tabular text-white backdrop-blur-sm">Sahne {active.scene}</span>
+            <span className="flex h-6 items-center gap-1.5 rounded-md bg-black/45 px-2 text-label text-white/85 backdrop-blur-sm">
               <span className="h-2 w-2 rounded-full" style={{ background: r.color }} /> {r.label} · {scaleLabel(active.meta.scale)}
             </span>
             {t !== 'cut' && (
-              <span className="flex h-6 items-center rounded-md px-2 text-[11.5px] font-medium backdrop-blur-sm"
+              <span className="flex h-6 items-center rounded-md px-2 text-label font-medium backdrop-blur-sm"
                 style={{ background: `color-mix(in srgb, ${TRANSITION[t].color} 30%, rgba(0,0,0,.45))`, color: '#fff' }}>
                 {TRANSITION[t].label} {fmtDur(active.transition_in!.dur)}
               </span>
             )}
           </div>
-          {playing && <span className="flex h-6 items-center gap-1.5 rounded-md bg-amber-400/90 px-2 text-[11px] font-semibold text-ink-950 backdrop-blur-sm">● TÜM KURGU</span>}
+          {playing && <span className="flex h-6 items-center gap-1.5 rounded-md bg-amber-400/90 px-2 text-caption font-semibold text-ink-950 backdrop-blur-sm">● TÜM KURGU</span>}
         </div>
 
         {/* alt: GÖMÜLÜ premium kontroller (frame içinde, kenara taşmaz) */}
@@ -194,25 +193,25 @@ export function PreviewStage() {
               <div className="h-full rounded-full bg-gradient-to-r from-amber-500 via-amber-400 to-amber-200"
                 style={{ width: `${prog * 100}%`, boxShadow: '0 0 12px -1px rgba(234,184,102,.75)' }} />
             </div>
-            <div className="absolute top-1/2 h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-100 ring-2 ring-amber-400/50 shadow-[0_1px_7px_rgba(0,0,0,.75)] transition-transform duration-150 group-hover/bar:scale-125"
+            <div className="absolute top-1/2 h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-100 ring-2 ring-amber-400/50 shadow-soft transition-transform duration-150 group-hover/bar:scale-125"
               style={{ left: `${prog * 100}%` }} />
           </div>
           {/* kontrol satırı: sol = tüm kurgu · orta = oynatım · sağ = ses + süre */}
           <div className="flex items-center justify-between gap-2">
             <div className="flex min-w-0 flex-1 items-center">
               {!playing ? (
-                <button onClick={startPlay} className="flex h-8 items-center gap-1.5 rounded-lg bg-gradient-to-b from-amber-300 to-amber-500 px-3 text-[12px] font-semibold text-ink-950 shadow-[0_2px_10px_-2px_rgba(234,184,102,.6),inset_0_1px_0_rgba(255,255,255,.4)] transition-all duration-[var(--dur-fast)] hover:from-amber-200 hover:to-amber-400 active:translate-y-px">
+                <button onClick={startPlay} className="flex h-8 items-center gap-1.5 rounded-lg bg-gradient-to-b from-amber-300 to-amber-500 px-3 text-label font-semibold text-ink-950 shadow-glow-sm transition-all duration-[var(--dur-fast)] hover:from-amber-200 hover:to-amber-400 active:translate-y-px">
                   <Play size={14} /> Tüm kurguyu oynat
                 </button>
               ) : (
-                <button onClick={() => { stop(); if (active) select(active.scene) }} className={cn(ctrlBtn, 'h-8 gap-1.5 px-3 text-[12px] font-medium')}>
+                <button onClick={() => { stop(); if (active) select(active.scene) }} className={cn(ctrlBtn, 'h-8 gap-1.5 px-3 text-label font-medium')}>
                   <Square size={13} /> Durdur
                 </button>
               )}
             </div>
             <div className="flex items-center gap-2">
               <button onClick={skipBack} aria-label="Önceki klip" title="Önceki klip" className={cn(ctrlBtn, 'h-9 w-9')}><SkipBack size={15} /></button>
-              <button onClick={togglePause} aria-label="Durdur / Devam" title="Durdur / Devam" className={cn(ctrlBtn, 'h-11 w-11')}>{paused ? <Play size={18} /> : <Pause size={18} />}</button>
+              <button onClick={togglePause} aria-label="Duraklat / Devam" title="Duraklat / Devam" className={cn(ctrlBtn, 'h-11 w-11')}>{paused ? <Play size={18} /> : <Pause size={18} />}</button>
               <button onClick={skipFwd} aria-label="Sonraki klip" title="Sonraki klip" className={cn(ctrlBtn, 'h-9 w-9')}><SkipForward size={15} /></button>
             </div>
             <div className="flex min-w-0 flex-1 items-center justify-end gap-2">
@@ -220,7 +219,7 @@ export function PreviewStage() {
                 className={cn(ctrlBtn, 'h-8 w-8', !muted && '!from-amber-300/35 !to-amber-500/15 !text-amber-100 ring-amber-400/50')}>
                 {muted ? <VolumeX size={15} /> : <Volume2 size={15} />}
               </button>
-              <span className="rounded-md bg-black/50 px-2 py-1 text-[11px] tabular text-white/85 backdrop-blur-sm">{fmtDur(clipDur * prog)} / {fmtDur(clipDur)}</span>
+              <span className="rounded-md bg-black/50 px-2 py-1 text-caption tabular text-white/85 backdrop-blur-sm">{fmtDur(clipDur * prog)} / {fmtDur(clipDur)}</span>
             </div>
           </div>
         </div>

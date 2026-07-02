@@ -48,7 +48,7 @@ export function CommandPalette() {
       L.push({ id: 'st-calm', group: 'Kurgu stili', label: 'Daha sakin (fade artır)', kw: 'çok fade', run: () => { s.applyStyle('calm'); close() } })
       L.push({ id: 'st-tempo', group: 'Kurgu stili', label: 'Daha tempolu (cut artır)', kw: 'hızlı', run: () => { s.applyStyle('tempo'); close() } })
       L.push({ id: 'st-cine', group: 'Kurgu stili', label: 'Sinematik', run: () => { s.applyStyle('cine'); close() } })
-      L.push({ id: 'st-base', group: 'Kurgu stili', label: 'Orijinale döndür (algoritma)', kw: 'sıfırla reset', run: () => { s.applyStyle('base'); close() } })
+      L.push({ id: 'st-base', group: 'Kurgu stili', label: 'Orijinale döndür', kw: 'sıfırla reset', run: () => { s.applyStyle('base'); close() } })
       L.push({ id: 'v-focus', group: 'Görünüm', label: s.focusOnly ? 'Odak modunu kapat' : 'Odak: sadece dikkat gerekenler', run: () => { s.setFocusOnly(!s.focusOnly); close() } })
       L.push({ id: 'v-risky', group: 'Görünüm', label: s.riskyOnly ? 'Riskli filtresini kapat' : 'Sadece riskli klipler', run: () => { s.setRiskyOnly(!s.riskyOnly); close() } })
       L.push({ id: 'v-motion', group: 'Görünüm', label: s.motionPreview ? 'Hareketli önizlemeyi kapat' : 'Hareketli önizlemeyi aç', run: () => { s.toggleMotionPreview(); close() } })
@@ -85,24 +85,24 @@ export function CommandPalette() {
   if (!open) return null
   return (
     <div className="fixed inset-0 z-[60] flex items-start justify-center bg-black/55 px-4 pt-[12vh] backdrop-blur-[2px]" onClick={() => setOpen(false)}>
-      <div className="w-full max-w-xl overflow-hidden rounded-2xl glass shadow-[var(--shadow-pop)]" onClick={(e) => e.stopPropagation()}>
+      <div className="w-full max-w-xl overflow-hidden rounded-2xl glass shadow-pop" onClick={(e) => e.stopPropagation()}>
         <div className="flex items-center gap-2.5 border-b border-white/8 px-4">
           <Search size={16} className="shrink-0 text-fg-subtle" />
           <input ref={inputRef} value={q} onChange={(e) => { setQ(e.target.value); setActive(0) }} onKeyDown={onKeyDown}
             placeholder="Komut ara ya da sahne numarası yaz…"
-            className="h-12 flex-1 bg-transparent text-[14px] text-fg outline-none placeholder:text-fg-faint select-text" />
+            className="h-12 flex-1 bg-transparent text-ui text-fg outline-none placeholder:text-fg-faint select-text" />
           <Kbd>esc</Kbd>
         </div>
         <div ref={listRef} className="max-h-[52vh] overflow-y-auto p-2">
           {filtered.length === 0 ? (
-            <div className="px-3 py-8 text-center text-[13px] text-fg-subtle">Sonuç yok</div>
+            <div className="px-3 py-8 text-center text-body text-fg-subtle">Eşleşen komut yok — başka bir kelime dene ya da sahne numarası yaz.</div>
           ) : filtered.map((c, i) => (
             <button key={c.id} data-i={i} onClick={() => run(i)} onMouseMove={() => setActive(i)}
-              className={cn('flex w-full items-center justify-between gap-3 rounded-lg px-3 py-2 text-left text-[13px] transition-colors',
+              className={cn('flex w-full items-center justify-between gap-3 rounded-lg px-3 py-2 text-left text-body transition-colors',
                 i === active ? 'bg-amber-400/15 text-fg' : 'text-fg-muted')}>
               <span className="truncate">{c.label}</span>
               <span className="flex shrink-0 items-center gap-2">
-                <span className="text-[11px] text-fg-subtle">{c.group}</span>
+                <span className="text-caption text-fg-subtle">{c.group}</span>
                 {i === active && <CornerDownLeft size={13} className="text-amber-300" />}
               </span>
             </button>

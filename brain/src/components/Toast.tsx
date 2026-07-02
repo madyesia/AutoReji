@@ -64,7 +64,7 @@ function ToastItem({ t }: { t: Toast }) {
       transition={reduce ? { duration: 0.12 } : { type: 'spring', stiffness: 420, damping: 30 }}
       onMouseEnter={() => { pausedRef.current = true }}
       onMouseLeave={() => { pausedRef.current = false }}
-      className="glass pointer-events-auto relative w-[340px] overflow-hidden rounded-xl shadow-[var(--shadow-pop)] ring-hair"
+      className="glass pointer-events-auto relative w-[340px] overflow-hidden rounded-xl shadow-pop ring-hair"
       role="status"
     >
       {/* fosforlu sol-şerit (semantik renk + glow) */}
@@ -76,15 +76,15 @@ function ToastItem({ t }: { t: Toast }) {
             <ChangeSummaryToast p={t.change} />
           ) : (
             <>
-              <div className="text-[13px] leading-snug text-fg">{t.msg}</div>
-              {t.sub && <div className="mt-0.5 text-[11px] text-fg-subtle">{t.sub}</div>}
+              <div className="text-body leading-snug text-fg">{t.msg}</div>
+              {t.sub && <div className="mt-0.5 text-caption text-fg-subtle">{t.sub}</div>}
             </>
           )}
         </div>
         {t.action && (
           <button
             onClick={runAction}
-            className="-mr-1 mt-0.5 flex h-7 shrink-0 items-center gap-1 rounded-lg px-2 text-[12px] font-medium text-fg-muted transition-colors hover:bg-white/8 hover:text-fg"
+            className="-mr-1 mt-0.5 flex h-7 shrink-0 items-center gap-1 rounded-lg px-2 text-label font-medium text-fg-muted transition-colors hover:bg-white/8 hover:text-fg"
           >
             <Undo2 size={13} /> {t.action.label}
           </button>

@@ -54,9 +54,9 @@ export function useOnline(): boolean {
 }
 
 // ---- AI modeli ----
-export const MODEL = { tag: 'qwen2.5vl:7b', label: 'qwen2.5-VL 7B', sizeBytes: 6.0 * 1024 ** 3, quant: 'Q4_K_M' }
+export const MODEL = { tag: 'qwen2.5vl:7b', label: 'qwen2.5-VL 7B', sizeBytes: 6.0 * 1024 ** 3, quant: 'sıkıştırılmış sürüm' }
 export interface PullProgress { phase: string; bytes: number; total: number; mbps: number; done: boolean; native: boolean }
-const PHASES = ['Manifest çekiliyor', 'Katmanlar indiriliyor', 'SHA-256 doğrulanıyor', 'Yerel kütüphaneye yazılıyor', 'Hazır']
+const PHASES = ['İndirme hazırlanıyor', 'Katmanlar indiriliyor', 'Dosya bütünlüğü kontrol ediliyor', 'Yerel kütüphaneye yazılıyor', 'Hazır']
 
 // ---- Ollama (yerel görsel-AI) durum/başlatma — GERÇEK (sidecar HTTP, çalışma anıyla AYNI yol) ----
 export const OLLAMA_DOWNLOAD = 'https://ollama.com/download'
@@ -167,7 +167,7 @@ export async function integratePlugin(): Promise<BridgeResult> {
 export const CCX_FILE = 'com.autoreji.derisk_premierepro.ccx'
 export const CCX_URL = `/plugin/${CCX_FILE}`
 export const PLUGIN_ID = 'com.autoreji.derisk'
-const INSTALL_PHASES = ['Paket hazırlanıyor', "Creative Cloud'a veriliyor", "Premiere'e bağlanıyor", 'Doğrulanıyor', 'Hazır']
+const INSTALL_PHASES = ['Paket hazırlanıyor', "İndiriliyor", "Paket doğrulanıyor", 'Doğrulanıyor', 'Hazır']
 export interface InstallProgress { phase: string; pct: number; done: boolean; native: boolean }
 const PLUGIN_KEY = 'autoreji.plugin.ccx.v1'
 

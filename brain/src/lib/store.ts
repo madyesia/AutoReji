@@ -163,7 +163,7 @@ export const useApp = create<AppState>((set, get) => {
         if (!entry.savedPath) { get().pushToast('Bu bölümün manifest dosyası kaydedilmemiş', { kind: 'amber', icon: 'alert', ttl: 6000, sub: 'Bölümü yeniden aç → Kur ekranında "Manifest\'i Kaydet"e bas.' }); return }
         const raw = await readText(entry.savedPath)
         try { if (raw) m = JSON.parse(raw) as Manifest } catch { /* bozuk JSON → aşağıda yakalanır */ }
-        if (!m) { get().pushToast('Kayıtlı manifest okunamadı', { kind: 'danger', icon: 'alert' }); return }
+        if (!m) { get().pushToast('Kayıtlı manifest açılamadı', { kind: 'danger', icon: 'alert', ttl: 7000, sub: "Dosya taşınmış ya da bozulmuş olabilir. Bölümü yeniden kurup \"Manifest'i Kaydet\" ile yeni kopya al." }); return }
       } else {
         m = await loadEpisode()
       }

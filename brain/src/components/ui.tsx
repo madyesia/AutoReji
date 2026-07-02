@@ -10,16 +10,16 @@ type Variant = 'primary' | 'ghost' | 'subtle' | 'danger' | 'outline'
 type Size = 'sm' | 'md' | 'lg'
 const V: Record<Variant, string> = {
   primary:
-    'text-ink-950 font-semibold bg-gradient-to-b from-amber-300 to-amber-500 hover:from-amber-200 hover:to-amber-400 shadow-[0_2px_10px_-2px_rgba(234,184,102,.5)] active:translate-y-px',
+    'text-ink-950 font-semibold bg-gradient-to-b from-amber-300 to-amber-500 hover:from-amber-200 hover:to-amber-400 shadow-glow-sm active:translate-y-px',
   ghost: 'text-fg-muted hover:text-fg hover:bg-white/5',
   subtle: 'text-fg bg-white/[0.06] hover:bg-white/[0.1] border border-white/8 bevel',
   outline: 'text-fg border border-white/12 hover:border-white/20 hover:bg-white/5',
   danger: 'text-danger bg-danger/10 hover:bg-danger/15 border border-danger/20',
 }
 const S: Record<Size, string> = {
-  sm: 'h-8 px-3 text-[13px] gap-1.5 rounded-lg',
+  sm: 'h-8 px-3 text-body gap-1.5 rounded-lg',
   md: 'h-10 px-4 text-sm gap-2 rounded-lg',
-  lg: 'h-12 px-6 text-[15px] gap-2.5 rounded-xl',
+  lg: 'h-12 px-6 text-lead gap-2.5 rounded-xl',
 }
 interface BtnProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant; size?: Size
@@ -28,7 +28,7 @@ export const Button = forwardRef<HTMLButtonElement, BtnProps>(
   ({ variant = 'subtle', size = 'md', className, children, ...p }, ref) => (
     <button
       ref={ref}
-      className={cn('inline-flex items-center justify-center select-none transition-all duration-150 ease-[var(--ease-out-quart)] disabled:opacity-40 disabled:pointer-events-none', V[variant], S[size], className)}
+      className={cn('inline-flex items-center justify-center select-none transition-all duration-150 ease-[var(--ease-out-quart)] disabled:opacity-60 disabled:pointer-events-none', V[variant], S[size], className)}
       {...p}
     >
       {children}
@@ -67,12 +67,12 @@ export function Segmented<T extends string>({
           <button
             key={o.value}
             onClick={() => onChange(o.value)}
-            className={cn('relative z-10 inline-flex items-center gap-1.5 rounded-lg px-3 h-8 text-[13px] font-medium transition-colors duration-200',
+            className={cn('relative z-10 inline-flex items-center gap-1.5 rounded-lg px-3 h-8 text-body font-medium transition-colors duration-200',
               on ? 'text-ink-950' : 'text-fg-muted hover:text-fg')}
           >
             {on && (
               <motion.span layoutId="seg" transition={{ type: 'spring', stiffness: 500, damping: 38 }}
-                className="absolute inset-0 -z-10 rounded-lg bg-gradient-to-b from-amber-300 to-amber-500 shadow-[0_2px_10px_-3px_rgba(234,184,102,.55)]" />
+                className="absolute inset-0 -z-10 rounded-lg bg-gradient-to-b from-amber-300 to-amber-500 shadow-glow-sm" />
             )}
             {o.icon}{o.label}
           </button>
@@ -85,7 +85,7 @@ export function Segmented<T extends string>({
 /* ---------------- Badge / Dot / Kbd ---------------- */
 export function Badge({ children, color = 'var(--color-fg-muted)', soft = true, className }: { children: ReactNode; color?: string; soft?: boolean; className?: string }) {
   return (
-    <span className={cn('inline-flex items-center gap-1 rounded-md px-1.5 h-5 text-[11px] font-medium tabular leading-none', className)}
+    <span className={cn('inline-flex items-center gap-1 rounded-md px-1.5 h-5 text-caption font-medium tabular leading-none', className)}
       style={soft ? { color, background: `color-mix(in srgb, ${color} 14%, transparent)` } : { color }}>
       {children}
     </span>
@@ -95,7 +95,7 @@ export const Dot = ({ color, size = 7 }: { color: string; size?: number }) => (
   <span className="inline-block rounded-full shrink-0" style={{ width: size, height: size, background: color, boxShadow: `0 0 8px -1px ${color}` }} />
 )
 export const Kbd = ({ children }: { children: ReactNode }) => (
-  <kbd className="inline-flex items-center justify-center min-w-5 h-5 px-1.5 rounded-md bg-ink-900 text-fg-subtle text-[11px] font-medium ring-hair tabular">{children}</kbd>
+  <kbd className="inline-flex items-center justify-center min-w-5 h-5 px-1.5 rounded-md bg-ink-900 text-fg-subtle text-caption font-medium ring-hair tabular">{children}</kbd>
 )
 
 /* ---------------- Tooltip ---------------- */
@@ -105,7 +105,7 @@ export function Tip({ children, label, side = 'top' }: { children: ReactNode; la
       <RTooltip.Trigger asChild>{children}</RTooltip.Trigger>
       <RTooltip.Portal>
         <RTooltip.Content side={side} sideOffset={8}
-          className="z-50 rounded-lg bg-ink-700 px-2.5 py-1.5 text-[12px] text-fg shadow-[var(--shadow-pop)] ring-hair data-[state=delayed-open]:animate-[float-up_.18s_ease-out]">
+          className="z-50 rounded-lg bg-ink-700 px-2.5 py-1.5 text-label text-fg shadow-pop ring-hair data-[state=delayed-open]:animate-[float-up_.18s_ease-out]">
           {label}
           <RTooltip.Arrow className="fill-ink-700" />
         </RTooltip.Content>
@@ -124,7 +124,7 @@ export function Slider({ value, min, max, step = 0.01, onValueChange, accent = '
       <RSlider.Track className="relative h-1.5 grow rounded-full bg-white/8">
         <RSlider.Range className="absolute h-full rounded-full" style={{ background: accent }} />
       </RSlider.Track>
-      <RSlider.Thumb className="block h-4 w-4 rounded-full bg-white shadow-[0_2px_8px_rgba(0,0,0,.6)] ring-2 transition-transform hover:scale-110 focus:outline-none focus-visible:ring-amber-400"
+      <RSlider.Thumb className="block h-4 w-4 rounded-full bg-white shadow-soft ring-2 transition-transform hover:scale-110 focus:outline-none focus-visible:ring-amber-400"
         style={{ ['--tw-ring-color' as string]: accent }} />
     </RSlider.Root>
   )
@@ -163,14 +163,14 @@ export function CountUp({ value, format }: { value: number; format?: (n: number)
 export function Stat({ label, value, sub, accent, countValue, format }: { label: string; value?: ReactNode; sub?: ReactNode; accent?: string; countValue?: number; format?: (n: number) => string }) {
   return (
     <div className="flex flex-col gap-0.5">
-      <span className="text-[11px] uppercase tracking-wider text-fg-subtle">{label}</span>
+      <span className="text-caption uppercase tracking-wider text-fg-subtle">{label}</span>
       <span className="text-xl font-semibold tabular" style={accent ? { color: accent } : undefined}>
         {countValue != null ? <CountUp value={countValue} format={format} /> : value}
       </span>
-      {sub && <span className="text-[11px] text-fg-subtle tabular">{sub}</span>}
+      {sub && <span className="text-caption text-fg-subtle tabular">{sub}</span>}
     </div>
   )
 }
 export const SectionLabel = ({ children }: { children: ReactNode }) => (
-  <div className="text-[11px] font-medium uppercase tracking-[0.14em] text-fg-subtle">{children}</div>
+  <div className="text-caption font-medium uppercase tracking-[0.14em] text-fg-subtle">{children}</div>
 )

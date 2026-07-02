@@ -57,8 +57,8 @@ export function ReviewScreen() {
             /* A1 boş durum: önizleme+çizelge yerine rehber kart; film şeridi AÇIK kalır (kartlardaki Geri al ile klip döndürülebilir) */
             <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-3 px-8 text-center">
               <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-400/12 text-amber-300"><FilmIcon size={24} /></span>
-              <h2 className="text-[18px] font-semibold">Kurguda hiç klip kalmadı</h2>
-              <p className="max-w-md text-[13px] leading-snug text-fg-muted">
+              <h2 className="text-title font-semibold">Kurguda hiç klip kalmadı</h2>
+              <p className="max-w-md text-body leading-snug text-fg-muted">
                 Tüm klipler kurgudan çıkarılmış — böyle bir bölüm Premiere'de kurulamaz.
                 Film şeridindeki bir kartın <b className="text-fg">Geri al</b> düğmesiyle klip döndür, ya da:
               </p>
@@ -80,18 +80,18 @@ export function ReviewScreen() {
 
       <div className="flex h-14 shrink-0 items-center gap-4 px-4 glass hairline-t">
         {marked.length > 0 ? (
-          <div className="flex items-center gap-1.5 text-[12.5px]">
-            <span className="font-semibold tabular text-amber-300">{marked.length} klip seçili</span>
+          <div className="flex items-center gap-1.5 text-body">
+            <span className="font-semibold tabular text-amber-300">{marked.length} klip işaretli</span>
             <span className="ml-1 text-fg-subtle">→ hepsine:</span>
             <button onClick={() => bulkTransition('cut')} className="h-7 rounded-md px-2 font-medium text-fg-muted transition-colors hover:bg-white/8 hover:text-fg">Cut</button>
             <button onClick={() => bulkTransition('fade')} className="h-7 rounded-md px-2 font-medium transition-colors hover:bg-white/8" style={{ color: TRANSITION.fade.color }}>Fade</button>
             <button onClick={() => bulkTransition('black')} className="h-7 rounded-md px-2 font-medium transition-colors hover:bg-white/8" style={{ color: TRANSITION.black.color }}>Black</button>
             <div className="mx-0.5 h-4 w-px bg-white/10" />
-            <button onClick={() => (marked.length > 5 ? setConfirmBulkRemove(true) : bulkSetEnabled(false))} className="flex h-7 items-center gap-1 rounded-md px-2 font-medium text-danger transition-colors hover:bg-danger/10"><Trash2 size={13} /> Sil</button>
+            <button onClick={() => (marked.length > 5 ? setConfirmBulkRemove(true) : bulkSetEnabled(false))} className="flex h-7 items-center gap-1 rounded-md px-2 font-medium text-danger transition-colors hover:bg-danger/10"><Trash2 size={13} /> Çıkar</button>
             <button onClick={clearMarks} className="h-7 rounded-md px-2 text-fg-subtle transition-colors hover:text-fg">Temizle</button>
           </div>
         ) : (
-          <div className="flex items-center gap-3 text-[12.5px] text-fg-muted tabular">
+          <div className="flex items-center gap-3 text-body text-fg-muted tabular">
             <span className="flex items-center gap-1.5"><Dot color={TRANSITION.cut.color} /> {stats.cuts} cut</span>
             <span className="flex items-center gap-1.5"><Dot color={TRANSITION.fade.color} /> {stats.fades} fade</span>
             <span className="flex items-center gap-1.5"><Dot color={TRANSITION.black.color} /> {stats.blacks} black</span>
@@ -103,31 +103,31 @@ export function ReviewScreen() {
         )}
         <div className="flex-1" />
         {riskN > 0 ? (
-          <Tip label="QC: riskli klipleri göster — incele ve gerekirse çıkar">
+          <Tip label="Kalite kontrol: riskli klipleri göster — incele, gerekirse çıkar">
             <button onClick={() => setRiskyOnly(!riskyOnly)}
-              className={cn('flex items-center gap-1.5 rounded-lg px-2.5 h-8 text-[12.5px] transition-colors', riskyOnly ? 'text-danger' : 'text-fg-muted hover:text-fg')}>
+              className={cn('flex items-center gap-1.5 rounded-lg px-2.5 h-8 text-body transition-colors', riskyOnly ? 'text-danger' : 'text-fg-muted hover:text-fg')}>
               <AlertTriangle size={15} /> Riskli {riskN}
             </button>
           </Tip>
         ) : (
-          <Tip label="Kalite kontrol: kare-kare tarandı, sorun bulunamadı"><span className="flex items-center gap-1.5 px-2 h-8 text-[12.5px] text-ok"><ShieldCheck size={15} /> Tümü temiz</span></Tip>
+          <Tip label="Kalite kontrol: kare-kare tarandı, sorun bulunamadı"><span className="flex items-center gap-1.5 px-2 h-8 text-body text-ok"><ShieldCheck size={15} /> Tümü temiz</span></Tip>
         )}
         <Tip label="Yalnızca dikkat gerektiren klipleri göster (odak inceleme)">
-          <div className={cn('flex items-center gap-2 rounded-lg px-2.5 h-8 text-[12.5px] transition-colors', focusOnly ? 'text-amber-300' : 'text-fg-muted')}>
+          <div className={cn('flex items-center gap-2 rounded-lg px-2.5 h-8 text-body transition-colors', focusOnly ? 'text-amber-300' : 'text-fg-muted')}>
             <button onClick={() => setFocusOnly(!focusOnly)} className="flex items-center gap-1.5 hover:text-fg"><Focus size={15} /> Odak</button>
             <Switch checked={focusOnly} onCheckedChange={setFocusOnly} />
           </div>
         </Tip>
         {overridden > 0 && (
-          <Tip label="Tüm elle değişiklikleri geri al — algoritmanın orijinaline dön">
-            <button onClick={resetAll} className="flex h-8 items-center gap-1.5 rounded-lg px-2.5 text-[12px] text-fg-muted transition-colors hover:bg-white/8 hover:text-fg">
+          <Tip label="Tüm elle değişiklikleri geri al — AutoReji'nin orijinaline dön">
+            <button onClick={resetAll} className="flex h-8 items-center gap-1.5 rounded-lg px-2.5 text-label text-fg-muted transition-colors hover:bg-white/8 hover:text-fg">
               <RotateCcw size={14} /> {overridden} elle değişiklik
             </button>
           </Tip>
         )}
         <div className="flex items-center gap-0.5">
-          <Tip label="Geri al ⌘Z"><span><IconButton aria-label="Geri al" onClick={undo} disabled={!canUndo} className="disabled:opacity-30"><Undo2 size={17} /></IconButton></span></Tip>
-          <Tip label="İleri al ⇧⌘Z"><span><IconButton aria-label="İleri al" onClick={redo} disabled={!canRedo} className="disabled:opacity-30"><Redo2 size={17} /></IconButton></span></Tip>
+          <Tip label="Geri al ⌘Z"><span><IconButton aria-label="Geri al" onClick={undo} disabled={!canUndo} className="disabled:opacity-60"><Undo2 size={17} /></IconButton></span></Tip>
+          <Tip label="İleri al ⇧⌘Z"><span><IconButton aria-label="İleri al" onClick={redo} disabled={!canRedo} className="disabled:opacity-60"><Redo2 size={17} /></IconButton></span></Tip>
         </div>
         <Tip label={empty ? 'Kurguda hiç klip yok — en az 1 klip geri getir' : "Kurgu planını hazırla → Premiere'e geç"}>
           <span><Button variant="primary" disabled={empty} onClick={() => setScreen('build')}><Hammer size={16} /> Premiere'de Kur</Button></span>

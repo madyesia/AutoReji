@@ -60,11 +60,11 @@ export function ProgressRing({
       {variant === 'determinate' && p > 0.001 && p < 0.999 && (
         <>
           <circle cx={tip.x} cy={tip.y} r={stroke * 0.9} fill="var(--color-amber-400)" opacity={0.4} />
-          <circle cx={tip.x} cy={tip.y} r={stroke * 0.5} fill="#fce4b3" />
+          <circle cx={tip.x} cy={tip.y} r={stroke * 0.5} fill="var(--color-amber-200)" />
         </>
       )}
       <defs>
-        <linearGradient id={gid} x1="0" y1="0" x2="1" y2="1"><stop stopColor="#f6d293" /><stop offset="1" stopColor="#dc9f4a" /></linearGradient>
+        <linearGradient id={gid} x1="0" y1="0" x2="1" y2="1"><stop stopColor="var(--color-amber-300)" /><stop offset="1" stopColor="var(--color-amber-500)" /></linearGradient>
       </defs>
     </svg>
   )
@@ -132,7 +132,7 @@ export function ConnPulse({ showLabel = false }: { showLabel?: boolean }) {
         )}
         <span className="h-2 w-2 rounded-full" style={{ background: color, boxShadow: `0 0 8px -1px ${color}` }} />
       </span>
-      {showLabel && <span className="text-[11px] text-fg-muted">{online ? 'Çevrimiçi' : 'Çevrimdışı'}</span>}
+      {showLabel && <span className="text-caption text-fg-muted">{online ? 'Çevrimiçi' : 'Çevrimdışı'}</span>}
     </span>
   )
 }
@@ -156,8 +156,8 @@ export function StageTimeline({ stages, activeIndex }: { stages: Stage[]; active
               {state === 'done' ? <Check size={15} /> : state === 'active' ? <Loader2 size={15} className="animate-spin" /> : s.icon ?? <Circle size={11} />}
             </span>
             <div className="min-w-0 flex-1">
-              <div className={cn('text-[13px] leading-tight', state === 'idle' ? 'text-fg-faint' : 'text-fg')}>{s.label}</div>
-              {state === 'active' && s.sub && <div className="text-[11px] text-fg-subtle">{s.sub}</div>}
+              <div className={cn('text-body leading-tight', state === 'idle' ? 'text-fg-subtle' : 'text-fg')}>{s.label}</div>
+              {state === 'active' && s.sub && <div className="text-caption text-fg-subtle">{s.sub}</div>}
             </div>
           </div>
         )
@@ -176,7 +176,7 @@ export function BirthStat({ label, value, format, accent, sub, delay = 0 }: {
   const text = useCountUp(value, format, reduce ? 0 : 0.7)
   return (
     <div className="flex flex-col gap-0.5">
-      <span className="text-[11px] uppercase tracking-wider text-fg-subtle">{label}</span>
+      <span className="text-caption uppercase tracking-wider text-fg-subtle">{label}</span>
       <motion.span
         className="text-xl font-semibold tabular"
         style={{ color: accent, willChange: 'transform, filter' }}
@@ -186,7 +186,7 @@ export function BirthStat({ label, value, format, accent, sub, delay = 0 }: {
       >
         {text}
       </motion.span>
-      {sub && <span className="text-[11px] text-fg-subtle tabular">{sub}</span>}
+      {sub && <span className="text-caption text-fg-subtle tabular">{sub}</span>}
     </div>
   )
 }
@@ -245,7 +245,7 @@ export function RevealPanel({ title, defaultOpen = false, children }: { title: R
   return (
     <div>
       <button onClick={() => setOpen((o) => !o)} className="flex w-full items-center justify-between gap-2 text-left">
-        <span className="text-[11px] font-medium uppercase tracking-[0.14em] text-fg-subtle">{title}</span>
+        <span className="text-caption font-medium uppercase tracking-[0.14em] text-fg-subtle">{title}</span>
         <ChevronDown size={15} className="shrink-0 text-fg-subtle transition-transform duration-[var(--dur-base)]" style={{ transform: open ? 'rotate(180deg)' : 'none' }} />
       </button>
       <AnimatePresence initial={false}>

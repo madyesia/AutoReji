@@ -27,9 +27,9 @@ function Stepper({ screen, go, ready }: { screen: Screen; go: (s: Screen) => voi
             {i > 0 && <ChevronRight size={13} className="text-fg-faint" />}
             <Tip label={locked ? 'Önce bir bölüm yükle' : s.label}>
               <button onClick={() => !locked && go(s.k)} disabled={locked}
-                className={cn('rounded-lg px-3 h-7 text-[12.5px] font-medium transition-colors',
+                className={cn('rounded-lg px-3 h-7 text-body font-medium transition-colors',
                   active ? 'bg-white/10 text-fg'
-                    : locked ? 'text-fg-faint cursor-not-allowed'
+                    : locked ? 'text-fg-subtle cursor-not-allowed'
                     : 'text-fg-subtle hover:text-fg hover:bg-white/5')}>
                 {s.label}
               </button>
@@ -72,14 +72,14 @@ export function AppShell({ children }: { children: ReactNode }) {
         <button onClick={() => setScreen('intake')} title="Başa dön" className="flex items-center gap-2 rounded-lg transition-opacity hover:opacity-80">
           <Logo />
           <span className="flex items-baseline gap-1.5">
-            <span className="text-[15px] font-semibold tracking-tight text-gold">AutoReji</span>
-            <span className="text-[11px] text-fg-subtle tabular">{APP_VERSION}</span>
+            <span className="text-lead font-semibold tracking-tight text-gold">AutoReji</span>
+            <span className="text-caption text-fg-subtle tabular">{APP_VERSION}</span>
           </span>
         </button>
         {manifest && (
           <>
             <div className="mx-1 h-5 w-px bg-white/10" />
-            <span className="truncate max-w-[200px] text-[12px] text-fg-subtle">{prettyEpisode(manifest.episode.name)}</span>
+            <span className="truncate max-w-[200px] text-label text-fg-subtle">{prettyEpisode(manifest.episode.name)}</span>
           </>
         )}
         <div className="flex flex-1 justify-center"><Stepper screen={screen} go={setScreen} ready={!!manifest} /></div>
@@ -93,15 +93,15 @@ export function AppShell({ children }: { children: ReactNode }) {
           </Tip>
         )}
         <ConnPulse />
-        <Tip label={setupAllOk ? 'Hazırlık tamam' : `Hazırlık ${setupReady}/${SETUP_ITEM_COUNT} · eksik — aç`}>
+        <Tip label={setupAllOk ? 'Hazırlık tamam' : `Hazırlık ${setupReady}/${SETUP_ITEM_COUNT} — eksikleri tamamla`}>
           <button aria-label="Hazırlık durumu" onClick={() => setScreen('setup')}
-            className={cn('flex h-8 items-center gap-1.5 rounded-lg px-2 text-[11.5px] font-medium tabular transition-colors', screen === 'setup' ? 'bg-white/10 text-fg' : 'text-fg-muted hover:bg-white/8 hover:text-fg')}>
+            className={cn('flex h-8 items-center gap-1.5 rounded-lg px-2 text-label font-medium tabular transition-colors', screen === 'setup' ? 'bg-white/10 text-fg' : 'text-fg-muted hover:bg-white/8 hover:text-fg')}>
             <Dot color={setupAllOk ? 'var(--color-ok)' : 'var(--color-amber-400)'} size={7} /> {setupReady}/{SETUP_ITEM_COUNT}
           </button>
         </Tip>
         <Tip label="Arşiv — kurulan bölümler"><IconButton aria-label="Arşiv" active={screen === 'archive'} onClick={() => setScreen('archive')}><Library size={18} /></IconButton></Tip>
         <Tip label="Klavye kısayolları (?)"><IconButton aria-label="Klavye kısayolları" onClick={() => window.dispatchEvent(new KeyboardEvent('keydown', { key: '?' }))}><Keyboard size={17} /></IconButton></Tip>
-        <Tip label="Hakkında & ilkeler"><IconButton aria-label="Hakkında" active={about} onClick={() => setAbout(true)}><Settings2 size={18} /></IconButton></Tip>
+        <Tip label="Hakkında ve ilkeler"><IconButton aria-label="Hakkında" active={about} onClick={() => setAbout(true)}><Settings2 size={18} /></IconButton></Tip>
       </header>
       <main className="relative flex-1 overflow-hidden">{children}</main>
       <AboutDialog open={about} onClose={() => setAbout(false)} />
