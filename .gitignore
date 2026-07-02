@@ -3,8 +3,8 @@
 #   kod · belgeler · prompt'lar · demo klipleri · önizleme kareleri/sprite'lar · deneme dosyaları · _manifest.
 # YALNIZCA dışlananlar:
 #   (1) REF/  → footage (2.4GB video/görsel; kullanıcı kararı: hariç)
-#   (2) otomatik ÜRETİLEN build önbellekleri → başka cihazda `setup`/build ile KENDİLİĞİNDEN oluşur,
-#       GitHub'a koymak gereksiz + depoyu şişirir/yavaşlatır + dosya limitini zorlar.
+#   (2) otomatik ÜRETİLEN build önbellekleri → başka cihazda setup/build ile KENDİLİĞİNDEN oluşur.
+# NOT: git'te yorum SADECE satır başında '#' ile olur; satır-içi '#' deseni bozar → yorumlar ayrı satırda.
 
 # --- sistem / editör ---
 .DS_Store
@@ -22,14 +22,21 @@ node_modules/
 target/
 **/target/
 brain/src-tauri/target/
-brain/src-tauri/binaries/        # PyInstaller sidecar binary — build_sidecar.sh üretir
+
+# PyInstaller sidecar binary (build_sidecar.sh üretir):
+brain/src-tauri/binaries/
+
+# Python sanal ortamları + cache:
 .venv-sidecar/
 .venv/
 venv/
 __pycache__/
 *.py[cod]
 *.egg-info/
-brain/dist/                      # Vite prod build çıktısı — npm run build üretir
+
+# Vite prod build çıktısı (npm run build üretir):
+brain/dist/
+
 # indirilen AI modelleri (tek-komut fetch ile gelir; repoda olmamalı, GB'larca):
 _models/
 *.onnx
