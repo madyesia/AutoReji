@@ -16,8 +16,10 @@ import {
 import { tauriAvailable } from '../lib/native'
 import type { SetupItemState } from '../lib/types'
 import { cn } from '../lib/utils'
+import { AmbientLayer } from '../components/AmbientLayer'
+import { EASE } from '../lib/motion'
 
-const EXPO = [0.16, 1, 0.3, 1] as const
+const EXPO = EASE.outExpo
 const fmtGB = (b: number) => `${(b / 1024 ** 3).toFixed(1)} GB`
 
 export function SetupScreen() {
@@ -45,6 +47,7 @@ export function SetupScreen() {
 
   return (
     <div className="relative h-full overflow-y-auto">
+      <AmbientLayer />
       <RainCanvas intensity={0.5} className="opacity-50" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-amber-500/[0.04] to-transparent" />
 

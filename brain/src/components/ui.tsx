@@ -4,6 +4,7 @@ import * as RSlider from '@radix-ui/react-slider'
 import * as RSwitch from '@radix-ui/react-switch'
 import { motion, animate, useMotionValue, useReducedMotion } from 'framer-motion'
 import { cn } from '../lib/utils'
+import { EASE, SPRING } from '../lib/motion'
 
 /* ---------------- Button ---------------- */
 type Variant = 'primary' | 'ghost' | 'subtle' | 'danger' | 'outline'
@@ -18,7 +19,7 @@ const V: Record<Variant, string> = {
 }
 const S: Record<Size, string> = {
   sm: 'h-8 px-3 text-body gap-1.5 rounded-lg',
-  md: 'h-10 px-4 text-sm gap-2 rounded-lg',
+  md: 'h-10 px-4 text-ui gap-2 rounded-lg',
   lg: 'h-12 px-6 text-lead gap-2.5 rounded-xl',
 }
 interface BtnProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -28,7 +29,7 @@ export const Button = forwardRef<HTMLButtonElement, BtnProps>(
   ({ variant = 'subtle', size = 'md', className, children, ...p }, ref) => (
     <button
       ref={ref}
-      className={cn('inline-flex items-center justify-center select-none transition-all duration-150 ease-[var(--ease-out-quart)] disabled:opacity-60 disabled:pointer-events-none', V[variant], S[size], className)}
+      className={cn('inline-flex items-center justify-center select-none transition-all duration-[var(--dur-fast)] ease-[var(--ease-out-quart)] active:scale-[0.97] disabled:opacity-60 disabled:pointer-events-none', V[variant], S[size], className)}
       {...p}
     >
       {children}
@@ -41,7 +42,7 @@ export function IconButton({ className, active, children, ...p }: BtnProps & { a
   return (
     <button
       className={cn(
-        'inline-flex h-9 w-9 items-center justify-center rounded-lg text-fg-muted transition-all duration-150 hover:text-fg hover:bg-white/8',
+        'inline-flex h-9 w-9 items-center justify-center rounded-lg text-fg-muted transition-all duration-[var(--dur-fast)] active:scale-[0.94] hover:text-fg hover:bg-white/8',
         active && 'bg-white/10 text-fg',
         className,
       )}
@@ -71,7 +72,7 @@ export function Segmented<T extends string>({
               on ? 'text-ink-950' : 'text-fg-muted hover:text-fg')}
           >
             {on && (
-              <motion.span layoutId="seg" transition={{ type: 'spring', stiffness: 500, damping: 38 }}
+              <motion.span layoutId="seg" transition={SPRING.pill}
                 className="absolute inset-0 -z-10 rounded-lg bg-gradient-to-b from-amber-300 to-amber-500 shadow-glow-sm" />
             )}
             {o.icon}{o.label}
@@ -149,7 +150,7 @@ export function useCountUp(target: number, format?: (n: number) => string, durat
   const [text, setText] = useState(() => fmt(reduce ? target : 0))
   useEffect(() => {
     if (reduce) { mv.set(target); setText(fmt(target)); return }
-    const controls = animate(mv, target, { duration, ease: [0.16, 1, 0.3, 1] })
+    const controls = animate(mv, target, { duration, ease: EASE.outExpo })
     const unsub = mv.on('change', (v) => setText(fmt(v)))
     return () => { controls.stop(); unsub() }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -164,7 +165,7 @@ export function Stat({ label, value, sub, accent, countValue, format }: { label:
   return (
     <div className="flex flex-col gap-0.5">
       <span className="text-caption uppercase tracking-wider text-fg-subtle">{label}</span>
-      <span className="text-xl font-semibold tabular" style={accent ? { color: accent } : undefined}>
+      <span className="text-title font-semibold tabular" style={accent ? { color: accent } : undefined}>
         {countValue != null ? <CountUp value={countValue} format={format} /> : value}
       </span>
       {sub && <span className="text-caption text-fg-subtle tabular">{sub}</span>}

@@ -5,6 +5,7 @@ import { useApp } from '../../lib/store'
 import { videoUrl, clipThumb, spriteUrl, SPRITE_FRAMES, hasSprite } from '../../lib/data'
 import { scaleColor, clamp } from '../../lib/utils'
 import type { Clip } from '../../lib/types'
+import { EASE } from '../../lib/motion'
 
 // Inspector başlığındaki canlı mini-önizleme: ölçek-kimlik + altın çerçeve, hover-scrub veya autoplay,
 // tıkla → büyük PreviewStage'te o klibi oynat. Büyük sahneye EK hızlı bakış (çift decode'u önlemek için
@@ -65,7 +66,7 @@ export function InspectorPreview({ clip: c }: { clip: Clip }) {
       }}
       initial={reduce ? false : { opacity: 0, scale: 0.96 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.22, ease: EASE.outExpo }}
       title="Büyük önizlemede oynat" aria-label={`Sahne ${c.scene} — büyük önizlemede oynat`}
       className="group relative h-16 w-[114px] shrink-0 overflow-hidden rounded-xl transition-transform duration-[var(--dur-fast)] hover:scale-[1.03]"
       style={{

@@ -11,6 +11,8 @@ import type { ArchiveEntry, Regime } from '../lib/types'
 import { Segmented, Button, Tip, SectionLabel } from '../components/ui'
 import { ConfirmDialog } from '../components/ConfirmDialog'
 import { prettyEpisode } from '../components/AppShell'
+import { AmbientLayer } from '../components/AmbientLayer'
+import { EASE } from '../lib/motion'
 
 type Density = 'gallery' | 'list'
 type Group = 'today' | 'week' | 'older'
@@ -217,7 +219,7 @@ function ArchiveCard({ e, i, density, onReopen, onReveal, onDelete }: { e: Archi
     <motion.div
       initial={reduce ? false : { opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1], delay: reduce ? 0 : Math.min(i * 0.045, 0.4) }}
+      transition={{ duration: 0.32, ease: EASE.outExpo, delay: reduce ? 0 : Math.min(i * 0.045, 0.4) }}
       className={cn('group glass overflow-hidden rounded-2xl ring-1 ring-white/10 transition-all duration-[var(--dur-base)] ease-[var(--ease-out-quart)] hover:-translate-y-1.5 hover:shadow-pop hover:ring-white/20',
         density === 'list' && 'flex items-stretch')}
     >
@@ -230,6 +232,7 @@ function ArchiveCard({ e, i, density, onReopen, onReveal, onDelete }: { e: Archi
 function EmptyState({ onStart }: { onStart: () => void }) {
   return (
     <div className="relative mt-6 flex min-h-[52vh] flex-col items-center justify-center overflow-hidden rounded-3xl glass">
+      <AmbientLayer />
       <RainCanvas intensity={0.7} />
       <div className="pointer-events-none absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-500/[0.06] blur-3xl" />
       <div className="relative flex flex-col items-center text-center">

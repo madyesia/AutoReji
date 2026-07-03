@@ -10,6 +10,8 @@ import { Button } from '../components/ui'
 import { ProgressRing } from '../components/motifs'
 import { cn } from '../lib/utils'
 import type { Manifest } from '../lib/types'
+import { EASE, SPRING } from '../lib/motion'
+import { AmbientLayer } from '../components/AmbientLayer'
 
 // 6 aşama — her biri 0→100 dolar, biter, yeşil tik, sıradakine geçer.
 const STAGES: { label: string; sub: string; icon: ReactNode }[] = [
@@ -20,7 +22,7 @@ const STAGES: { label: string; sub: string; icon: ReactNode }[] = [
   { label: 'Görsel-AI sahne sinyali', sub: 'enerji · rol · ritim (yerel)', icon: <ScanEye size={15} /> },
   { label: 'Geçiş kararları', sub: 'kurgu kuralları + ritim', icon: <Wand2 size={15} /> },
 ]
-const EXPO = [0.16, 1, 0.3, 1] as const
+const EXPO = EASE.outExpo
 
 export function AnalysisScreen() {
   const setManifest = useApp((s) => s.setManifest)
@@ -119,6 +121,7 @@ export function AnalysisScreen() {
 
   return (
     <div className="relative flex h-full items-center justify-center overflow-hidden">
+      <AmbientLayer />
       <RainCanvas intensity={phase === 'done' ? 0.7 : 1.15} />
       <div className={cn('pointer-events-none absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl transition-colors duration-700',
         phase === 'error' ? 'bg-danger/[0.07]' : phase === 'done' ? 'bg-ok/[0.08]' : 'bg-amber-500/[0.06]')} />
@@ -129,7 +132,7 @@ export function AnalysisScreen() {
         <AnimatePresence mode="wait">
           {phase === 'error' ? (
             <motion.div key="err" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.25 }} className="flex flex-col items-center text-center">
-              <motion.div initial={reduce ? false : { scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: 'spring', stiffness: 240, damping: 20 }}
+              <motion.div initial={reduce ? false : { scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={SPRING.gentle}
                 className="flex h-[120px] w-[120px] items-center justify-center rounded-full bg-danger/12 ring-1 ring-danger/25 text-danger"><CloudRainWind size={44} /></motion.div>
               <h2 className="mt-5 text-title font-semibold">Analiz tamamlanamadı</h2>
               <p className="mt-1.5 max-w-xs text-body text-fg-muted">Bir şeyler eksik kalmış görünüyor — birlikte düzeltelim.</p>
@@ -147,7 +150,7 @@ export function AnalysisScreen() {
             </motion.div>
           ) : phase === 'done' ? (
             <motion.div key="done" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} className="flex flex-col items-center text-center">
-              <motion.div initial={reduce ? false : { scale: 0.6, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: 'spring', stiffness: 220, damping: 16 }}
+              <motion.div initial={reduce ? false : { scale: 0.6, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={SPRING.pop}
                 className="relative flex h-[128px] w-[128px] items-center justify-center rounded-full bg-ok/12 ring-1 ring-ok/30 text-ok">
                 <Clapperboard size={50} />
                 {!reduce && <motion.span aria-hidden className="absolute inset-0 rounded-full ring-2 ring-ok/40"
@@ -181,7 +184,7 @@ export function AnalysisScreen() {
                       <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg"
                         style={{ background: status === 'done' ? 'color-mix(in srgb, var(--color-ok) 16%, transparent)' : status === 'active' ? 'color-mix(in srgb, var(--color-amber-400) 16%, transparent)' : 'rgba(255,255,255,0.04)', color: status === 'done' ? 'var(--color-ok)' : status === 'active' ? 'var(--color-amber-400)' : 'var(--color-fg-faint)' }}>
                         {status === 'done'
-                          ? <motion.span initial={reduce ? false : { scale: 0.4, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: 'spring', stiffness: 460, damping: 16 }}><Check size={15} /></motion.span>
+                          ? <motion.span initial={reduce ? false : { scale: 0.4, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={SPRING.pop}><Check size={15} /></motion.span>
                           : s.icon}
                       </span>
                       <div className="min-w-0 flex-1">

@@ -4,8 +4,9 @@ import { CircleCheck, Check, Loader2, Circle, Sparkles, ChevronDown } from 'luci
 import { useOnline } from '../lib/setup'
 import { useCountUp } from './ui'
 import { cn } from '../lib/utils'
+import { EASE, FX, SPRING } from '../lib/motion'
 
-const EXPO = [0.16, 1, 0.3, 1] as const
+const EXPO = EASE.outExpo   // tek kaynak: lib/motion.ts
 
 /* ============================================================================
    ScanBeam — bir cam yüzeyin üstünden geçen fosforlu ışık huzmesi (tarama hissi).
@@ -22,7 +23,7 @@ export function ScanBeam({ active = true, className }: { active?: boolean; class
       style={{ background: 'linear-gradient(90deg, transparent, var(--glow-amber) 50%, transparent)', boxShadow: '0 0 24px 2px var(--glow-amber)' }}
       initial={{ x: '-130%' }}
       animate={{ x: '130%' }}
-      transition={{ duration: 2.2, ease: 'linear', repeat: Infinity }}
+      transition={{ duration: FX.scanBeam, ease: EASE.inOutSine, repeat: Infinity, repeatDelay: 0.4 }}
     />
   )
 }
@@ -51,7 +52,9 @@ export function ProgressRing({
         <circle cx={cx} cy={cx} r={R} fill="none" stroke={`url(#${gid})`} strokeWidth={stroke} strokeLinecap="round"
           strokeDasharray={C} strokeDashoffset={C * (1 - p)} />
       ) : variant === 'indeterminate' ? (
-        <circle cx={cx} cy={cx} r={R} fill="none" stroke={`url(#${gid})`} strokeWidth={stroke} strokeLinecap="round"
+        <motion.circle cx={cx} cy={cx} r={R} fill="none" stroke={`url(#${gid})`} strokeWidth={stroke} strokeLinecap="round"
+          animate={reduce ? undefined : { strokeDasharray: [`${C * 0.24} ${C}`, `${C * 0.42} ${C}`, `${C * 0.24} ${C}`] }}
+          transition={{ duration: FX.ringSpin, ease: EASE.inOutSine, repeat: Infinity }}
           strokeDasharray={`${C * 0.28} ${C}`} />
       ) : (
         <circle cx={cx} cy={cx} r={R} fill="none" stroke="var(--color-amber-400)" strokeWidth={stroke} strokeLinecap="round"
@@ -73,7 +76,7 @@ export function ProgressRing({
     <div className="relative" style={{ height: size, width: size }}>
       <div aria-hidden className="pointer-events-none absolute inset-0 rounded-full" style={{ boxShadow: '0 0 30px -6px var(--glow-amber)' }} />
       {variant === 'indeterminate' && !reduce ? (
-        <motion.div className="h-full w-full" animate={{ rotate: 360 }} transition={{ duration: 1.1, ease: 'linear', repeat: Infinity }}>{ring}</motion.div>
+        <motion.div className="h-full w-full" animate={{ rotate: 360 }} transition={{ duration: FX.ringSpin, ease: 'linear', repeat: Infinity }}>{ring}</motion.div>
       ) : ring}
       <div className="absolute inset-0 flex flex-col items-center justify-center">{children}</div>
     </div>
@@ -96,7 +99,7 @@ export function ApprovedSeal({ kind = 'real', size = 64 }: { kind?: 'real' | 'ma
       {!reduce && (
         <>
           <motion.span aria-hidden className="absolute rounded-full" style={{ height: size, width: size, border: `1.5px solid ${color}` }}
-            initial={{ scale: 0.55, opacity: 0.55 }} animate={{ scale: 1.9, opacity: 0 }} transition={{ duration: 1.1, ease: 'easeOut' }} />
+            initial={{ scale: 0.55, opacity: 0.55 }} animate={{ scale: 1.9, opacity: 0 }} transition={{ duration: FX.sealWave, ease: 'easeOut' }} />
           {Array.from({ length: 6 }).map((_, i) => (
             <motion.span key={i} aria-hidden className="absolute h-1 w-1 rounded-full" style={{ background: color, transform: `rotate(${i * 60}deg) translateY(-${size / 2 + 5}px)` }}
               initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 0.8 }} transition={{ delay: 0.15 + i * 0.04, duration: 0.3 }} />
@@ -108,7 +111,7 @@ export function ApprovedSeal({ kind = 'real', size = 64 }: { kind?: 'real' | 'ma
         style={{ height: size, width: size, background: `color-mix(in srgb, ${color} 16%, transparent)`, color, boxShadow: `0 0 26px -6px ${glow}` }}
         initial={reduce ? { opacity: 0 } : { scale: 0, rotate: -12 }}
         animate={reduce ? { opacity: 1 } : { scale: 1, rotate: 0 }}
-        transition={reduce ? { duration: 0.2 } : { type: 'spring', stiffness: 300, damping: 16, delay: 0.05 }}
+        transition={reduce ? { duration: 0.2 } : { ...SPRING.pop, delay: 0.05 }}
       >
         <Icon size={size * 0.52} />
       </motion.div>
@@ -178,11 +181,11 @@ export function BirthStat({ label, value, format, accent, sub, delay = 0 }: {
     <div className="flex flex-col gap-0.5">
       <span className="text-caption uppercase tracking-wider text-fg-subtle">{label}</span>
       <motion.span
-        className="text-xl font-semibold tabular"
+        className="text-title font-semibold tabular"
         style={{ color: accent, willChange: 'transform, filter' }}
         initial={reduce ? { opacity: 1 } : { opacity: 0, scale: 0.92, filter: 'blur(7px)' }}
         animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-        transition={reduce ? { duration: 0 } : { scale: { type: 'spring', stiffness: 420, damping: 17, delay }, opacity: { duration: 0.3, delay }, filter: { duration: 0.45, ease: EXPO, delay } }}
+        transition={reduce ? { duration: 0 } : { scale: { ...SPRING.pop, delay }, opacity: { duration: 0.3, delay }, filter: { duration: 0.45, ease: EXPO, delay } }}
       >
         {text}
       </motion.span>

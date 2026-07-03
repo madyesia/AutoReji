@@ -4,6 +4,7 @@ import { Check, AlertTriangle, Undo2, Copy } from 'lucide-react'
 import { useApp } from '../lib/store'
 import type { Toast } from '../lib/types'
 import { ChangeSummaryToast } from './ChangeSummaryToast'
+import { SPRING } from '../lib/motion'
 
 const KIND_COLOR: Record<Toast['kind'], string> = {
   ok: 'var(--color-ok)',
@@ -61,7 +62,7 @@ function ToastItem({ t }: { t: Toast }) {
       initial={reduce ? { opacity: 0 } : { opacity: 0, y: 14, scale: 0.96 }}
       animate={reduce ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
       exit={reduce ? { opacity: 0 } : { opacity: 0, y: 8, scale: 0.98 }}
-      transition={reduce ? { duration: 0.12 } : { type: 'spring', stiffness: 420, damping: 30 }}
+      transition={reduce ? { duration: 0.12 } : SPRING.snappy}
       onMouseEnter={() => { pausedRef.current = true }}
       onMouseLeave={() => { pausedRef.current = false }}
       className="glass pointer-events-auto relative w-[340px] overflow-hidden rounded-xl shadow-pop ring-hair"

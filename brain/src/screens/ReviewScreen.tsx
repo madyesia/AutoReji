@@ -83,11 +83,11 @@ export function ReviewScreen() {
           <div className="flex items-center gap-1.5 text-body">
             <span className="font-semibold tabular text-amber-300">{marked.length} klip işaretli</span>
             <span className="ml-1 text-fg-subtle">→ hepsine:</span>
-            <button onClick={() => bulkTransition('cut')} className="h-7 rounded-md px-2 font-medium text-fg-muted transition-colors hover:bg-white/8 hover:text-fg">Cut</button>
-            <button onClick={() => bulkTransition('fade')} className="h-7 rounded-md px-2 font-medium transition-colors hover:bg-white/8" style={{ color: TRANSITION.fade.color }}>Fade</button>
-            <button onClick={() => bulkTransition('black')} className="h-7 rounded-md px-2 font-medium transition-colors hover:bg-white/8" style={{ color: TRANSITION.black.color }}>Black</button>
+            <button onClick={() => bulkTransition('cut')} className="h-7 rounded-md px-2 font-medium text-fg-muted transition-all duration-[var(--dur-fast)] active:scale-[0.95] hover:bg-white/8 hover:text-fg">Cut</button>
+            <button onClick={() => bulkTransition('fade')} className="h-7 rounded-md px-2 font-medium transition-all duration-[var(--dur-fast)] active:scale-[0.95] hover:bg-white/8" style={{ color: TRANSITION.fade.color }}>Fade</button>
+            <button onClick={() => bulkTransition('black')} className="h-7 rounded-md px-2 font-medium transition-all duration-[var(--dur-fast)] active:scale-[0.95] hover:bg-white/8" style={{ color: TRANSITION.black.color }}>Black</button>
             <div className="mx-0.5 h-4 w-px bg-white/10" />
-            <button onClick={() => (marked.length > 5 ? setConfirmBulkRemove(true) : bulkSetEnabled(false))} className="flex h-7 items-center gap-1 rounded-md px-2 font-medium text-danger transition-colors hover:bg-danger/10"><Trash2 size={13} /> Çıkar</button>
+            <button onClick={() => (marked.length > 5 ? setConfirmBulkRemove(true) : bulkSetEnabled(false))} className="flex h-7 items-center gap-1 rounded-md px-2 font-medium text-danger transition-all duration-[var(--dur-fast)] active:scale-[0.95] hover:bg-danger/10"><Trash2 size={13} /> Çıkar</button>
             <button onClick={clearMarks} className="h-7 rounded-md px-2 text-fg-subtle transition-colors hover:text-fg">Temizle</button>
           </div>
         ) : (

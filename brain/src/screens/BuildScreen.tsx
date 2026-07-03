@@ -11,6 +11,8 @@ import { ConfirmDialog } from '../components/ConfirmDialog'
 import { ApprovedSeal, ProgressRing, StageTimeline, BirthStat, RevealPanel } from '../components/motifs'
 import { prettyEpisode } from '../components/AppShell'
 import type { Clip } from '../lib/types'
+import { EASE, SPRING } from '../lib/motion'
+import { AmbientLayer } from '../components/AmbientLayer'
 
 // DÜRÜSTLÜK: bu adımlar Premiere'de DEĞİL, burada hazırlanan kurgu PLANININ bölümleri —
 // gerçek kurulum MONTAJCI panelinde olur. Adlar "hazırlanıyor" dilinde ve jargonsuz.
@@ -88,12 +90,13 @@ export function BuildScreen() {
 
   return (
     <div className="relative h-full overflow-y-auto">
+      <AmbientLayer />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-amber-500/[0.05] to-transparent" />
       <div className="relative mx-auto max-w-2xl px-8 py-12">
         <button onClick={() => setScreen('review')} className="mb-6 inline-flex items-center gap-1.5 text-body text-fg-muted hover:text-fg"><ArrowLeft size={15} /> İncelemeye dön</button>
 
         {phase === 'ready' && (
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}>
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: EASE.outExpo }}>
             <h1 className="text-display font-semibold">Kuruluma hazır</h1>
             <p className="mt-1.5 text-lead text-fg-muted">{manifest && prettyEpisode(manifest.episode.name)}</p>
 
@@ -108,7 +111,7 @@ export function BuildScreen() {
               {([['cut', TRANSITION.cut.color], ['fade', TRANSITION.fade.color], ['black', TRANSITION.black.color]] as const).map(([lbl, c], i) => (
                 <motion.span key={lbl} className="flex items-center gap-1.5"
                   initial={{ opacity: 0, scale: 0.7 }} animate={{ opacity: 1, scale: 1 }}
-                  transition={{ type: 'spring', stiffness: 420, damping: 18, delay: 0.25 + i * 0.09 }}>
+                  transition={{ ...SPRING.pop, delay: 0.25 + i * 0.09 }}>
                   <Dot color={c} /> {lbl}
                 </motion.span>
               ))}
@@ -159,7 +162,7 @@ export function BuildScreen() {
         )}
 
         {phase === 'done' && (
-          <motion.div initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }} className="pt-4">
+          <motion.div initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.45, ease: EASE.outExpo }} className="pt-4">
             <div className="relative flex flex-col items-center text-center">
               <ApprovedSeal kind="real" size={72} />
               <h1 className="mt-5 text-headline font-semibold">Bölüm kuruluma hazır 🌧️</h1>
@@ -238,7 +241,7 @@ const Card = ({ children, i = 0 }: { children: ReactNode; i?: number }) => {
   return (
     <motion.div
       initial={reduce ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-      transition={{ type: 'spring', stiffness: 380, damping: 24, delay: reduce ? 0 : i * 0.07 }}
+      transition={{ ...SPRING.gentle, delay: reduce ? 0 : i * 0.07 }}
       className="relative overflow-hidden rounded-xl glass px-4 py-3">
       {!reduce && (
         <motion.span aria-hidden className="pointer-events-none absolute inset-0"
@@ -271,7 +274,7 @@ function Recap({ stats, downgraded }: { stats: Stats; downgraded: number }) {
   return (
     <div className="space-y-1.5">
       {lines.map((l, i) => (
-        <motion.div key={i} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1], delay: 0.15 + i * 0.06 }}
+        <motion.div key={i} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, ease: EASE.outExpo, delay: 0.15 + i * 0.06 }}
           className="flex items-center gap-2.5 text-body text-fg-muted">
           <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg"
             style={{ background: l.warn ? 'color-mix(in srgb, var(--color-warn) 16%, transparent)' : 'color-mix(in srgb, var(--color-ok) 14%, transparent)' }}>
@@ -295,7 +298,7 @@ function MiniStrip({ clips }: { clips: Clip[] }) {
         <SectionLabel>Kurulan sıra</SectionLabel>
         <span className="text-caption tabular text-fg-subtle">{enabled.length} klip</span>
       </div>
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, ease: EASE.outExpo }}
         className="flex gap-px overflow-hidden rounded-xl ring-hair">
         {shown.map((c) => (
           <div key={c.scene} className="relative aspect-video min-w-0 flex-1 bg-ink-900">

@@ -3,6 +3,25 @@
 Tüm önemli değişiklikler burada. Biçim: [Keep a Changelog] benzeri; sürümleme SemVer benzeri.
 Başlangıç sürümü **v1.1**; her güncellemede artar.
 
+## [beta v1.3 · 1.3.0] — 2026-07-03 — UI/UX TUR 3: Hareket Sistemi 2.0 (motion.ts + ambient atmosfer)
+> Kaynak: `docs/tasarim/spec-motion.md`. Yeni tek kaynak: **`brain/src/lib/motion.ts`** (DUR/FX/EASE/SPRING + variants). Yalnız arayüz hareketi — Faz 2/4 dondurulmuş dosyalara dokunulmadı.
+### Tek kaynak + adoptasyon
+- **9 el-yazması spring → 4 adlandırılmış preset** (`SPRING.snappy/gentle/pop/pill`): AnalysisScreen (hata/done/aşama-tiki), BuildScreen (lejant/istatistik), Toast, ui.tsx Segmented, motifs (Seal/BirthStat). Kaçak `stiffness:` = 0 (yalnız motion.ts).
+- **Birincil eğri tek kaynaktan:** 9 dosyadaki inline `[0.16,1,0.3,1]` → `EASE.outExpo` (0 kaldı). Yeni `--ease-inout-sine` (döngüler).
+- **Linear easing'ler yumuşadı (B2):** ScanBeam `linear 2.2s` → `inOutSine 2.6s + 400ms nefes` (mekanik bant hissi bitti); ProgressRing indeterminate dönüş linear kalır ama dash yayı `inOutSine` ile nefes alır (sabit hızlı, canlı).
+### Yeni hareket desenleri
+- **Yönlü ekran geçişi (B4):** App.tsx `screenVariants(dir)` + `AnimatePresence custom` — ileri akış (Hazırlık→Giriş→Analiz→İnceleme→Kur) içeriği sağdan getirir sola çıkarır; geri tersi (eski salt `opacity+y6` yerine mekânsal süreklilik). `prevScreen` ref'i yönü hesaplar.
+- **Film şeridi kademeli giriş (B1):** 160 kart aniden belirmiyor — ilk ~12 kart 45ms adımla `float-up` (CSS animasyon, eleman ömründe tek atım, ref-gate bedava; 13.+ kart aynı karede). 160 kartta ek re-render/JS döngüsü YOK.
+- **Basma geri bildirimi (B5):** Button `active:scale-[0.97]` · IconButton `0.94` · Review toplu Cut/Fade/Black/Çıkar butonları — tıklayınca hafif iç-basma.
+- **Kutlama (B3):** aşama tiki / done ikonu / mühür `SPRING.pop` (doğal ~%10 taşma) ile "pat" oturur.
+### Ambient atmosfer (B6 — Ghibli/analog kimlik)
+- **`AmbientLayer`** (yeni bileşen, CSS-only, JS döngüsü açmaz): 3 çok-yavaş ışık lekesi (amber/yağmur-mavisi/gece-moru, .06-.09 opacity, 34/26/42s — desen gözle yakalanmaz). Intake/Analiz/Kur/Hazırlık/Arşiv'de RainCanvas'ın altında; **Review'da YOK** (zaten yoğun). `blur()` kullanılmaz (radial-gradient yumuşatır → sıfır maliyet).
+- **Film greni** (statik SVG noise, opacity .04, `mix-blend overlay`) yalnız Review önizleme çerçevesinde → "stüdyo monitörü / analog" dokusu.
+- **Durdurma:** pencere arka plana düşünce (`visibilitychange` → `data-app-idle`) blob'lar durur (GPU/pil sıfır); `prefers-reduced-motion`'da statik ışık lekesi kalır (hava kaybolmaz).
+- **`<MotionConfig reducedMotion="user">`** App köküne eklendi (yeni variant'lar otomatik kısılır).
+### Doğrulama
+- `ds_guard.sh` 4/4 ✓ · kaçak spring 0 · inline expo 0 · `tsc` strict + build temiz · tarayıcıda gözle: ambient 3 blob (drift-a 34s) · yönlü geçiş · 160 kart stagger (mount'ta) · film greni · 0 konsol hatası. `.app` yeniden derlendi. **Panel işlevi değişmedi** (yalnız sürüm çipi v1.3 — yeniden kurmak şart değil).
+
 ## [beta v1.2 · 1.2.0] — 2026-07-03 — UI/UX TUR 2: Tasarım Sistemi 2.0 token konsolidasyonu + tam Türkçe dil temizliği
 > Kaynak: `docs/tasarim/spec-tokenlar.md` + `tarama-kopya.md`. Marka birebir aynı (aynı ink/amber) — bu tur **konsolidasyon**, yeniden tema değil.
 ### Tasarım Sistemi 2.0 (index.css @theme ekleri + tüketim)

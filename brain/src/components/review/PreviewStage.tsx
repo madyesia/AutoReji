@@ -149,6 +149,7 @@ export function PreviewStage() {
           onError={() => setVidState('error')}
           onTimeUpdate={onTime}
         />
+        <div className="grain" aria-hidden />
         <div className="pointer-events-none absolute inset-0 bg-black transition-opacity duration-200" style={{ opacity: dip }} />
 
         {/* A5: yükleme çipi + okunamayan dosya rozeti (eskiden sahne sessizce siyah kalıyordu) */}

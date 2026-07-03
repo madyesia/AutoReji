@@ -57,7 +57,7 @@ export function Filmstrip() {
           {clips.map((c, i) => (
             <Fragment key={c.scene}>
               {i > 0 && <TransitionBubble clip={c} selected={c.scene === selected} onClick={() => select(c.scene)} />}
-              <ClipCard clip={c} width={w} selected={c.scene === selected} marked={marked.includes(c.scene)}
+              <ClipCard clip={c} index={i} width={w} selected={c.scene === selected} marked={marked.includes(c.scene)}
                 dim={(focusOnly && !needsAttention(c)) || (riskyOnly && (c.qc?.risk ?? 0) === 0)}
                 onClick={(e) => {
                   if (e.metaKey || e.ctrlKey) { toggleMark(c.scene); select(c.scene) }       // ⌘/Ctrl: tekil işaretle/kaldır
@@ -80,8 +80,8 @@ export function Filmstrip() {
   )
 }
 
-function ClipCard({ clip: c, width, selected, marked, dim, onClick, onHover }: {
-  clip: Clip; width: number; selected: boolean; marked: boolean; dim: boolean; onClick: (e: MouseEvent) => void; onHover: () => void
+function ClipCard({ clip: c, index, width, selected, marked, dim, onClick, onHover }: {
+  clip: Clip; index: number; width: number; selected: boolean; marked: boolean; dim: boolean; onClick: (e: MouseEvent) => void; onHover: () => void
 }) {
   const r = REGIME[c.meta.regime]
   const dur = c.out - c.in
@@ -114,7 +114,14 @@ function ClipCard({ clip: c, width, selected, marked, dim, onClick, onHover }: {
         lowRes && !selected && !marked && 'ring-2 ring-danger shadow-[0_0_24px_-3px_var(--color-danger)]',
         dim && 'opacity-25 saturate-50',
         !c.enabled && 'opacity-40 grayscale')}
-      style={{ width, aspectRatio: '16 / 9', contentVisibility: 'auto', containIntrinsicSize: `${width}px ${Math.round((width * 9) / 16)}px`, background: `linear-gradient(135deg, color-mix(in srgb, ${r.color} 22%, var(--color-ink-900)), var(--color-ink-900))` }}
+      style={{
+        width, aspectRatio: '16 / 9', contentVisibility: 'auto', containIntrinsicSize: `${width}px ${Math.round((width * 9) / 16)}px`,
+        background: `linear-gradient(135deg, color-mix(in srgb, ${r.color} 22%, var(--color-ink-900)), var(--color-ink-900))`,
+        // B1 kademeli giriş — CSS animasyonu eleman ömründe BİR kez oynar (ref-gate bedava):
+        // ilk ~12 kart 45ms adımla dalgalanır, gerisi aynı karede. reduced-motion global kuralı anında bitirir.
+        animation: 'float-up .36s var(--ease-out-expo) both',
+        animationDelay: `${index < 12 ? index * 0.045 : 0}s`,
+      }}
     >
       <img src={clipThumb(c)} loading="lazy" decoding="async" alt=""
         className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" draggable={false}

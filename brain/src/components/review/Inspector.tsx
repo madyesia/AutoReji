@@ -8,6 +8,7 @@ import type { Clip, TransitionType } from '../../lib/types'
 import { Segmented, Slider, Badge, Button, SectionLabel, Tip } from '../ui'
 import { PreviewModal } from './PreviewModal'
 import { InspectorPreview } from './InspectorPreview'
+import { EASE } from '../../lib/motion'
 
 const ROLE_TR: Record<string, string> = {
   establishing: 'kuruluş', scenery: 'manzara', detail: 'detay',
@@ -212,7 +213,7 @@ function TrimEditor({ clip: c }: { clip: Clip }) {
 /* ---- küçük yardımcılar ---- */
 function Section({ title, icon, children }: { title: string; icon?: ReactNode; children: ReactNode }) {
   return (
-    <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}>
+    <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.28, ease: EASE.outExpo }}>
       <div className="mb-2 flex items-center gap-1.5 text-amber-400/80">{icon}<SectionLabel>{title}</SectionLabel></div>
       {children}
     </motion.div>

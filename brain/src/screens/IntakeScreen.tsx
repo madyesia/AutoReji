@@ -8,6 +8,8 @@ import { useApp } from '../lib/store'
 import { tauriAvailable } from '../lib/native'
 import { pickFile, pickFolder } from '../lib/tauri'
 import { cn } from '../lib/utils'
+import { AmbientLayer } from '../components/AmbientLayer'
+import { EASE } from '../lib/motion'
 
 interface Slot { key: string; title: string; hint: string; icon: ReactNode; required: boolean; sample: string }
 const SLOTS: Slot[] = [
@@ -64,11 +66,12 @@ export function IntakeScreen() {
 
   return (
     <div className="relative h-full overflow-y-auto">
+      <AmbientLayer />
       <RainCanvas intensity={0.7} className="opacity-60" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-amber-500/[0.04] to-transparent" />
 
       <div className="relative mx-auto flex min-h-full max-w-5xl flex-col px-8 py-12">
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}>
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: EASE.outExpo }}>
           <div className="flex items-center gap-2 text-body text-fg-subtle">
             {/* E3: sabit örnek metin yerine seçilen belgeden türeyen bölüm adı */}
             <Sparkles size={14} className="text-amber-400" /> Yeni bölüm{name ? ` · ${name}` : ' · yağmurlu Ghibli akşamı'}
@@ -88,7 +91,7 @@ export function IntakeScreen() {
                 key={s.key}
                 onClick={() => onSlot(s.key)}
                 initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.08 + i * 0.06, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ delay: 0.08 + i * 0.06, duration: 0.4, ease: EASE.outExpo }}
                 className={cn(
                   'group relative flex flex-col items-start gap-3 overflow-hidden rounded-2xl p-5 text-left transition-all duration-200',
                   on ? 'bg-ink-800 ring-1 ring-amber-400/40 shadow-raised' : 'glass hover:bg-white/[0.05]',
@@ -116,7 +119,7 @@ export function IntakeScreen() {
 
         {ready ? (
           /* Girdiler hazır — anında doğrulama + bölüm adı */
-          <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }} className="relative mt-9 overflow-hidden rounded-2xl glass p-5">
+          <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: EASE.outExpo }} className="relative mt-9 overflow-hidden rounded-2xl glass p-5">
             <SweepReveal active onProgress={setFrontier} />
             <div className="flex items-center justify-between">
               <span className="text-caption font-medium uppercase tracking-[0.14em] text-fg-subtle">{realPicked ? 'Girdiler hazır' : 'Anında doğrulama'}</span>
@@ -147,7 +150,7 @@ export function IntakeScreen() {
               {ONBOARD.map((st, i) => (
                 <motion.div key={st.n}
                   initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.15 + i * 0.08, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ delay: 0.15 + i * 0.08, duration: 0.4, ease: EASE.outExpo }}
                   className="flex flex-col gap-2.5 rounded-2xl glass p-5">
                   <div className="flex items-center gap-2.5">
                     <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-400/15 text-body font-bold tabular text-amber-300">{st.n}</span>

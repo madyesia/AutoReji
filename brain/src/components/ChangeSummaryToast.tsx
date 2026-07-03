@@ -1,6 +1,7 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowUp, ArrowDown, Wand2 } from 'lucide-react'
 import { fmtDelta, type ChangeSummaryPayload } from '../lib/diff'
+import { EASE } from '../lib/motion'
 
 // Toast içinde "ne değişti" özeti — stil değişiminde delta-chip galerisi (amber ↑ / nötr ↓).
 export function ChangeSummaryToast({ p }: { p: ChangeSummaryPayload }) {
@@ -20,7 +21,7 @@ export function ChangeSummaryToast({ p }: { p: ChangeSummaryPayload }) {
             key={d.key}
             initial={reduce ? false : { opacity: 0, y: 4 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: reduce ? 0 : i * 0.045, duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ delay: reduce ? 0 : i * 0.045, duration: 0.22, ease: EASE.outExpo }}
             className="inline-flex h-[22px] items-center gap-1 rounded-md px-1.5 text-label font-medium tabular"
             style={{
               color: d.accent === 'amber' ? 'var(--color-amber-300)' : 'var(--color-fg-muted)',

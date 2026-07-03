@@ -4,7 +4,7 @@ import type { Clip, Regime, Scale, TransitionType } from './types'
 
 export const cn = (...a: ClassValue[]) => twMerge(clsx(a))
 
-export const APP_VERSION = 'beta v1.2'
+export const APP_VERSION = 'beta v1.3'
 
 export const clamp = (x: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, x))
 

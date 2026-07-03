@@ -2,9 +2,9 @@
 
 **Madyes** tarafından yayımlanan, **"Ghibli Mood ON"** kanalı için **otomatik kurgu sistemi** (macOS). Her gün ~160 klipten oluşan bir bölümü **Adobe Premiere Pro 2026**'da **düzenlenebilir klipler + düzenlenebilir geçişler + native stereo ses** ile, **render almadan** kurar. Tamamen **yerel/offline** çalışır (çalışma anında ücretli/harici AI yok; internet yalnız ilk kurulum indirmesi için).
 
-- **Sürüm:** **AutoReji beta v1.2** (teknik semver 1.2.0)
+- **Sürüm:** **AutoReji beta v1.3** (teknik semver 1.3.0)
 - **Durum:** Üretim/beta sürümü — Faz 0–4 tamam. Gerçek macOS `.app` derleniyor, ad-hoc imzalı, açılıyor.
-- **Telif:** AutoReji beta v1.2 · Developed by Madyes © 2026 → [`LICENSE`](LICENSE)
+- **Telif:** AutoReji beta v1.3 · Developed by Madyes © 2026 → [`LICENSE`](LICENSE)
 - **Tam spesifikasyon:** [`docs/Blueprint.md`](docs/Blueprint.md) · **Durum/devir:** [`DEVAM.md`](DEVAM.md) · **Kurallar/rol:** [`CLAUDE.md`](CLAUDE.md) · **İş listesi:** [`PLAN.md`](PLAN.md)
 
 ## Mimari
