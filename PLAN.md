@@ -109,7 +109,9 @@
 - [x] **TUR 3 — Hareket Sistemi 2.0 (v1.3.0):** `lib/motion.ts` tek kaynak (DUR/FX/EASE/SPRING + variants) · 9 spring→4 preset · inline expo 0 · ScanBeam/Ring easing yumuşadı · yönlü ekran geçişi · film şeridi kademeli giriş · basma geri bildirimi · SPRING.pop kutlama · `AmbientLayer` (3 ışık lekesi, idle'da durur) + film greni · MotionConfig
 - [x] **TUR 4 — İnceleme 2.0 (v1.4.0):** enerji eğrisi + rejim lejantı (Timeline) · linger rozeti (film şeridi) · min/ort/max (footer) · Inspector Ses + Hava(mood) bölümleri · algo_default hayalet çipi · **+ amber buton beyaz-yazı twMerge regresyonu düzeltildi**. Ertelendi: varyant seçici (mock'ta 0 varyant) + mod sadeleştirme (riskli).
 - [x] **TUR 5 — Ekran kompozisyonu (v1.5.0):** Build'e yağmur + RippleField (done) · max-w-3xl · `<AmberHalo>` tek kaynak · Arşiv vitrin kartı (col-span-2) + sayılı grup başlığı + py ritmi. Ertelendi: glass-raised hiyerarşi + Setup özet-satırı (öznel).
-- [ ] **TUR 6 — Panel + referans desenleri** (`tarama-panel.md` P1/P2 + `spec-referans-desenler.md` seçmeleri)
+- [x] **TUR 6 — Panel + referans desenleri (v1.6.0, SON TUR):** RippleField "daire hatası" kaldırıldı · panel zemin/metin/geçiş-çip renkleri beyinle hizalandı (.ccx repack) · İnceleme J/L/Boşluk klavye desenleri. Ertelendi: varyant seçici · mod sadeleştirme · glass-raised · panel klip-sayaçlı ilerleme (ppro dondurulmuş).
+
+**🎉 UI/UX yol haritası (TUR 0-6) TAMAMLANDI.** Detay: `docs/tasarim/README.md` + CHANGELOG.
 
 ## Sürekli — Teslim / Devir paketi (§20)
 - [x] `DEVAM.md` + `CHANGELOG.md` her faz/oturum sonunda güncel (v1.14.6)

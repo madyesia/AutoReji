@@ -1,7 +1,7 @@
 {
   "name": "autoreji-brain",
   "private": true,
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "AutoReji — Ghibli Mood ON için otomatik kurgu sistemi (Madyes).",
   "author": "Madyes",
   "license": "UNLICENSED",

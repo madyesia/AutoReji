@@ -29,21 +29,25 @@
       :root {
         /* ink katmanları */
         --ink-0: #07090d;
-        --ink-1: #0c0f16;
+        --ink-1: #0b0e14;   /* beyin ink-900 ile birebir (TUR 6) */
         --ink-2: #141a27;
         --ink-3: #1b2433;
         /* çizgi / kenar */
         --line: rgba(255, 255, 255, 0.08);
         --line-strong: rgba(255, 255, 255, 0.14);
         /* metin */
-        --txt: #e8ecf4;
-        --txt-dim: #8b93a7;
+        --txt: #eaeefb;
+        --txt-dim: #97a3bd;
         /* altın */
         --gold: #eab866;
         --gold-deep: #caa05a;
         --gold-edge: #9a7a3e;   /* birincil butonun koyu altın kenarı (siyah yerine) */
         --glow-amber: rgba(234, 184, 102, 0.34);
         --glow-amber-soft: rgba(234, 184, 102, 0.14);
+        /* geçiş renkleri (beyin --color-cut/fade/dip birebir — çip lejantı için) */
+        --cut: #828ea6;
+        --fade: #58c4bd;
+        --dip: #8b86dd;
         /* rejim renkleri */
         --ext: #6ba8d6;
         --int: #e6ad68;
@@ -454,9 +458,9 @@
         background: var(--gold);
       }
       .report-chip.c-clip::before { background: var(--gold); }
-      .report-chip.c-cut::before { background: var(--ext); }
-      .report-chip.c-fade::before { background: var(--int); }
-      .report-chip.c-black::before { background: var(--sleep); }
+      .report-chip.c-cut::before { background: var(--cut); }
+      .report-chip.c-fade::before { background: var(--fade); }
+      .report-chip.c-black::before { background: var(--dip); }
       .report-chip.c-gap::before { background: var(--ok); }
       .report-chip.c-crop::before { background: var(--gold); }
       .report-chip.c-dur::before { background: var(--txt-dim); }
@@ -890,7 +894,7 @@
           </svg>
         </div>
         <span class="brand-name">AutoReji</span>
-        <span class="version-chip">beta v1.5</span>
+        <span class="version-chip">beta v1.6</span>
         <div id="header-right">
           <div id="episode-name"></div>
           <div id="episode-sub"></div>

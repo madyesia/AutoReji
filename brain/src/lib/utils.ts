@@ -14,7 +14,7 @@ const twMerge = extendTailwindMerge({
 })
 export const cn = (...a: ClassValue[]) => twMerge(clsx(a))
 
-export const APP_VERSION = 'beta v1.5'
+export const APP_VERSION = 'beta v1.6'
 
 export const clamp = (x: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, x))
 

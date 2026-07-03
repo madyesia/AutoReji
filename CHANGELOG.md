@@ -3,6 +3,20 @@
 Tüm önemli değişiklikler burada. Biçim: [Keep a Changelog] benzeri; sürümleme SemVer benzeri.
 Başlangıç sürümü **v1.1**; her güncellemede artar.
 
+## [beta v1.6 · 1.6.0] — 2026-07-03 — UI/UX TUR 6 (son tur): panel marka uyumu + referans desenleri + "daire hatası" düzeltmesi
+> Kaynak: `docs/tasarim/tarama-panel.md` (P1) + `spec-referans-desenler.md`. 6-turluk UI/UX yol haritasının kapanışı.
+### 🔧 Kullanıcı bildirdi — Build finalindeki "daire hatası"
+- **TUR 5'te eklenen `RippleField` (yeşil su halkası) kaldırıldı** — Build "done" ekranında büyük yeşil çember/halka olarak beliriyordu ("saçma daire hatası"). Yağmur (düşük doz RainCanvas) kalıyor → final yine yağmurlu, ama rahatsız eden halka yok. İlgili import da temizlendi.
+### Panel (MONTAJCI) marka uyumu — ⚠️ `.ccx` yeniden paketlendi → yeniden kur
+- **Zemin/metin renkleri beyinle birebir hizalandı:** panel `--ink-1` #0c0f16 → **#0b0e14** (beyin ink-900) · `--txt` #e8ecf4 → **#eaeefb** · `--txt-dim` #8b93a7 → **#97a3bd**. Panel artık beyinle aynı koyulukta.
+- **Geçiş çip renkleri DÜZELTİLDİ (gerçek hata):** rapor çipleri yanlış rejim renklerini kullanıyordu (cut=mavi, fade=amber, black=mor) → beyindeki geçiş paletiyle hizalandı: **cut=gri #828ea6 · fade=turkuaz #58c4bd · black=çivit #8b86dd** (yeni `--cut/--fade/--dip` tokenları).
+### Referans desenleri (dünya-standardı araçlardan — testlenebilir frontend)
+- **İnceleme klavye kısayolları** (Linear/YouTube deseni): `J`/`L` = önceki/sonraki klip (ok tuşlarına alternatif) · `Boşluk` = tüm kurguyu oynat/durdur. 160 klip incelemesini hızlandırır. ShortcutsHelp kartına eklendi.
+### Doğrulama
+- `ds_guard` 4/4 ✓ · build temiz · panel `node --check` temiz · tarayıcıda gözle: Build done'da ripple-field=0 (halka gitti) + yağmur duruyor · J klip 1→2 · Boşluk oynatma başlattı · 0 konsol hatası. `.app` + `.ccx` yeniden derlendi.
+### 🎉 UI/UX yol haritası TAMAMLANDI (TUR 0-6)
+> 16-ajanlık denetim → 7 tur (0-6) uygulandı: kırıklar/dürüstlük · veri güvenliği · token+dil · hareket sistemi · İnceleme veri-yüzeyi · ekran kompozisyonu · panel+referans. **Ertelenen (bilinçli, gelecek cila):** çift-çekim varyant seçici (gerçek veri gerekir) · mod sistemi sadeleştirme · glass-raised yüzey hiyerarşisi · panel klip-sayaçlı ilerleme/ETA/iptal (ppro döngüsü dondurulmuş, riskli).
+
 ## [beta v1.5 · 1.5.0] — 2026-07-03 — UI/UX TUR 5: Ekran kompozisyonu (kimlik/süreklilik + hiyerarşi)
 > Kaynak: `docs/tasarim/tarama-ekranlar.md`. Marka birebir aynı — kompozisyon/ritim cilası.
 - **Build finali artık yağmurlu (§0.5):** "Bölüm kuruluma hazır 🌧️" ekranı yağmur temalıydı ama tek kuru ekrandı → düşük doz `RainCanvas` (0.35) + done fazında yeşil `RippleField` (su halkası, kanal imzası). Kimlik eğrisi tamamlandı.

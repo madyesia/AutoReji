@@ -15,6 +15,8 @@ export function ReviewScreen() {
   const { mode, clips, selected, select, setScreen, marked, clearMarks, bulkTransition, bulkSetEnabled, resetAll } = useApp()
   const setTransitionType = useApp((s) => s.setTransitionType)
   const toggleEnabled = useApp((s) => s.toggleEnabled)
+  const playScene = useApp((s) => s.playScene)
+  const setPlayScene = useApp((s) => s.setPlayScene)
   const undo = useApp((s) => s.undo)
   const redo = useApp((s) => s.redo)
   const focusOnly = useApp((s) => s.focusOnly)
@@ -34,9 +36,12 @@ export function ReviewScreen() {
       const tag = (e.target as HTMLElement)?.tagName
       if (tag === 'INPUT' || tag === 'TEXTAREA') return
       const idx = clips.findIndex((c) => c.scene === selected)
-      if (e.key === 'ArrowRight') { e.preventDefault(); select(clips[Math.min(clips.length - 1, idx + 1)]?.scene ?? selected) }
-      else if (e.key === 'ArrowLeft') { e.preventDefault(); select(clips[Math.max(0, idx - 1)]?.scene ?? selected) }
-      else if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'z') { e.preventDefault(); if (e.shiftKey) redo(); else undo() }
+      const k = e.key.toLowerCase()
+      // TUR 6 (referans desen): önceki/sonraki = ok tuşları VEYA J/L; Boşluk = tüm kurguyu oynat/durdur
+      if (e.key === 'ArrowRight' || k === 'l') { e.preventDefault(); select(clips[Math.min(clips.length - 1, idx + 1)]?.scene ?? selected) }
+      else if (e.key === 'ArrowLeft' || k === 'j') { e.preventDefault(); select(clips[Math.max(0, idx - 1)]?.scene ?? selected) }
+      else if (e.key === ' ') { e.preventDefault(); setPlayScene(playScene != null ? null : (selected ?? clips.find((c) => c.enabled)?.scene ?? null)) }
+      else if ((e.metaKey || e.ctrlKey) && k === 'z') { e.preventDefault(); if (e.shiftKey) redo(); else undo() }
       else if (selected != null && idx > 0) {
         if (e.key === 'c' || e.key === 'C') setTransitionType(selected, 'cut')
         else if (e.key === 'f' || e.key === 'F') setTransitionType(selected, 'fade')
@@ -46,7 +51,7 @@ export function ReviewScreen() {
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [clips, selected, select, setTransitionType, toggleEnabled, undo, redo])
+  }, [clips, selected, select, setTransitionType, toggleEnabled, playScene, setPlayScene, undo, redo])
 
   return (
     <div className="flex h-full flex-col bg-ink-950/40">

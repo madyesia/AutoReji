@@ -8,7 +8,7 @@ import { saveTextFile } from '../lib/native'
 import { buildArchiveEntry, writeArchiveEntry, readArchive, markArchiveSaved } from '../lib/archive'
 import { Button, Dot, SectionLabel, Tip } from '../components/ui'
 import { ConfirmDialog } from '../components/ConfirmDialog'
-import { ApprovedSeal, ProgressRing, StageTimeline, BirthStat, RevealPanel, RippleField } from '../components/motifs'
+import { ApprovedSeal, ProgressRing, StageTimeline, BirthStat, RevealPanel } from '../components/motifs'
 import { RainCanvas } from '../components/RainCanvas'
 import { prettyEpisode } from '../components/AppShell'
 import type { Clip } from '../lib/types'
@@ -92,9 +92,9 @@ export function BuildScreen() {
   return (
     <div className="relative h-full overflow-y-auto">
       <AmbientLayer />
-      {/* §0.5: final ekran yağmur temalı ama kuruydu — düşük doz yağmur kimliği tamamlar; done'da su halkası */}
+      {/* §0.5: final ekran yağmur temalı ama kuruydu — düşük doz yağmur kimliği tamamlar.
+          (RippleField kaldırıldı: büyük yeşil halka olarak "daire hatası" gibi görünüyordu — kullanıcı bildirdi.) */}
       <RainCanvas intensity={0.35} className="opacity-40" />
-      {phase === 'done' && <RippleField tint="var(--glow-ok)" />}
       <AmberHalo />
       <div className="relative mx-auto max-w-3xl px-8 py-12">
         <button onClick={() => setScreen('review')} className="mb-6 inline-flex items-center gap-1.5 text-body text-fg-muted hover:text-fg"><ArrowLeft size={15} /> İncelemeye dön</button>

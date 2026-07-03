@@ -15,6 +15,8 @@ const GROUPS: { title: string; rows: { keys: string[]; desc: string }[] }[] = [
     title: 'İnceleme — düzenleme',
     rows: [
       { keys: ['←', '→'], desc: 'Önceki / sonraki klip' },
+      { keys: ['J', 'L'], desc: 'Önceki / sonraki klip (alternatif)' },
+      { keys: ['Boşluk'], desc: 'Tüm kurguyu oynat / durdur' },
       { keys: ['C'], desc: 'Seçili klibi Cut yap' },
       { keys: ['F'], desc: 'Seçili klibi Fade yap' },
       { keys: ['B'], desc: 'Seçili klibi Black yap' },
