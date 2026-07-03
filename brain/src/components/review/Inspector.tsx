@@ -14,6 +14,10 @@ const ROLE_TR: Record<string, string> = {
   establishing: 'kuruluş', scenery: 'manzara', detail: 'detay',
   character: 'karakter', action: 'aksiyon', transition: 'geçiş',
 }
+const MOOD_TR: Record<string, string> = {
+  cozy: 'huzurlu', calm: 'sakin', melancholic: 'hüzünlü',
+  tense: 'gergin', dramatic: 'dramatik', peaceful: 'dingin',
+}
 
 export function Inspector() {
   const clips = useApp((s) => s.clips)
@@ -118,10 +122,20 @@ export function Inspector() {
           <Section icon={<Sparkle size={13} />} title="Sahne analizi · görsel-AI">
             {c.analysis.energy != null && <Row label="Enerji" value={`${c.analysis.energy}/5 · ${c.analysis.energy <= 2 ? 'sakin' : c.analysis.energy >= 4 ? 'hareketli' : 'orta'}`} />}
             {c.analysis.role && <Row label="Tür" value={ROLE_TR[c.analysis.role] ?? c.analysis.role} />}
+            {/* TUR 4: mood eskiden HİÇBİR yerde görünmüyordu — sapmalar (huzurlu dışı) tam bakılması gereken klipler */}
+            {c.analysis.mood && <Row label="Hava" value={MOOD_TR[c.analysis.mood] ?? c.analysis.mood} />}
             {c.analysis.linger && <Row label="Ritim" value="oyalanma anı → uzun tutuş" />}
             <Row label="Hareket" value={c.analysis.motion ?? '—'} />
             <Row label="Parlaklık" value={c.analysis.brightness ?? '—'} />
             <p className="mt-1 text-caption text-fg-subtle">Yerel görsel-AI sahneyi gördü → süre + geçiş buna göre ayarlandı.</p>
+          </Section>
+        )}
+
+        {/* SES — ASMR ürününde tamamen görünmezdi; native stereo hard-constraint'ini UI'da kanıtlar (TUR 4) */}
+        {c.audio && (
+          <Section title="Ses">
+            <Row label="Mikro-geçiş" value={c.audio.micro_crossfade > 0 ? `${Math.round(c.audio.micro_crossfade * 1000)}ms yumuşatma` : 'yok'} />
+            <Row label="Stereo" value={c.audio.mask_stereo_shift ? 'düzeltme uygulandı' : 'native (sol-sağ korunur)'} />
           </Section>
         )}
 
@@ -160,9 +174,22 @@ function TransitionEditor({ clip: c }: { clip: Clip }) {
   const opts: { value: TransitionType; label: ReactNode }[] = [
     { value: 'cut', label: 'Cut' }, { value: 'fade', label: 'Fade' }, { value: 'black', label: 'Black' },
   ]
+  // TUR 4: algo_default hayalet çipi — AI'ın ÖNERDİĞİ geçiş. Elle değiştirilince neye kıyasla
+  // değiştiğin görünür + tek tıkla geri dön. (algo_default: cut ise Transition null olabilir.)
+  const algo = c.decision.algo_default
+  const algoType: TransitionType = algo?.type ?? 'cut'
+  const differs = c.decision.user_overridden && algoType !== t
   return (
     <div className="space-y-3">
       <Segmented options={opts} value={t} onChange={(v) => setType(c.scene, v)} className="w-full [&>button]:flex-1" />
+      {differs && (
+        <button onClick={() => setType(c.scene, algoType)}
+          className="flex w-full items-center gap-1.5 rounded-lg bg-white/[0.03] px-2.5 py-1.5 text-caption text-fg-subtle ring-hair transition-colors hover:text-fg-muted">
+          <Sparkle size={11} className="text-amber-400/70" />
+          AutoReji önerisi: <b className="font-medium" style={{ color: TRANSITION[algoType].color }}>{TRANSITION[algoType].label}{algoType !== 'cut' && algo ? ` ${fmtDur(algo.dur)}` : ''}</b>
+          <span className="ml-auto text-fg-faint">← dön</span>
+        </button>
+      )}
       {t !== 'cut' && c.transition_in && (
         <div>
           <div className="mb-1.5 flex items-center justify-between text-label">

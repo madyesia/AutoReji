@@ -107,7 +107,7 @@
 - [x] **TUR 1 — Veri güvenliği UX (v1.0.3):** Review boş-durum kilidi · Build ön-uçuş kontrolü · arşiv sil/yeniden-aç onayları · toplu silme onayı (>5) · önizleme yükleme/hata durumu · analiz hata rehberi · işaretli-set kaybına Geri-al toast'ı (+ yeni `ConfirmDialog` bileşeni)
 - [x] **TUR 2 — Token + dil konsolidasyonu (v1.2.0):** 9 adımlı tip ölçeği (213 kullanım → 0 keyfi boyut) · gölge token'ları (glow-sm/lg + .frame-gold/.ctrl-glass/.playhead-glow) · hairline .10 · ham hex 0 · disabled 60 · fg-faint terfileri · ~45 Türkçe metin (çevrimdışı/Çıkar/işaretli/ek uyumu/hata formülü) · panel dili (.ccx repack) · `scripts/ds_guard.sh`
 - [x] **TUR 3 — Hareket Sistemi 2.0 (v1.3.0):** `lib/motion.ts` tek kaynak (DUR/FX/EASE/SPRING + variants) · 9 spring→4 preset · inline expo 0 · ScanBeam/Ring easing yumuşadı · yönlü ekran geçişi · film şeridi kademeli giriş · basma geri bildirimi · SPRING.pop kutlama · `AmbientLayer` (3 ışık lekesi, idle'da durur) + film greni · MotionConfig
-- [ ] **TUR 4 — İnceleme 2.0** (`tarama-review.md` §3/§8: enerji eğrisi + linger + Timeline katmanlama + varyant seçici + mod sadeleştirme)
+- [x] **TUR 4 — İnceleme 2.0 (v1.4.0):** enerji eğrisi + rejim lejantı (Timeline) · linger rozeti (film şeridi) · min/ort/max (footer) · Inspector Ses + Hava(mood) bölümleri · algo_default hayalet çipi · **+ amber buton beyaz-yazı twMerge regresyonu düzeltildi**. Ertelendi: varyant seçici (mock'ta 0 varyant) + mod sadeleştirme (riskli).
 - [ ] **TUR 5 — Ekran kompozisyonu** (`tarama-ekranlar.md`: Build'e yağmur+RippleField · glass-raised hiyerarşi · Setup özet-satırı · Archive hero)
 - [ ] **TUR 6 — Panel + referans desenleri** (`tarama-panel.md` P1/P2 + `spec-referans-desenler.md` seçmeleri)
 

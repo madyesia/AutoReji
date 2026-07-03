@@ -98,7 +98,8 @@ export function ReviewScreen() {
             <div className="mx-1 h-4 w-px bg-white/10" />
             <span>{stats.enabled} klip</span><span className="text-fg-subtle">·</span>
             <span>~{fmtMin(stats.total)}</span><span className="text-fg-subtle">·</span>
-            <span className="text-fg-subtle">ort {fmtDur(stats.avg)}</span>
+            {/* TUR 4: min · ort · max — "hiçbir klip 4.30s altında" kuralının görünen kanıtı */}
+            <Tip label="En kısa · ortalama · en uzun klip süresi"><span className="text-fg-subtle">{fmtDur(stats.min)} – {fmtDur(stats.max)} · ort {fmtDur(stats.avg)}</span></Tip>
           </div>
         )}
         <div className="flex-1" />

@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useRef, useState, type MouseEvent } from 'react'
-import { Minus, Plus, Layers, Pencil, AlertTriangle, Film, ImageOff, Trash2, Undo } from 'lucide-react'
+import { Minus, Plus, Layers, Pencil, AlertTriangle, Film, ImageOff, Trash2, Undo, Hourglass } from 'lucide-react'
 import { useApp } from '../../lib/store'
 import { clipThumb, spriteUrl, SPRITE_FRAMES, hasSprite, needsAttention, riskColor } from '../../lib/data'
 import { REGIME, TRANSITION, getTransition, fmtDur, scaleLabel, scaleColor, cn } from '../../lib/utils'
@@ -153,6 +153,8 @@ function ClipCard({ clip: c, index, width, selected, marked, dim, onClick, onHov
           <span className="h-2 w-2 rounded-full" style={{ background: r.color }} /> {fmtDur(dur)}
         </span>
         {variants && <Tip label={`${c.variant.candidates.length} aday çekim`}><span className="flex h-6 items-center gap-0.5 rounded-md bg-black/50 px-1.5 text-caption text-white/85 backdrop-blur-sm"><Layers size={11} />{c.variant.candidates.length}</span></Tip>}
+        {/* TUR 4: oyalanma (linger) rozeti — ritmin birincil kaldıracı (klip daha uzun tutulur), eskiden yalnız Inspector'da gizliydi */}
+        {c.analysis?.linger && <Tip label="Oyalanma anı — bu klip bilerek daha uzun tutuldu"><span className="flex h-6 items-center gap-1 rounded-md bg-black/50 px-1.5 text-caption text-amber-200/90 backdrop-blur-sm"><Hourglass size={11} /></span></Tip>}
       </div>
       {/* klibi sil / geri al — alt-sağ köşe kırmızı yuvarlak (hover'da belirir, tek tık) */}
       <button

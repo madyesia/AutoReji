@@ -1,10 +1,20 @@
 import { clsx, type ClassValue } from 'clsx'
-import { twMerge } from 'tailwind-merge'
+import { extendTailwindMerge } from 'tailwind-merge'
 import type { Clip, Regime, Scale, TransitionType } from './types'
 
+// DS2 tip ölçeği (--text-micro…display) tailwind-merge'e FONT-BOYUTU olarak tanıtılır.
+// Aksi hâlde twMerge 'text-body' gibi özel token'ları RENK sanıp 'text-ink-950' ile çakıştırır
+// ve koyu rengi siler → amber butonlarda yazı kalıtılan beyaza düşerdi (v1.2 regresyonu).
+const twMerge = extendTailwindMerge({
+  extend: {
+    classGroups: {
+      'font-size': [{ text: ['micro', 'caption', 'label', 'body', 'ui', 'lead', 'title', 'headline', 'display'] }],
+    },
+  },
+})
 export const cn = (...a: ClassValue[]) => twMerge(clsx(a))
 
-export const APP_VERSION = 'beta v1.3'
+export const APP_VERSION = 'beta v1.4'
 
 export const clamp = (x: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, x))
 

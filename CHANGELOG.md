@@ -3,6 +3,22 @@
 Tüm önemli değişiklikler burada. Biçim: [Keep a Changelog] benzeri; sürümleme SemVer benzeri.
 Başlangıç sürümü **v1.1**; her güncellemede artar.
 
+## [beta v1.4 · 1.4.0] — 2026-07-03 — UI/UX TUR 4: İnceleme 2.0 (AI verisini görünür kıl) + amber buton yazı düzeltmesi
+> Kaynak: `docs/tasarim/tarama-review.md` §3/§8. Amaç: manifestteki zengin AI sinyalini (enerji/oyalanma/mood/ses/algo-önerisi) tek Inspector satırından çıkarıp göze görünür kılmak — "neden bu klip böyle?" sorusunun görsel cevabı.
+### 🔧 Regresyon düzeltmesi (kullanıcı bildirdi — amber butonlarda beyaz yazı)
+- **Amber (primary) butonların yazısı beyaza düşmüştü** (okunurluk düşük): "Modeli indir", "MONTAJCI'yı İndir", "Premiere'de Kur"… TUR 2'de buton boyutu `text-sm` → `text-body` olunca `tailwind-merge` özel `text-body` token'ını RENK sanıp `text-ink-950`'i sildi → yazı kalıtılan `--color-fg` (beyazımsı) oldu. **Kök çözüm:** `cn()` artık `extendTailwindMerge` ile DS2 tip token'larını (`text-micro…display`) **font-boyutu** sınıfı olarak tanıtıyor → renkle çakışmıyor. Amber butonlar tekrar koyu lacivert (`ink-950`, ~11:1 kontrast). Aynı kökten kaynaklı gizli başka renk/boyut çakışmaları da düzeldi.
+### İnceleme 2.0 — veri yüzeye çıktı
+- **Enerji eğrisi:** zaman çizelgesinin üstüne ince alan-grafiği (AI'ın 1-5 enerji sinyali; süre kararının kaldıracı). Veri yoksa çizilmez.
+- **Rejim lejantı:** çizelge başlığına Dış/İç/Uyku renk göstergesi (artık tonları ezberlemek gerekmez — Z6).
+- **Oyalanma (linger) rozeti:** film şeridi kartlarında kum saati ikonu — ritmin birincil kaldıracı (REF B2: 160'ta 64 klip), eskiden yalnız Inspector'da gizliydi. Tarayıcıda 64/160 doğrulandı.
+- **min · ort · max süre** alt bara ("3.48s – 5.88s · ort 5.22s") — "hiçbir klip 4.30s altında" kuralının görünen kanıtı (`stats.min/max` zaten hesaplanıyordu, kullanılmıyordu).
+- **Inspector "Ses" bölümü** (yeniydi — ASMR ürününde ses tamamen görünmezdi): "Mikro-geçiş 60ms yumuşatma · Stereo native (sol-sağ korunur)" → native-stereo hard-constraint'ini UI'da kanıtlar.
+- **Inspector "Hava" (mood) satırı** (eskiden HİÇBİR yerde): cozy→huzurlu, melancholic→hüzünlü… sapmalar tam bakılması gereken klipler.
+- **algo_default hayalet çipi:** bir geçişi elle değiştirince "AutoReji önerisi: Fade 1.5s ← dön" çipi → neye kıyasla değiştiğin görünür, tek tıkla AI önerisine dönülür (mock'ta null → yalnız gerçek override'da çıkar).
+### Doğrulama
+- `ds_guard.sh` 4/4 ✓ · `tsc` strict + build temiz · tarayıcıda gözle: enerji gradient + "enerji" etiketi · lejant · min–max satırı · **64 linger rozeti** · Inspector Ses/Hava · amber buton `rgb(7,9,13)` koyu yazı — 0 konsol hatası. `.app` yeniden derlendi. Panel işlevi değişmedi (yalnız v1.4 çipi).
+> **Bu tur ertelendi (bilinçli):** çift-çekim varyant seçici (mock'ta 0 varyant → tarayıcıda test edilemez, gerçek veriyle sonra) + mod sistemi sadeleştirme (3 mod çalışıyor, riskli — sonraki tura).
+
 ## [beta v1.3 · 1.3.0] — 2026-07-03 — UI/UX TUR 3: Hareket Sistemi 2.0 (motion.ts + ambient atmosfer)
 > Kaynak: `docs/tasarim/spec-motion.md`. Yeni tek kaynak: **`brain/src/lib/motion.ts`** (DUR/FX/EASE/SPRING + variants). Yalnız arayüz hareketi — Faz 2/4 dondurulmuş dosyalara dokunulmadı.
 ### Tek kaynak + adoptasyon
