@@ -3,6 +3,15 @@
 Tüm önemli değişiklikler burada. Biçim: [Keep a Changelog] benzeri; sürümleme SemVer benzeri.
 Başlangıç sürümü **v1.1**; her güncellemede artar.
 
+## [beta v1.5 · 1.5.0] — 2026-07-03 — UI/UX TUR 5: Ekran kompozisyonu (kimlik/süreklilik + hiyerarşi)
+> Kaynak: `docs/tasarim/tarama-ekranlar.md`. Marka birebir aynı — kompozisyon/ritim cilası.
+- **Build finali artık yağmurlu (§0.5):** "Bölüm kuruluma hazır 🌧️" ekranı yağmur temalıydı ama tek kuru ekrandı → düşük doz `RainCanvas` (0.35) + done fazında yeşil `RippleField` (su halkası, kanal imzası). Kimlik eğrisi tamamlandı.
+- **Build genişliği `max-w-2xl` → `max-w-3xl` (§0.2):** done mega-kartı kısaldı, MiniStrip kareleri büyüdü; ekranlar-arası konteyner sıçraması azaldı.
+- **Amber halo tek kaynağa indi (§0.4):** 3 farklı ayarla kopyalanan üst-ışık → `<AmberHalo />` bileşeni (Intake/Analiz/Kur/Hazırlık/Arşiv).
+- **Arşiv "vitrin" kartı (§5.2):** galeri modunda en taze grubun ilk kartı 2 kolon kaplar + başlığı büyür → "depo"dan "vitrin"e; grup başlıklarına **sayı + alt çizgi** (§5.3) — uzun listede grup sınırı belirginleşir. Dikey ritim `py-10→py-12`, geri-dön `mb-5→mb-6` (§0.3).
+- Doğrulama: `ds_guard` 4/4 ✓ · build temiz · tarayıcıda gözle (Build done: yağmur canvas + 3 ripple + max-w-3xl + koyu amber buton yazısı; Arşiv: hero col-span-2 + sayılı grup başlığı) · 0 konsol hatası. `.app` yeniden derlendi. Panel işlevi değişmedi (v1.5 çipi).
+> **Ertelendi (bilinçli):** ekran-başına-1-`glass-raised` yüzey hiyerarşisi (§0.1) + Setup özet-kartını satıra indirme (§1) — öznel/riskli, sonraki cila turuna.
+
 ## [beta v1.4 · 1.4.0] — 2026-07-03 — UI/UX TUR 4: İnceleme 2.0 (AI verisini görünür kıl) + amber buton yazı düzeltmesi
 > Kaynak: `docs/tasarim/tarama-review.md` §3/§8. Amaç: manifestteki zengin AI sinyalini (enerji/oyalanma/mood/ses/algo-önerisi) tek Inspector satırından çıkarıp göze görünür kılmak — "neden bu klip böyle?" sorusunun görsel cevabı.
 ### 🔧 Regresyon düzeltmesi (kullanıcı bildirdi — amber butonlarda beyaz yazı)

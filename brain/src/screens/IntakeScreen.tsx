@@ -8,7 +8,7 @@ import { useApp } from '../lib/store'
 import { tauriAvailable } from '../lib/native'
 import { pickFile, pickFolder } from '../lib/tauri'
 import { cn } from '../lib/utils'
-import { AmbientLayer } from '../components/AmbientLayer'
+import { AmbientLayer, AmberHalo } from '../components/AmbientLayer'
 import { EASE } from '../lib/motion'
 
 interface Slot { key: string; title: string; hint: string; icon: ReactNode; required: boolean; sample: string }
@@ -68,7 +68,7 @@ export function IntakeScreen() {
     <div className="relative h-full overflow-y-auto">
       <AmbientLayer />
       <RainCanvas intensity={0.7} className="opacity-60" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-amber-500/[0.04] to-transparent" />
+      <AmberHalo />
 
       <div className="relative mx-auto flex min-h-full max-w-5xl flex-col px-8 py-12">
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: EASE.outExpo }}>

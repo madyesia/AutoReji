@@ -8,3 +8,8 @@ export function AmbientLayer() {
     </div>
   )
 }
+
+/** Üst amber ışık halesi (ekranlar-arası tek kaynak — §0.4; eskiden 3 farklı ayarla kopyalanmıştı). */
+export function AmberHalo() {
+  return <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-amber-500/[0.05] to-transparent" />
+}

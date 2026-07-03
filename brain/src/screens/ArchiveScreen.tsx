@@ -11,7 +11,7 @@ import type { ArchiveEntry, Regime } from '../lib/types'
 import { Segmented, Button, Tip, SectionLabel } from '../components/ui'
 import { ConfirmDialog } from '../components/ConfirmDialog'
 import { prettyEpisode } from '../components/AppShell'
-import { AmbientLayer } from '../components/AmbientLayer'
+import { AmbientLayer, AmberHalo } from '../components/AmbientLayer'
 import { EASE } from '../lib/motion'
 
 type Density = 'gallery' | 'list'
@@ -73,9 +73,9 @@ export function ArchiveScreen() {
 
   return (
     <div className="relative h-full overflow-y-auto">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-amber-500/[0.05] to-transparent" />
-      <div className="relative mx-auto max-w-5xl px-8 py-10">
-        <button onClick={() => setScreen('intake')} className="mb-5 inline-flex items-center gap-1.5 text-body text-fg-muted transition-colors hover:text-fg">
+      <AmberHalo />
+      <div className="relative mx-auto max-w-5xl px-8 py-12">
+        <button onClick={() => setScreen('intake')} className="mb-6 inline-flex items-center gap-1.5 text-body text-fg-muted transition-colors hover:text-fg">
           <Clapperboard size={15} /> Giriş'e dön
         </button>
 
@@ -96,12 +96,19 @@ export function ArchiveScreen() {
           <EmptyState onStart={() => setScreen('intake')} />
         ) : (
           <div className="mt-8 space-y-9">
-            {groups.map(({ k, items }) => (
+            {groups.map(({ k, items }, gi) => (
               <section key={k}>
-                <SectionLabel>{GROUP_LABEL[k]}</SectionLabel>
+                {/* §5.3: grup başlığına sayı + alt çizgi — uzun listede grup sınırı belirginleşir */}
+                <div className="flex items-center gap-2 hairline-b pb-2">
+                  <SectionLabel>{GROUP_LABEL[k]}</SectionLabel>
+                  <span className="text-caption tabular text-fg-faint">{items.length}</span>
+                </div>
                 <div className={cn('mt-3', density === 'gallery' ? 'grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3' : 'space-y-2.5')}>
                   {items.map((e, i) => (
-                    <ArchiveCard key={e.seed + e.createdAt} e={e} i={i} density={density} onReopen={() => handleReopen(e)} onReveal={() => handleReveal(e)} onDelete={() => setConfirmDel(e)} />
+                    /* §5.2: en taze grubun ilk kartı vitrin — 2 kolon kaplar ("depo"dan "vitrin"e) */
+                    <div key={e.seed + e.createdAt} className={cn(density === 'gallery' && gi === 0 && i === 0 && 'sm:col-span-2')}>
+                      <ArchiveCard e={e} i={i} density={density} hero={density === 'gallery' && gi === 0 && i === 0} onReopen={() => handleReopen(e)} onReveal={() => handleReveal(e)} onDelete={() => setConfirmDel(e)} />
+                    </div>
                   ))}
                 </div>
               </section>
@@ -156,7 +163,7 @@ function TxDots({ e }: { e: ArchiveEntry }) {
   )
 }
 
-function ArchiveCard({ e, i, density, onReopen, onReveal, onDelete }: { e: ArchiveEntry; i: number; density: Density; onReopen: () => void; onReveal: () => void; onDelete: () => void }) {
+function ArchiveCard({ e, i, density, hero = false, onReopen, onReveal, onDelete }: { e: ArchiveEntry; i: number; density: Density; hero?: boolean; onReopen: () => void; onReveal: () => void; onDelete: () => void }) {
   const motionPreview = useApp((s) => s.motionPreview)
   const reduce = useReducedMotion()
   const [frame, setFrame] = useState(-1)
@@ -193,7 +200,7 @@ function ArchiveCard({ e, i, density, onReopen, onReveal, onDelete }: { e: Archi
   const Info = (
     <div className="flex min-w-0 flex-1 flex-col gap-2 p-3.5">
       <div className="min-w-0">
-        <div className="truncate text-ui font-semibold" title={prettyEpisode(e.name)}>{prettyEpisode(e.name)}</div>
+        <div className={cn('truncate font-semibold', hero ? 'text-lead' : 'text-ui')} title={prettyEpisode(e.name)}>{prettyEpisode(e.name)}</div>
         <div className="mt-0.5 flex items-center gap-2 text-caption text-fg-subtle">
           <span className="flex items-center gap-1"><span className="h-1.5 w-1.5 rounded-full" style={{ background: r.color }} />{r.label}</span>
           <span className="truncate">seed {e.seed.slice(0, 14)}…</span>

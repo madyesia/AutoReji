@@ -8,11 +8,12 @@ import { saveTextFile } from '../lib/native'
 import { buildArchiveEntry, writeArchiveEntry, readArchive, markArchiveSaved } from '../lib/archive'
 import { Button, Dot, SectionLabel, Tip } from '../components/ui'
 import { ConfirmDialog } from '../components/ConfirmDialog'
-import { ApprovedSeal, ProgressRing, StageTimeline, BirthStat, RevealPanel } from '../components/motifs'
+import { ApprovedSeal, ProgressRing, StageTimeline, BirthStat, RevealPanel, RippleField } from '../components/motifs'
+import { RainCanvas } from '../components/RainCanvas'
 import { prettyEpisode } from '../components/AppShell'
 import type { Clip } from '../lib/types'
 import { EASE, SPRING } from '../lib/motion'
-import { AmbientLayer } from '../components/AmbientLayer'
+import { AmbientLayer, AmberHalo } from '../components/AmbientLayer'
 
 // DÜRÜSTLÜK: bu adımlar Premiere'de DEĞİL, burada hazırlanan kurgu PLANININ bölümleri —
 // gerçek kurulum MONTAJCI panelinde olur. Adlar "hazırlanıyor" dilinde ve jargonsuz.
@@ -91,8 +92,11 @@ export function BuildScreen() {
   return (
     <div className="relative h-full overflow-y-auto">
       <AmbientLayer />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-amber-500/[0.05] to-transparent" />
-      <div className="relative mx-auto max-w-2xl px-8 py-12">
+      {/* §0.5: final ekran yağmur temalı ama kuruydu — düşük doz yağmur kimliği tamamlar; done'da su halkası */}
+      <RainCanvas intensity={0.35} className="opacity-40" />
+      {phase === 'done' && <RippleField tint="var(--glow-ok)" />}
+      <AmberHalo />
+      <div className="relative mx-auto max-w-3xl px-8 py-12">
         <button onClick={() => setScreen('review')} className="mb-6 inline-flex items-center gap-1.5 text-body text-fg-muted hover:text-fg"><ArrowLeft size={15} /> İncelemeye dön</button>
 
         {phase === 'ready' && (
