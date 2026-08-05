@@ -3,6 +3,24 @@
 Tüm önemli değişiklikler burada. Biçim: [Keep a Changelog] benzeri; sürümleme SemVer benzeri.
 Başlangıç sürümü **v1.1**; her güncellemede artar.
 
+## [beta v1.7 · 1.7.0] — 2026-08-05 — HIZLI ÜRETİM modu (görsel-AI'sız, dakikalar kazandırır) + analiz NaN-çökmesi kök çözümü
+> Kullanıcı isteği: "AI çok zaman harcıyor — AI'sız ama ritmi bozmayan, süreleri tek-düze olmayan hızlı bir sürüm." Ayrı sürüm yerine aynı uygulamada **kalıcı anahtar**: Giriş ekranında "Hızlı üretim".
+### Hızlı üretim — nasıl çalışır (sidecar `trim.py` sözde-sinyalleri)
+- Görsel-AI (Ollama/VLM) adımı **tamamen atlanır** → 160 klipte dakikalar kazanılır. AI'ın 3 yargısının en yakın ölçülebilir taklidi YALNIZ süre hesabına girer (❄️ geçiş kararlarına sızmaz; manifest'e yazılmaz → UI'da sahte "oyalanma" rozeti çıkmaz — dürüstlük):
+  - **enerji →** ffmpeg hareket ölçümü (zaten vardı, tek sinyal olur);
+  - **oyalanma →** "sakin + geniş/kuruluş + iç-uyku + karaktersiz" profil skoru + seed'li eşik; katkı KADEMELİ 0.30–0.55 (VLM +0.6'nın temkinli taklidi);
+  - **ritim →** bölüm boyunca 9-13 klip periyotlu seed'li **sinüs dalgası** (±0.12) — "hep aynı matematik" tek-düzeliğini kırar;
+  - sakin kliplerde bonuslar üst üste binip tavana çakılıyordu → clamp ÖNCESİ **yumuşak üst-sıkıştırma** (hold>0.70 → ×0.25) — en uzun klipler tek değere yığılmak yerine 6.3–6.7 bandına yayılır.
+- **REF Bölüm 2 kalibrasyonu (160 klip, gerçek veri):** min **4.58** / max **6.71** / ort **5.71** / std 0.540 · **45 benzersiz süre** · en-sık-süre payı **%6 (AI'lı %8'den bile çeşitli)** · komşu-klip ritim farkı 0.55s · 4.30 altı **0** ✓. Geçişler: fade 40→36 (AI'ın 2 fade kuralı doğal olarak düşer — dürüst fark).
+- **AI'lı yol REGRESYONSUZ:** aynı girdiyle **160/160 klip bit'i bitine aynı** (sözde-sinyal bloğu yalnız VLM verisi yokken çalışır).
+### UI
+- Giriş ekranı: **"Hızlı üretim" anahtarı** (Zap + Switch; dürüst tooltip: ne kazanılır/ne kaybedilir) — `localStorage` KALICI (`autoreji.fastMode`).
+- Analiz ekranı: hızlı modda aşama listesi **6→5** ("Görsel-AI sahne sinyali" satırı yok — motorla hizalı); motor `runPipeline {noVlm}` (engine'de zaten vardı, ilk kez kullanıma açıldı).
+### 🔧 Kök çözüm — analiz ekranı NaN çökmesi ("reading 'label'")
+- Hızlı-mod testinde deterministik yakalandı (TUR 2'de bir kez görülüp "HMR kalıntısı" sanılan hayaletin aynısı): `prog` NaN olursa `stages[NaN]=undefined` → ekran ÇÖKÜYORDU; üretim yolu da riskliydi (motor ilerleme olayında `pr.step` eksik gelirse aynı çökme `.app`'te olur). **3 katman:** callback'te `Number.isFinite` kalkanı · rAF tick'te NaN'ı yutma · `cur` için son-savunma fallback.
+### Doğrulama
+- Tarayıcı: hızlı mod **5 aşama** + Görsel-AI satırı yok + İnceleme'ye geçiş ✓ · normal mod **6 aşama** + İnceleme ✓ · localStorage kalıcı ✓ · 0 konsol hatası. `ds_guard` 4/4 · sidecar `py_compile` ✓ · `.app` yeniden derlendi (sidecar dahil). Panel işlevi değişmedi (v1.7 çipi).
+
 ## [beta v1.6 · 1.6.0] — 2026-07-03 — UI/UX TUR 6 (son tur): panel marka uyumu + referans desenleri + "daire hatası" düzeltmesi
 > Kaynak: `docs/tasarim/tarama-panel.md` (P1) + `spec-referans-desenler.md`. 6-turluk UI/UX yol haritasının kapanışı.
 ### 🔧 Kullanıcı bildirdi — Build finalindeki "daire hatası"

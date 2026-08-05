@@ -28,6 +28,9 @@ export function AnalysisScreen() {
   const setManifest = useApp((s) => s.setManifest)
   const setScreen = useApp((s) => s.setScreen)
   const intake = useApp((s) => s.intake)
+  const fastMode = useApp((s) => s.fastMode)
+  // Hızlı üretimde görsel-AI aşaması listede de yok (motor da atlar) — sayılar hizalı kalır
+  const stages = fastMode ? STAGES.filter((_, i) => i !== 4) : STAGES
   const reduce = useReducedMotion()
   const [prog, setProg] = useState(0)            // 0..1 GENEL ilerleme — akışkan (rAF ile daima hareket)
   const [phase, setPhase] = useState<'running' | 'done' | 'error'>('running')
@@ -48,8 +51,11 @@ export function AnalysisScreen() {
       const { promptPath, videoFolder } = intake
       void (async () => {
         const res = await runPipeline(promptPath, videoFolder, videoFolder, (pr) => {
-          if (aliveRef.current) targetRef.current = Math.min(0.97, (pr.step + (pr.pct || 0)) / Math.max(1, pr.total))
-        })
+          // NaN KALKANI: pr.step/pct bir olayda eksik gelirse NaN yayılır → prog NaN →
+          // stages[NaN]=undefined → "reading 'label'" ÇÖKMESİ. Sonlu olmayan değer atlanır.
+          const v = ((pr.step ?? 0) + (pr.pct || 0)) / Math.max(1, pr.total || 1)
+          if (aliveRef.current && Number.isFinite(v)) targetRef.current = Math.min(0.97, v)
+        }, { noVlm: fastMode })
         if (!aliveRef.current) return
         if (res.ok) { resultRef.current = res.manifest; doneRef.current = true }
         else { setErrMsg(res.error); setPhase('error') }
@@ -88,6 +94,7 @@ export function AnalysisScreen() {
         // "Donma" hissini alttaki SÜREKLİ kayan ışık önler; uzun adımda (vlm) % gerçek hızda ilerler.
         const tgt = doneRef.current ? 1 : Math.min(0.985, targetRef.current)
         let next = p + (tgt - p) * (reduce ? 0.6 : 0.05)
+        if (!Number.isFinite(next)) return p     // NaN kalkanı: bozuk hedef ilerlemeyi zehirlemesin
         if (next > 0.999) next = 1
         return next
       })
@@ -112,12 +119,12 @@ export function AnalysisScreen() {
   const onCancel = () => { aliveRef.current = false; setScreen('intake') }
   const onRetry = () => setRunKey((k) => k + 1)
 
-  const N = STAGES.length
+  const N = stages.length
   const stageF = prog * N
   const stageIdx = Math.min(N - 1, Math.floor(stageF))
   const stageFill = phase === 'done' ? 1 : Math.max(0, Math.min(1, stageF - stageIdx))
   const stagePct = Math.round(stageFill * 100)
-  const cur = STAGES[stageIdx]
+  const cur = stages[stageIdx] ?? stages[stages.length - 1]   // son savunma: index ne olursa olsun ekran ÇÖKMEZ
 
   return (
     <div className="relative flex h-full items-center justify-center overflow-hidden">
@@ -176,7 +183,7 @@ export function AnalysisScreen() {
 
               {/* Aşama listesi: biten=yeşil tik, aktif=dolan+kayan ışık, bekleyen=sönük */}
               <div className="mt-7 space-y-2.5">
-                {STAGES.map((s, i) => {
+                {stages.map((s, i) => {
                   const status = i < stageIdx ? 'done' : i === stageIdx ? 'active' : 'pending'
                   const fill = status === 'done' ? 1 : status === 'active' ? stageFill : 0
                   return (

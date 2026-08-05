@@ -26,6 +26,8 @@ interface AppState {
   focusOnly: boolean
   riskyOnly: boolean
   motionPreview: boolean       // hover-scrub + hover'da video oynatma açık mı (kullanıcı toggle'lar)
+  fastMode: boolean            // HIZLI ÜRETİM: görsel-AI (Ollama) adımı atlanır — süre/ritim ölçülebilir
+                               // verilerin sözde-sinyalleriyle (trim.py) kurulur; dakikalar kazanılır. KALICI.
   muted: boolean               // önizleme sesi — KALICI (klipten klibe korunur)
   toasts: Toast[]              // alt-orta bildirimler (sil/sıfırla/toplu işlem/stil değişimi)
   past: Clip[][]
@@ -46,6 +48,7 @@ interface AppState {
   setFocusOnly: (b: boolean) => void
   setRiskyOnly: (b: boolean) => void
   toggleMotionPreview: () => void
+  setFastMode: (b: boolean) => void
   toggleMuted: () => void
   setPlayScene: (scene: number | null) => void
   applyStyle: (style: EditStyle) => void
@@ -93,6 +96,7 @@ export const useApp = create<AppState>((set, get) => {
     focusOnly: false,
     riskyOnly: false,
     motionPreview: true,
+    fastMode: typeof localStorage !== 'undefined' && localStorage.getItem('autoreji.fastMode') === '1',
     muted: true,
     toasts: [],
     past: [],
@@ -148,6 +152,7 @@ export const useApp = create<AppState>((set, get) => {
     setFocusOnly: (focusOnly) => set({ focusOnly }),
     setRiskyOnly: (riskyOnly) => set({ riskyOnly }),
     toggleMotionPreview: () => set((s) => ({ motionPreview: !s.motionPreview })),
+    setFastMode: (b) => { try { localStorage.setItem('autoreji.fastMode', b ? '1' : '0') } catch { /* */ } set({ fastMode: b }) },
     toggleMuted: () => set((s) => ({ muted: !s.muted })),
     setPlayScene: (playScene) => set({ playScene }),
 

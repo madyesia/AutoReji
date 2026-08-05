@@ -1,8 +1,8 @@
 import { useEffect, useState, type ReactNode } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
-import { FileText, FolderOpen, Film, Check, ArrowRight, CircleCheck, TriangleAlert, Circle, Sparkles, Upload, SlidersHorizontal, Hammer } from 'lucide-react'
+import { FileText, FolderOpen, Film, Check, ArrowRight, CircleCheck, TriangleAlert, Circle, Sparkles, Upload, SlidersHorizontal, Hammer, Zap } from 'lucide-react'
 import { RainCanvas } from '../components/RainCanvas'
-import { Button, Badge, Tip } from '../components/ui'
+import { Button, Badge, Tip, Switch } from '../components/ui'
 import { SweepReveal } from '../components/motifs'
 import { useApp } from '../lib/store'
 import { tauriAvailable } from '../lib/native'
@@ -34,6 +34,8 @@ const VAL_ROWS = [
 export function IntakeScreen() {
   const setScreen = useApp((s) => s.setScreen)
   const setIntake = useApp((s) => s.setIntake)
+  const fastMode = useApp((s) => s.fastMode)
+  const setFastMode = useApp((s) => s.setFastMode)
   const [filled, setFilled] = useState<Record<string, boolean>>({})
   const [paths, setPaths] = useState<Record<string, string>>({})       // .app'te seçilen GERÇEK yollar
   const [name, setName] = useState(() => (tauriAvailable() ? '' : 'Bölüm 2 · Glass Dome Treehouse in Heavy Rain'))
@@ -172,13 +174,24 @@ export function IntakeScreen() {
         <div className="flex-1" />
         <div className="mt-8 flex items-center justify-between">
           <span className="text-label text-fg-subtle">{ready ? 'Her şey hazır görünüyor.' : 'Zorunlu girdileri bekliyorum…'}</span>
-          <Tip label={ready ? 'Analiz + karar motorunu çalıştır' : 'Önce zorunlu girdiler'}>
+          <div className="flex items-center gap-4">
+            {/* HIZLI ÜRETİM: görsel-AI adımını atlar (dakikalar kazanır); ritim ölçülebilir verilerle taklit edilir */}
+            <Tip label={fastMode
+              ? 'Hızlı üretim AÇIK — görsel-AI atlanır (dakikalar kazanılır). Ritim, hareket ölçümü + sahne bilgisiyle kurulur; AI rozetleri görünmez.'
+              : 'Hızlı üretim KAPALI — görsel-AI her klibe bakar (en iyi ritim, daha uzun sürer).'}>
+              <div className={cn('flex items-center gap-2 rounded-lg px-2.5 h-8 text-body transition-colors', fastMode ? 'text-amber-300' : 'text-fg-muted')}>
+                <button onClick={() => setFastMode(!fastMode)} className="flex items-center gap-1.5 hover:text-fg"><Zap size={15} /> Hızlı üretim</button>
+                <Switch checked={fastMode} onCheckedChange={setFastMode} />
+              </div>
+            </Tip>
+            <Tip label={ready ? 'Analiz + karar motorunu çalıştır' : 'Önce zorunlu girdiler'}>
             <span>
               <Button variant={ready ? 'primary' : 'outline'} size="lg" disabled={!ready} onClick={startAnalysis}>
                 Analizi Başlat <ArrowRight size={18} />
               </Button>
             </span>
-          </Tip>
+            </Tip>
+          </div>
         </div>
       </div>
     </div>

@@ -113,6 +113,10 @@
 
 **🎉 UI/UX yol haritası (TUR 0-6) TAMAMLANDI.** Detay: `docs/tasarim/README.md` + CHANGELOG.
 
+## Faz 6 — Hızlı Üretim (görsel-AI'sız mod)
+- [x] **v1.7.0:** Giriş'te kalıcı "Hızlı üretim" anahtarı → VLM atlanır (dakikalar kazanılır). `trim.py` sözde-sinyalleri (hareket=enerji · profil+seed=oyalanma · sinüs ritim dalgası · yumuşak üst-sıkıştırma) YALNIZ süreye; ❄️ geçişlere/manifest'e sızmaz. REF B2: min 4.58/ort 5.71/45 benzersiz süre/en-sık %6; **AI'lı yol 160/160 bit-aynı**. + Analiz NaN-çökmesi 3 katman kök çözümü.
+- [ ] Kullanıcının gerçek bölümle hızlı-mod kabul testi (süre farkı + ritim beğenisi)
+
 ## Sürekli — Teslim / Devir paketi (§20)
 - [x] `DEVAM.md` + `CHANGELOG.md` her faz/oturum sonunda güncel (v1.14.6)
 - [x] `README.md` sıfırdan kurulum güncel (üretim durumu + son-kullanıcı kurulum + Madyes/lisans)

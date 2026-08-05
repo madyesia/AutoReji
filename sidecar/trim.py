@@ -8,6 +8,7 @@ Her klip için kaynak in/out noktası:
 """
 from __future__ import annotations
 
+import math
 import os
 import sys
 
@@ -52,6 +53,41 @@ def compute_trim(i: int, merged, decisions, cfg, n: int, analysis=None):
         span = max(0.5, MOTION_BUSY - MOTION_CALM)
         return clamp(1.0 + 4.0 * (m - MOTION_CALM) / span, 1.0, 5.0)
 
+    # ── HIZLI ÜRETİM (görsel-AI'sız) SÖZDE-SİNYALLERİ ─────────────────────────────
+    # VLM koşmadıysa (energy/role/linger hepsi None) AI'ın yargılarını ölçülebilir verinin
+    # en yakın taklidiyle doldur. YALNIZ SÜRE hesabına girer: geçiş kararlarına (decide.py ❄️)
+    # sızmaz, manifest'e/analysis'e YAZILMAZ (UI'da sahte "oyalanma" rozeti çıkmaz — dürüstlük).
+    # VLM'li yol bit'i bitine AYNI kalır (bu blok o durumda hiç çalışmaz).
+    hold_wave, pseudo = 0.0, False
+    if energy is None and linger is None and role is None:
+        pseudo = True
+        m5 = _mot5(motion) if motion is not None else 3.0
+        # sözde-linger: VLM'in "dursun" dediği kliplerin profili = sakin + geniş/kuruluş + iç-uyku + karaktersiz
+        p = 0.0
+        if m5 <= 2.2:
+            p += 0.40                                     # ölçülen hareket düşük → sakin an
+        if s.establishing or s.scale in ("drone", "wide", "top_down"):
+            p += 0.30                                     # geniş/kuruluş çekimi → "manzara nefesi" adayı
+        if s.regime in ("interior", "sleeping"):
+            p += 0.20                                     # iç/uyku → sıcak, durulacak an
+        if not s.subjects:
+            p += 0.10                                     # karaktersiz saf atmosfer
+        p += (seeded(f"{cfg.seed}:plinger:{sc}") - 0.5) * 0.30   # klip-başına seed'li çeşni
+        if p >= 0.66:                                     # eşik: REF B2 kalibrasyonu
+            # sözde-oyalanma: VLM +0.6'nın temkinli, KADEMELİ taklidi (0.30–0.55 bandı, skora orantılı)
+            # → "dursun" klipleri tavana çakılmaz, 6.2–6.8 bandına YAYILIR (linger bayrağı set edilmez; UI temiz)
+            hold_wave += 0.30 + clamp((p - 0.66) * 1.2, 0.0, 0.25)
+        # sözde-rol: yalnız hold bonusu için kaba sınıf (manifest'e gitmez)
+        if not s.subjects and s.scale in ("drone", "wide", "top_down"):
+            role = "scenery"
+        elif s.subjects and s.scale in ("close_up", "extreme_close_up"):
+            role = "detail"
+        # bölüm boyunca YAVAŞ RİTİM DALGASI (9-13 klipte bir uzun↔kısa salınımı):
+        # "hep aynı matematik" tek-düzeliğini kırar; seed'li → aynı bölüm hep aynı sonucu verir.
+        period = 9.0 + seeded(f"{cfg.seed}:wavep") * 4.0
+        phase = seeded(f"{cfg.seed}:wavef") * math.tau
+        hold_wave += math.sin(math.tau * i / period + phase) * 0.12
+
     intensity = None  # energy (VLM 1-5) + motion (ölçülen) TEK "yoğunluk" sinyali (çift sayma yok)
     if energy is not None and motion is not None:
         intensity = 0.6 * float(energy) + 0.4 * _mot5(motion)
@@ -79,6 +115,12 @@ def compute_trim(i: int, merged, decisions, cfg, n: int, analysis=None):
     if intensity is not None:
         hold += -((intensity - 3.0) / 2.0) * 0.5          # sakin(1)→+0.5 (uzun), hareketli(5)→−0.5 (kısa)
     hold += (seeded(f"{cfg.seed}:hold:{sc}") - 0.5) * 0.15  # küsüratlı "elle" his (asla tek-düze)
+    hold += hold_wave                                        # AI'sız modda ritim dalgası (VLM'liyken 0)
+    if pseudo and hold > 0.70:
+        # AI'sız modda sakin kliplerde bonuslar üst üste binip clamp tavanına çarpıyor → hepsi AYNI
+        # süreye oturuyordu. HAM hold'u clamp'ten ÖNCE yumuşak sıkıştır: ham farklar korunur,
+        # "en uzun tutulacak" klipler tek değere çakılmak yerine ~6.3–6.6 bandına YAYILIR.
+        hold = 0.70 + (hold - 0.70) * 0.25
     hold = clamp(hold, -1.0, 1.0)
 
     # hold → hedef tutulan süre [KEEP_MIN, KEEP_MAX]
