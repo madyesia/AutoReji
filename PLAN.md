@@ -117,6 +117,11 @@
 - [x] **v1.7.0:** Giriş'te kalıcı "Hızlı üretim" anahtarı → VLM atlanır (dakikalar kazanılır). `trim.py` sözde-sinyalleri (hareket=enerji · profil+seed=oyalanma · sinüs ritim dalgası · yumuşak üst-sıkıştırma) YALNIZ süreye; ❄️ geçişlere/manifest'e sızmaz. REF B2: min 4.58/ort 5.71/45 benzersiz süre/en-sık %6; **AI'lı yol 160/160 bit-aynı**. + Analiz NaN-çökmesi 3 katman kök çözümü.
 - [ ] Kullanıcının gerçek bölümle hızlı-mod kabul testi (süre farkı + ritim beğenisi)
 
+## Faz 7 — Üretim sağlamlığı (kullanıcı istekleri 2026-08-05)
+- [ ] **Crop doğrulama:** croplu alanları scale'e çeviren düzeltme hızlı modda da sürüyor mu — kanıtla, raporla
+- [ ] **Intro/outro siyah fade VARSAYILAN KAPALI:** klip başı/sonu siyah fade istenmiyor → config kaynağını bul, 0'a çek
+- [ ] **Eksik klip esnekliği:** 160 sahnelik prompt + 159/145 video → eksik sahneler ZARİF atlanmalı; manifest kaç klip varsa onunla kurulmalı, Premiere entegrasyonu hata VERMEMELİ. 160-tam durumda davranış bit-aynı kalmalı (regresyon kapısı)
+
 ## Sürekli — Teslim / Devir paketi (§20)
 - [x] `DEVAM.md` + `CHANGELOG.md` her faz/oturum sonunda güncel (v1.14.6)
 - [x] `README.md` sıfırdan kurulum güncel (üretim durumu + son-kullanıcı kurulum + Madyes/lisans)
