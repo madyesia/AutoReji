@@ -117,10 +117,10 @@
 - [x] **v1.7.0:** Giriş'te kalıcı "Hızlı üretim" anahtarı → VLM atlanır (dakikalar kazanılır). `trim.py` sözde-sinyalleri (hareket=enerji · profil+seed=oyalanma · sinüs ritim dalgası · yumuşak üst-sıkıştırma) YALNIZ süreye; ❄️ geçişlere/manifest'e sızmaz. REF B2: min 4.58/ort 5.71/45 benzersiz süre/en-sık %6; **AI'lı yol 160/160 bit-aynı**. + Analiz NaN-çökmesi 3 katman kök çözümü.
 - [ ] Kullanıcının gerçek bölümle hızlı-mod kabul testi (süre farkı + ritim beğenisi)
 
-## Faz 7 — Üretim sağlamlığı (kullanıcı istekleri 2026-08-05)
-- [ ] **Crop doğrulama:** croplu alanları scale'e çeviren düzeltme hızlı modda da sürüyor mu — kanıtla, raporla
-- [ ] **Intro/outro siyah fade VARSAYILAN KAPALI:** klip başı/sonu siyah fade istenmiyor → config kaynağını bul, 0'a çek
-- [ ] **Eksik klip esnekliği:** 160 sahnelik prompt + 159/145 video → eksik sahneler ZARİF atlanmalı; manifest kaç klip varsa onunla kurulmalı, Premiere entegrasyonu hata VERMEMELİ. 160-tam durumda davranış bit-aynı kalmalı (regresyon kapısı)
+## Faz 7 — Üretim sağlamlığı (kullanıcı istekleri 2026-08-05) → **TAMAM (v1.8.0)**
+- [x] **Crop doğrulama:** detect_crop pipeline'ın İLK adımı; Hızlı Üretim yalnız vlm_scene'i atlar → crop→scale düzeltmesi HER İKİ modda sürüyor (kanıt: engine.ts STEPS + testlerde "crop ✓" satırı)
+- [x] **Intro/outro siyah fade VARSAYILAN KAPALI:** kaynak config.toml (1.0/1.5) → 0.0/0.0; özet "kapalı" der; UI/panel 0-yolları hazırdı. config_hash değişti (beklenen)
+- [x] **Eksik klip esnekliği:** KÖK = chosen=None → file:abspath("")=çalışma dizini → Premiere patlıyordu. Videosuz sahne kurguya girmez + görünür atlama raporu; 157-klip testi 0 hata; 160-tamda bit-aynı ✓
 
 ## Sürekli — Teslim / Devir paketi (§20)
 - [x] `DEVAM.md` + `CHANGELOG.md` her faz/oturum sonunda güncel (v1.14.6)

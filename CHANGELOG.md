@@ -3,6 +3,19 @@
 Tüm önemli değişiklikler burada. Biçim: [Keep a Changelog] benzeri; sürümleme SemVer benzeri.
 Başlangıç sürümü **v1.1**; her güncellemede artar.
 
+## [beta v1.8 · 1.8.0] — 2026-08-05 — Eksik-klip esnekliği (Premiere hatasının kökü) + intro/outro siyah fade varsayılan KAPALI + crop doğrulaması
+> Üç kullanıcı isteği (Faz 7). REF Bölüm 2 ile üçlü test: 160-tam AI'sız **bit-aynı** · 160-tam AI'lı **bit-aynı** · 157-klip senaryosu temiz.
+### 🔧 Eksik-klip esnekliği — Premiere entegrasyon hatasının kökü bulundu
+- **KÖK:** videosu bulunamayan sahnede (`160 prompt / 159 video`) `chosen=None` → manifest'e `file: abspath("")` = **ÇALIŞMA DİZİNİ YOLU** yazılıyordu → Premiere import'u klasörü içe almaya çalışıp PATLIYORDU.
+- **ÇÖZÜM:** videosu olmayan sahne kurguya HİÇ girmez — kaç klip verildiyse (159/145…) manifest o kadar kurulur; geçiş/süre kararları kalan zincire göre doğal kurulur; görünür rapor: "⚠ N sahnenin videosu bulunamadı → kurgudan atlandı: [42, 97, …] — 157 kliple kuruluyor".
+- **Test (157-klip, sahne 42/97/160 çıkarılmış sembolik-link klasörü):** manifest tam 157 klip · atlanan sahneler manifestte yok · bozuk `file` alanı 0 · doğrulama 0 hata ✓. 160-tam eşleşmede filtre no-op → **davranış bit'i bitine aynı**.
+### Intro/outro siyah fade — varsayılan KAPALI (kullanıcı tercihi)
+- `config.toml` `intro_fade 1.0 → 0.0` · `outro_fade 1.5 → 0.0` (kaynak burasıydı; decide.py varsayılanı zaten 0'dı). Bölüm düz başlar/biter; istenirse config'ten tek satırla açılır. Panel "0=kapalı" (v1.14.6) + Inspector "düz başlangıç" yolları zaten hazırdı. Özet satırı dürüstleşti: "Intro/Outro siyah fade: kapalı". ⚠️ config_hash değişti (beklenen).
+### Crop doğrulaması (soruya kanıtlı cevap)
+- Siyah-bar/crop tespiti (croplu alanı scale'e çevirme) **her iki modda da sürüyor**: `detect_crop` pipeline'ın İLK adımı; Hızlı Üretim yalnız `vlm_scene`'i atlar (`engine.ts` STEPS + `noVlm` filtresi). Testlerde "QC: tüm klipler temiz ✓ (heuristik teknik kontrol + crop)" satırı her koşuda üretildi.
+### Doğrulama
+- `py_compile` ✓ · `ds_guard` 4/4 ✓ · REF üçlü test yukarıda · `.app` yeniden derlendi (sidecar dahil) → /Applications güncellendi. Panel işlevi değişmedi (v1.8 çipi).
+
 ## [beta v1.7 · 1.7.0] — 2026-08-05 — HIZLI ÜRETİM modu (görsel-AI'sız, dakikalar kazandırır) + analiz NaN-çökmesi kök çözümü
 > Kullanıcı isteği: "AI çok zaman harcıyor — AI'sız ama ritmi bozmayan, süreleri tek-düze olmayan hızlı bir sürüm." Ayrı sürüm yerine aynı uygulamada **kalıcı anahtar**: Giriş ekranında "Hızlı üretim".
 ### Hızlı üretim — nasıl çalışır (sidecar `trim.py` sözde-sinyalleri)

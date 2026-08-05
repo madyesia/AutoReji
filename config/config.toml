@@ -64,8 +64,8 @@ motion_trim_k = 0.07             # hareketin kırpmaya etkisi (yüksek hareket �
 [refinements]
 audio_micro_crossfade = 0.06     # #3 — HER birleşimde (cut dahil) çok kısa ses çapraz-geçişi (ASMR: tık yok)
 mask_stereo_shift = true         # #3 — rejim değişiminde stereo-alan kayması fade ile maskelenir
-intro_fade = 1.0                 # #5 — bölüm başı siyahtan fade-in (s)
-outro_fade = 1.5                 # #5 — bölüm sonu siyaha fade-out (s)
+intro_fade = 0.0                 # #5 — bölüm başı siyahtan fade-in (s) — KULLANICI 2026-08-05: VARSAYILAN KAPALI (0); istenirse aç
+outro_fade = 0.0                 # #5 — bölüm sonu siyaha fade-out (s) — KULLANICI 2026-08-05: VARSAYILAN KAPALI (0)
 
 # ── TEMPO MODÜLASYONU (trim.py içinde GÖMÜLÜ — §8/§9.5 #1/#2) ───────────────
 #  NOT: Aşağıdakiler şu an trim.py'de sabit; burası DONMUŞ KAYITTIR (kod henüz

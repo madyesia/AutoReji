@@ -92,6 +92,18 @@ def build_manifest(prompt_path, video_folder, do_probe=False):
     merged, report = match_episode(prompt_path, video_folder, do_probe)
     name = episode_name_from(prompt_path)
 
+    # ── EKSİK KLİP ESNEKLİĞİ (kullanıcı 2026-08-05) ─────────────────────────────
+    # Videosu bulunamayan sahne kurguya HİÇ girmez — kaç klip verildiyse (159/145…)
+    # manifest o kadar kurulur; geçiş/süre kararları KALAN zincire göre doğal kurulur.
+    # ESKİ HATA: chosen=None → file: abspath("") = ÇALIŞMA DİZİNİ yolu manifest'e
+    # yazılıyor → Premiere import'u klasörü içe almaya çalışıp PATLIYORDU.
+    # 160/160 tam eşleşmede bu filtre no-op → davranış bit'i bitine aynı (regresyon kapısı).
+    skipped = [m["prompt"].scene for m in merged if not m["chosen"]]
+    if skipped:
+        merged = [m for m in merged if m["chosen"]]
+        print(f"  ⚠ {len(skipped)} sahnenin videosu bulunamadı → kurgudan atlandı: "
+              f"{skipped[:8]}{'…' if len(skipped) > 8 else ''} — {len(merged)} kliple kuruluyor")
+
     # Crop ölçekleri (siyah bar gidermek için) — varsa oku (sidecar cropdetect üretir)
     crop_scales = {}
     try:
@@ -303,7 +315,9 @@ def main():
     if downgraded:
         print(f"  ↓ handle yetmediği için cut'a indirilen fade: {len(downgraded)} → {downgraded[:8]}")
     print(f"  Toplam süre ~{sum(durs):.0f}s (~{sum(durs)/60:.1f} dk) + geçiş bindirmeleri")
-    print(f"  Intro fade-in {manifest['intro']['fade_in_from_black']}s / Outro fade-out {manifest['outro']['fade_out_to_black']}s")
+    _fi, _fo = manifest['intro']['fade_in_from_black'], manifest['outro']['fade_out_to_black']
+    print("  Intro/Outro siyah fade: kapalı (düz başlangıç/bitiş)" if not _fi and not _fo
+          else f"  Intro fade-in {_fi}s / Outro fade-out {_fo}s")
     risky = [c for c in clips if (c.get("qc") or {}).get("risk", 0) > 0]
     if risky:
         print(f"  ⚠ QC riskli klip: {len(risky)} → " + ", ".join(f"#{c['scene']}({(c['qc']['issues'][0]['d'])[:24]})" for c in risky[:6]))
