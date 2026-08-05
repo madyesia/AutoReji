@@ -1,5 +1,5 @@
 # AutoReji — Otomatik Kurgu Sistemi (Ghibli Mood ON)
-### Claude Code Yapım Belgesi · Ürün: **AutoReji** · Başlangıç sürümü: **v1.1** → **GÜNCEL: beta v1.0 (teknik 1.0.1) · Yayıncı: Madyes** (aşağıdaki 🔄 REVİZYON'a bak)
+### Claude Code Yapım Belgesi · Ürün: **AutoReji** · Başlangıç sürümü: **v1.1** → **GÜNCEL: beta v1.8 (teknik 1.8.0) · Yayıncı: Madyes** (aşağıdaki 🔄 REVİZYON'a bak)
 
 Bu belge, sistemi **sıfırdan kuracak Claude Code** içindir. Amaç: her gün üretilen ~160 klipten oluşan bir bölümü, Premiere Pro 2026'da **düzenlenebilir klipler + düzenlenebilir geçişler + native stereo ses** ile, **render almadan** kuran, tamamen yerel (çalışma anında ücretli AI gerektirmeyen) premium bir macOS uygulaması: **AutoReji**.
 
@@ -9,13 +9,13 @@ Zor kısımların çoğu (geçiş karar algoritması, düzensiz kırpma, Dip-to-
 
 ---
 
-## 🔄 REVİZYON — GÜNCEL DURUM (2026-07-01) · bu belge ARTIK GERÇEKLEŞTİ
+## 🔄 REVİZYON — GÜNCEL DURUM (2026-08-06) · bu belge ARTIK GERÇEKLEŞTİ
 
 > Bu Blueprint v1.1'de "sıfırdan kurulacak" niyet beyanı olarak yazıldı. **Bugün spec büyük ölçüde GERÇEKLEŞTİ.** Aşağıdaki gövde tasarım gerekçesi olarak hâlâ GEÇERLİ ve değerli (niyet + tarihçe); ama güncel kimlik/durum için ÖNCE burayı oku. Canlı durum: `DEVAM.md` · sürüm geçmişi: `CHANGELOG.md`.
 
-**Kimlik:** Ürün **AutoReji**, görünen sürüm **beta v1.0** (teknik semver **1.0.1**), Yayıncı/marka **Madyes** (telif "AutoReji beta v1.0 · Developed by Madyes © 2026"). Bundle `com.autoreji.app`, ad-hoc imza.
+**Kimlik:** Ürün **AutoReji**, görünen sürüm **beta v1.8** (teknik semver **1.8.0**), Yayıncı/marka **Madyes** (telif "AutoReji beta v1.8 · Developed by Madyes © 2026"). ⚠️ Görünen etiket SABİT DEĞİL — her anlamlı güncelleme paketinde artar (kullanıcı kuralı 2026-07-02). Bundle `com.autoreji.app`, ad-hoc imza.
 
-**Durum:** Faz 0–4 TAMAM/DONDURULDU. Gerçek macOS `.app` derleniyor + imzalı + açılıyor (Tauri 2 + gömülü PyInstaller sidecar). UI premium ve tam. Bölüm 2 (160 klip) uçtan uca çalışıyor.
+**Durum:** Faz 0–7 TAMAM/DONDURULDU. Gerçek macOS `.app` derleniyor + imzalı + açılıyor (Tauri 2 + gömülü PyInstaller sidecar); kurulu kopya `/Applications/AutoReji.app`. UI premium ve tam + **7 turluk UI/UX yenilemesi uygulandı** (Faz 5, v1.0.2→1.6.0; kaynak `docs/tasarim/`). Bölüm 2 (160 klip) uçtan uca çalışıyor.
 
 **v1.1'den BUGÜNE önemli evrim/düzeltmeler (gövdeyi bunlara göre oku):**
 - **Karar motoru DONDU (Faz 2):** `config/config.toml` kanonik; prompt-omurga 20 bölümde doğrulandı. GEÇİŞ kararları (cut/fade/black) sabit.
@@ -25,6 +25,9 @@ Zor kısımların çoğu (geçiş karar algoritması, düzensiz kırpma, Dip-to-
 - **Önizleme kareleri:** pipeline her klibin güvenli-orta karesinden gerçek thumbnail üretir (`clip.thumb` → UI'da film şeridi/Inspector).
 - **§20 taşınabilirlik gerçekleşti:** CLAUDE/DEVAM/CHANGELOG/PLAN/LICENSE + scripts/ (setup·build·build_sidecar·dev·fetch_models·pack_panel) hazır.
 - **Üretim denetimi (CHANGELOG [1.14.6]/[1.0.1]):** Madyes markası, LICENSE, CSP, minSystemVersion 11.0, TS strict, sahte-demo-verisi prod paketinden strip vb.
+- **Faz 5 — UI/UX yenilemesi (v1.0.2→1.6.0, 7 tur):** 16-ajanlık denetim → dürüstlük düzeltmeleri · veri-güvenliği onayları · **Tasarım Sistemi 2.0** (adlandırılmış tip/gölge/kenarlık token'ları + `scripts/ds_guard.sh` bekçisi) · **Hareket Sistemi 2.0** (`lib/motion.ts`, yönlü geçişler, ambient atmosfer) · İnceleme veri-yüzeyi (enerji eğrisi/linger/ses) · ekran kompozisyonu · panel marka uyumu. Fihrist: `docs/tasarim/README.md`.
+- **Faz 6 — HIZLI ÜRETİM modu (v1.7.0):** Giriş'te kalıcı anahtar; görsel-AI atlanır (dakikalar kazanılır), süre/ritim ölçülebilir verinin sözde-sinyalleriyle kurulur (`trim.py`; geçişlere/manifest'e sızmaz, AI'lı yol bit-aynı). **Ollama artık zorunlu değil** — ama en iyi ritim için önerilir.
+- **Faz 7 — üretim sağlamlığı (v1.8.0):** **eksik-klip esnekliği** (160 prompt + 159/145 video → eksikler atlanır, manifest kaç klip varsa onunla kurulur; KÖK: videosuz sahnede `file` alanına çalışma dizini yazılıp Premiere import'u patlıyordu) · intro/outro siyah fade **varsayılan kapalı** (`config.toml` 0.0) · crop→scale her iki modda doğrulandı.
 
 **⚠️ Hâlâ geçerli HARD CONSTRAINT'ler (mevcut AutoReji):** native stereo · **RENDER YOK** (düzenlenebilir klip+geçiş) · **çalışma anında ücretli/harici AI YOK, tamamen OFFLINE** · prompt-odaklı · Tauri 2 + Python sidecar + ad-hoc imza · Premiere köprüsü UXP.
 

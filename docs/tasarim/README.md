@@ -19,7 +19,22 @@
 
 **Tamamlanamayan 4 derinlemesine tarama** (oturum limiti kesti; konuları denetim + tarama-review düzeyinde zaten kapsanıyor, istenirse sonra derinleştirilir): `tarama-performans` · `spec-review-redesign` · `spec-ekran-sahneleri` · `spec-bilesenler`.
 
-## Önerilen uygulama sırası (onay sonrası, tur tur)
+## ✅ DURUM (2026-08-06): TUR 0-6 UYGULANDI — yol haritası tamamlandı
+| Tur | Sürüm | Ne yapıldı |
+|---|---|---|
+| 0 | v1.0.2 | Kırıklar + dürüstlük (PreviewModal `clipThumb` · sprite scrub kapısı · ölü mod anahtarı · 🔴 kopyalar · panel sessiz-hata + çift-tık kilidi) |
+| 1 | v1.0.3 | Veri güvenliği (A1-A6 + F2): boş-kurgu kilidi · Build ön-uçuş · onaylar (`ConfirmDialog`) · önizleme hata/yükleme · analiz hata rehberi · işaret-kaybı geri-al |
+| 2 | v1.2.0 | Tasarım Sistemi 2.0: 9 adımlı tip ölçeği (213 kullanım) · gölge/hairline token'ları · ham hex 0 · disabled 60 · ~45 Türkçe metin · `scripts/ds_guard.sh` |
+| 3 | v1.3.0 | Hareket Sistemi 2.0: `lib/motion.ts` (DUR/EASE/SPRING) · yönlü ekran geçişi · film şeridi stagger · basma geri bildirimi · `AmbientLayer` + film greni |
+| 4 | v1.4.0 | İnceleme 2.0: enerji eğrisi · linger rozeti · min-ort-max · Inspector Ses/Hava · algo hayalet çipi · **amber buton twMerge regresyonu** |
+| 5 | v1.5.0 | Ekran kompozisyonu: Build'e yağmur · `max-w-3xl` · `<AmberHalo>` · Arşiv vitrin kartı + sayılı grup başlığı |
+| 6 | v1.6.0 | Panel marka uyumu (zemin/metin + **geçiş çip renkleri düzeltildi**) · J/L/Boşluk kısayolları · RippleField "daire hatası" kaldırıldı |
+
+**Sonrası (yol haritası dışı, kullanıcı istekleri):** v1.7.0 Hızlı Üretim modu (görsel-AI'sız) + analiz NaN kök çözümü · v1.8.0 eksik-klip esnekliği + intro/outro varsayılan kapalı + crop kanıtı.
+
+**Ertelenenler (bilinçli — gerçek veri/risk gerektiriyor):** çift-çekim varyant seçici · mod sistemi sadeleştirme (3 mod) · `glass-raised` yüzey hiyerarşisi · Setup özet-kartı düzeni · panel klip-sayaçlı ilerleme/ETA/iptal (ppro döngüsü ❄️) · filmstrip sanallaştırma · `spec-vizyon-2-0.md` (ticarileşme — RAFTA).
+
+## Önerilen uygulama sırası (özgün plan — arşiv amaçlı)
 
 Her tur: uygula → Playwright + gözle test → prod build → sürüm bump → CHANGELOG/DEVAM/PLAN.
 
